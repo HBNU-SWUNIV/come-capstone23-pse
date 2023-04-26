@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
+
+:root {
+    --primary: #094b65;
+}
+/*색상때문에 넣은것, 색깔 지정값임*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+body {
+    overflow-x: hidden;
+    background: #fff;
+    min-height: 100vh;
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+#header .logo {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 55px;
+    text-decoration: none;
+}
+/*codepse 로고 부분*/
+
+#header ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header ul li {
+    list-style: none;
+    margin-left: 20px;
+}
+
+#header ul li a {
+    text-decoration: none;
+    padding: 6px 15px;
+    color: var(--primary);
+    border-radius: 20px;
+}
+
+#header ul li a:hover
+ {
+    background: var(--primary);
+    color: #fff;
+}
+/*버튼에 마우스 올렸을 때, 이거 없으면 클릭하는거 x,
+ #header ul li a.active 이거 쓰면 제대로 안뜨고 카테고리 자체에(경로 설정 해둔것만) 배경이 떠있음*/
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*section::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, var(--primary), transparent);
+    z-index: 10;
+} 
+배경 그라데이션*/
+
+section img {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+/*이걸 넣어야 이미지가 풀로 참*/
+
+section #text {
+    position: absolute;
+    color: var(--primary);
+    font-size: 10vw;
+    text-align: center;
+    line-height: .55em;
+    font-family: 'Rancho', cursive;
+    transform: translatey(-50%);
+}
+
+section #text span {
+    font-size: .20em;
+    letter-spacing: 2px;
+    font-weight: 400;
+}
+
+#btn {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 30px;
+    background: #fff;
+    color: var(--primary);
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    transform: translatey(100px);
+}
+
+/*여기부터는 코딩왕 부분임*/
+.wrap {
+    padding: 200px;
+    text-align: center;
+    background: #e0e0e0;
+  }
+  
+  /* TOOLTIP */
+  [data-tooltip] {
+    position: relative;
+  }
+  
+  [data-tooltip]:before,
+  [data-tooltip]:after {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    transition: all .2s ease;
+    font-size: 12px;
+    font-family: dotum;
+    letter-spacing: -1px;
+  }
+  
+  [data-tooltip]:before {
+    content: attr(data-tooltip);
+    height: 13px;
+    position: absolute;
+    top: -20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    background: #025272;
+  }
+  
+  [data-tooltip]:after {
+    content: '';
+    border-left: 5px solid transparent;
+    top: 2px;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #025272;
+  }
+  
+  [data-tooltip]:not([data-tooltip=""]):hover:before {
+    visibility: visible;
+    opacity: 1;
+    top: -30px;
+  }
+  
+  [data-tooltip]:not([data-tooltip=""]):hover:after {
+    visibility: visible;
+    opacity: 1;
+    top: -8px;
+  }
+
+  
+  
+
+
+
+
+

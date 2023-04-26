@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>test</h1>
+    <form action="/submit" method="POST">
+        <textarea name="code" rows="4" cols="50"></textarea>
+        <input type="submit" value="제출">
+    </form>
+    <div id="result"></div>
+    <script>
+        $(document).ready(function() {
+            $("form").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "/submit",
+                    data: $(this).serialize(),
+                    success: function(result) {
+                        $("#result").html("<pre>" + result + "</pre>");
+                    }
+                });
+            });
+        });
+    </script> 
+</body>
+</html>
