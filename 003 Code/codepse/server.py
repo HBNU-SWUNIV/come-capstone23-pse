@@ -1,5 +1,7 @@
 import subprocess
 from flask import Flask, render_template, request
+import os
+from gpt_api import get_feedback
 
 app = Flask(__name__)
 
@@ -20,19 +22,14 @@ def test():
     return render_template("test.html")
 
 
-@app.route("/review")
-def review():
-    return render_template("review.html")
-
-
-@app.route("/question")
-def question():
-    return render_template("question.html")
+code = ""
 
 
 @app.route("/submit", methods=["POST"])
 def submit():
+    global code
     code = request.form.get("code")
+
     file = open("user_code.c", "w")
     file.write(code)
     file.close()
@@ -54,8 +51,34 @@ def submit():
     else:
         output_str = result.stderr.decode("utf-8")
 
+    os.remove("user_code.c")  # user_code.c 파일 삭제
+    os.remove("executable")  # executable 파일 삭제
+
     return output_str
 
 
+@app.route("/answer")
+def answer():
+    # 여기에 정답을 받아와서 answer 변수에 저장하면 됩니다.
+    answer = '#include <stdio.h>\n\nint main()\n{\n    printf("Hello, world!\\n");\n\n    return 0;\n}'
+    return answer
+
+
+@app.route("/feedback")
+def feedback():
+    feedback = get_feedback(code)
+    return feedback
+
+
+@app.route("/review")
+def review():
+    return render_template("review.html")
+
+
+@app.route("/question")
+def question():
+    return render_template("question.html")
+
+
 if __name__ == "__main__":
-    app.run("0.0.0.0", debug=True)
+    app.run("0.0.0.0", port="5000", debug=True)

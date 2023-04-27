@@ -5,15 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>Document</title>
+    <style>
+        #answer-box, #feedback-box {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            width: 80%;
+            max-width: 400px;
+        }
+        #problem {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            width: 80%;
+            max-width: 400px;
+        }
+    </style>
 </head>
 <body>
     <h1>test</h1>
+    <div id="problem">
+        <p>Hello, world! 출력하기.</p>
+    </div>
     <form action="/submit" method="POST">
         <textarea name="code" rows="4" cols="50"></textarea>
         <input type="submit" value="제출">
+        <button type="button" id="answer">정답</button>
+        <button type="button" id="feedback">인공지능으로 피드백 받기</button>
     </form>
     <div id="result"></div>
+    <div id="answer-box"></div>
+    <div id="feedback-box"></div>
     <script>
         $(document).ready(function() {
             $("form").submit(function(e) {
@@ -24,6 +46,26 @@
                     data: $(this).serialize(),
                     success: function(result) {
                         $("#result").html("<pre>" + result + "</pre>");
+                    }
+                });
+            });
+
+            $("#answer").click(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "/answer",
+                    success: function(result) {
+                        $("#answer-box").html("<pre>" + result + "</pre>");
+                    }
+                });
+            });
+
+            $("#feedback").click(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "/feedback",
+                    success: function(result) {
+                        $("#feedback-box").html("<pre>" + result + "</pre>");
                     }
                 });
             });
