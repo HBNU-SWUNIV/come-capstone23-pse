@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+            <!--- google fonts link -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+		<!--- header section -->
+        <header>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+            <a href="/" class="logo">CODE PSE</a>
+            <div class="bx bx menu" id="menu-icon"></div>
+    
+            <ul class="navlist">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/test_list">CODING TEST</a></li>
+                <li><a href="/typinggame">TYPING GAME</a></li>
+                <li><a href="/draggame">DRAG GAME</a></li>
+                <li><a href="/outputgame">OUTPUT GAME</a></li>
+    
+            </ul>
+        </header>
+
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/outputgame.css') }}">
+<section class="game" id="game">
+<body>
+    <h1>출력값 맞추기✏️</h1>
+    <div class="wrapper">
+		<div class="content-box">
+    
+    <div id="login-section" style="margin-bottom: 20px;">
+        <h2>닉네임을 입력해주세요</h2>
+        <input id="username" type="text" placeholder="Enter your nickname" style="width: 200px; height: 30px;">
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+    <div id="quiz-section" style="display: none;">
+        <p id="question"></p>
+        <input id="answer"  placeholder="Enter your answer" type="text" >
+        <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <div id="result"></div>
+    <div id="leaderboard"></div>
+    <script src="{{ url_for('static', filename='js/outputgame.js') }}"></script>
+</body>
+</section>
+</html>

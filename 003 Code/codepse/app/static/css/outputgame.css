@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Merriweather", sans-serif;
+}
+
+body {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #647fb4;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    /* Your existing styles... */
+    background-color:#647fb4;
+}
+section.game {
+    padding-top: 110px; 
+ 
+
+    /* Your existing styles... */
+}
+
+.highlight {  
+    font-weight: bold;   
+}
+/*여기 그 마지막 채점 부분*/
+
+
+.wrapper {
+    width: 1000px;
+    padding: 35px;
+    color: #f1f5f9;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .wrapper .input-field {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
+    color: #fff;
+    
+  }
+  
+  .wrapper .content-box {
+    padding: 20px 20px 0;
+    border-radius: 10px;
+    border: 2px solid #dadada;
+  }
+
+
+
+.large-input {
+    font-size: 50px;
+    padding: 15px;
+    width: 300px;  /* Or any width you prefer */
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2em; /* 텍스트 크기 조정 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 30px;
+  }
+  
+
+h2{
+    color: #ffd736;
+}
+
+.correct-answer {
+    color: rgb(74, 211, 74);
+}
+
+
+#login-section {
+    width: 60%;  
+
+}
+
+
+
+#quiz-section {
+    margin-top: 50px;
+}
+
+#question {
+    font-size: 20px;
+}
+
+#answer {
+    margin-top: 20px;
+    display: block;
+    width: 300px;
+    height: 30px;
+}
+
+button {
+    background-color: #fff;  /* 흰색 배경 */
+    color: #000;  /* 검정색 텍스트 */
+    border: none;
+    border-radius: 10px;
+    padding: 9px 13px;  /* 버튼 크기를 키우기 위해 padding 추가함. 이 값을 조정 */
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+

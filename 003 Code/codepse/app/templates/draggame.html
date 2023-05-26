@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <html>
+            <!--- google fonts link -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+		<!--- header section -->
+        <header>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
+            <a href="/" class="logo">CODE PSE</a>
+            <div class="bx bx menu" id="menu-icon"></div>
+    
+            <ul class="navlist">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/test_list">CODING TEST</a></li>
+                <li><a href="/typinggame">TYPING GAME</a></li>
+                <li><a href="/draggame">DRAG GAME</a></li>
+                <li><a href="/outputgame">OUTPUT GAME</a></li>
+    
+            </ul>
+        </header>
+    <section class="game" id="game">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Coding Quiz</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/draggame.css') }}">
+</head>
+<body>
+    <div id="login-section" style="margin-bottom: 20px;">
+        <h1>코드퍼즐🧩</h1><br>
+       
+
+        <h2>닉네임을 입력해주세요</h2><br>
+        <!--<label for="username">닉네임: </label>-->
+        <input type="text" placeholder="Enter your nickname" id="username" /><br>
+        <button id="startQuizButton">퀴즈 시작</button>
+      </div>
+    </div>
+</div>
+    <div id="quiz-section" style="display: none;">
+    <h6>보기를 드래그하여 소스코드를 완성시켜 주세요!</h6>
+    <div id="timer">Timer: </div>
+    <p id="question" class="question-text" style="text-align: left;"></p>
+    <p id="timer"></p>
+    <div id="dropzone" class="dropzone" style="text-align: left;"></div>
+    <div id="result"></div>
+    <div id="options" style="text-align: left;"></div>
+    <button id="checkButton" onclick="checkAnswer()">확인하기</button>
+    <button id="nextButton" onclick="nextQuestion()" disabled>다음 문제</button>
+
+
+    </div>
+    <button id="restartButton" style="display: none;" >다시하기</button>
+    <p id="scoreDisplay" style="display: none;"></p>
+    <div id="result-section" style="display: none;">
+        <!-- 결과 및 랭킹 표시 -->
+        <div id="userRank"></div>
+        <div id="leaderboard" style="font-family: monospace; white-space: pre;"></div>
+        <h3 id="result1" style="display: none;">[채점 결과]</h3>
+      </div>
+
+    <script src="{{ url_for('static', filename='js/draggame.js') }}"></script>
+</div>
+</div>
+</body>
+</section>
+</html>

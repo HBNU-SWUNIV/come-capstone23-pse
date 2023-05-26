@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+            <!--- google fonts link -->
+		    <!--- google fonts link -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+		<!--- header section -->
+        <header>
+            <link rel="stylesheet" type="text/css" link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+            <a href="/" class="logo">CODE PSE</a>
+            <div class="bx bx menu" id="menu-icon"></div>
+    
+            <ul class="navlist">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/test_list">CODING TEST</a></li>
+                <li><a href="/typinggame">TYPING GAME</a></li>
+                <li><a href="/draggame">DRAG GAME</a></li>
+                <li><a href="/outputgame">OUTPUT GAME</a></li>
+    
+            </ul>
+        </header>
+
+<html lang="en">
+<section class="coding">
+<head>
+  <div class="wrapper">
+		<div class="content-box">
+    <title>{{ q_list.q_name }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <link href="{{ url_for('static', filename='css/codingtest.css') }}" rel="stylesheet">
+    <h1>[ {{ q_list.q_name }} ]</h1>
+    <div id="problem">
+        <p class="ttext">문제</p>
+        <p class="ttext2">{{ q_list.q_content | safe }}</p>
+    </div>
+    <div class="output-box">
+        <p class="ttext">출력 예시</p>
+        <p class="ttext2">{{ q_list.ex_print | safe }}</p>
+    </div>
+    <form action="/compile" method="POST">
+        <textarea name="code" placeholder="정답을 입력해 주세요" rows="15" cols="150"></textarea>
+        <div class="button-group">
+        <input type="submit" id="compile"  value="컴파일">
+        <button type="button" id="submit">제출</button>
+        <button type="button" id="answer">정답</button>
+        <button type="button" id="feedback">피드백</button></div>
+        
+        <div id="result"></div>
+        <div id="grade-box" class="hidden"></div>
+        <div id="answer-box" class="hidden"></div>
+        <div id="feedback-box" class="hidden"></div> 
+       
+
+<script>
+            $(document).ready(function() {
+    $("form").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/compile",
+            data: $(this).serialize(),
+            success: function(result) {
+                $("#result").html("<pre>" + result + "</pre>");
+            }
+        });
+    });
+
+    $("#submit").click(function() {
+    $.ajax({
+      type: "POST",
+      url: "/submit",
+      data: { code: $("textarea[name='code']").val() },
+      success: function(result) {
+        $("#grade-box").html("<pre>" + result + "</pre>");
+        $("#grade-box").removeClass("hidden"); // 박스를 보이도록 클래스 제거
+      }
+    });
+  });
+
+      // 정답 버튼 클릭 시 'answer-box' 박스가 나타나도록 설정
+  $("#answer").click(function() {
+    $.ajax({
+      type: "GET",
+      url: "/answer",
+      success: function(result) {
+        $("#answer-box").html("<pre>" + result + "</pre>");
+        $("#answer-box").removeClass("hidden"); // 박스를 보이도록 클래스 제거
+      }
+    });
+  });
+
+  // 피드백 버튼 클릭 시 'feedback-box' 박스가 나타나도록 설정
+  $("#feedback").click(function() {
+    $.ajax({
+      type: "GET",
+      url: "/feedback",
+      success: function(result) {
+        $("#feedback-box").html("<pre>" + result + "</pre>");
+        $("#feedback-box").removeClass("hidden"); // 박스를 보이도록 클래스 제거
+      }
+    });
+  });
+})
+
+
+
+        </script>
+    </form>
+
+</body>
+
+</section>
+</html>

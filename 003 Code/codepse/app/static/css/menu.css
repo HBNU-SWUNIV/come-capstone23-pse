@@ -1,0 +1,100 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Dosis', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    border: none;
+    outline: none;
+}
+
+:root{
+    --bg-color: #647fb4;
+    --secont-bg-color: #647fb4;
+    --main-color: #e9204f;
+    --text-color: #ffffff;
+    --second-color: #ffffff;
+    --other-color: #c6cd8f;
+
+    --h1-font: 7rem;
+    --h2-font: 3.5rem;
+    --p-font: 1.1rem;
+
+}
+
+body{
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+header{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 11%;
+    border-bottom: 1px solid transparent;
+    transition: all ease .50s;
+    background-color:#647fb4;
+
+}
+
+.logo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 35px;
+    text-decoration: none;
+    font-family: 'Permanent Marker', sans-serif;
+}
+
+.navlist
+{
+    display: flex;
+}
+
+.navlist a{
+    color: var(--second-color);
+    font-size: var(--p-font);
+    margin: 0 30px;
+    transition: all ease .40s;  /*전환*/
+    font-weight: bold;
+    
+}
+
+.navlist a:hover{
+    color: #a570ff;
+}
+
+.navlist i{
+    color: var(--second-color);
+    font-size: 1rem;
+    margin: 0 40px 0 0;
+    font-family: 'Do Hyeon', sans-serif;
+    transition: all ease .40s;  /*전환*/
+    transform: skewX(0);
+    font-weight: bolder;
+}
+.navlist i:hover{
+    color: #a570ff;
+}
+
+.navlist j{
+    color: var(--second-color);
+    font-size: 0.5rem;
+    /*font-family: 'Do Hyeon', sans-serif;*/
+    transition: all ease .40s;  /*전환*/
+   /* border: 1px solid var(--second-color); /* 테두리 속성 추가 */
+    padding: 2px 10px; /* 내부 여백 설정 */
+    font-weight: bolder;
+}
+
+.navlist j:hover{
+    color: #a570ff;
+    /*border-color: #a570ff;*/
+}

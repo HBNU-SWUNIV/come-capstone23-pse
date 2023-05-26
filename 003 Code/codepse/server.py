@@ -1,83 +1,118 @@
-import subprocess
-from flask import Flask, render_template, request
 import os
-from gpt_api import get_feedback
+import html
+from flask import Flask, render_template, request, session
+from database.database import get_db_connection
+from app.gpt_api import get_feedback
+from database.models import QList
+from app.compile import compile_code, grade_code
+from app.config import Config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="app/static")
+app.template_folder = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "app", "templates"
+)
+
+app.secret_key = Config.SECRET_KEY
 
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("main.html")
 
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
+@app.route("/test_list")
+def test_list():
+    # 데이터베이스 연결
+    conn = get_db_connection()
+
+    # 데이터베이스에서 데이터 가져오기
+    q_list = conn.query(QList.q_id, QList.q_name).all()
+
+    # 가져온 데이터를 html 파일에 전달하기
+    return render_template("test_list.html", q_list=q_list)
 
 
-# 문제를 선택하는 html 필요
-@app.route("/test")
-def test():
-    return render_template("test.html")
+# 상세보기 페이지
+@app.route("/test/<int:q_id>")
+def test_view(q_id):
+    conn = get_db_connection()
+
+    # 해당 문제 정보 가져오기
+    q_info = conn.query(QList).filter(QList.q_id == q_id).first()
+
+    # 개행 문자를 <br> 태그로 변환
+    q_info.ex_print = q_info.ex_print.replace("\n", "<br>")
+
+    #  세션에 현재 질문 ID를 저장하며, /submit 라우터는 이 ID를 사용하여 데이터베이스에서 해당 질문의 정답을 가져옴.
+    session["q_id"] = q_id
+
+    return render_template("test.html", q_list=q_info)
 
 
 code = ""
 
 
-@app.route("/submit", methods=["POST"])
-def submit():
+@app.route("/compile", methods=["POST"])
+def compile():
     global code
     code = request.form.get("code")
 
-    file = open("user_code.c", "w")
-    file.write(code)
-    file.close()
-
-    # 컴파일 명령어
-    compile_command = "gcc -o executable user_code.c"
-
-    # 컴파일 실행
-    result = subprocess.run(
-        compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-    )
-
-    # 컴파일 결과에 따라서 결과 출력
-    if result.returncode == 0:
-        output = subprocess.run(
-            "./executable", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-        )
-        output_str = output.stdout.decode("utf-8")
-    else:
-        output_str = result.stderr.decode("utf-8")
-
-    os.remove("user_code.c")  # user_code.c 파일 삭제
-    os.remove("executable")  # executable 파일 삭제
+    output_str = compile_code(code)
 
     return output_str
 
 
+@app.route("/submit", methods=["POST"])
+def submit():
+    global code
+    conn = get_db_connection()
+
+    code = request.form.get("code")
+
+    output_str = compile_code(code)
+
+    q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
+    expected_output = q_info.answer
+
+    result = grade_code(output_str, expected_output)
+    return result  # 채점 결과를 반환
+
+
 @app.route("/answer")
 def answer():
-    # 여기에 정답을 받아와서 answer 변수에 저장하면 됩니다.
-    answer = '#include <stdio.h>\n\nint main()\n{\n    printf("Hello, world!\\n");\n\n    return 0;\n}'
-    return answer
+    conn = get_db_connection()
+
+    q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
+    answer = html.escape(q_info.answer_code)
+
+    return "<pre>" + answer + "</pre>"
 
 
 @app.route("/feedback")
 def feedback():
-    feedback = get_feedback(code)
+    global code
+    code = request.form.get("code")
+
+    conn = get_db_connection()
+    q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
+    problem_description = q_info.q_content
+    feedback = get_feedback(problem_description, code)
     return feedback
 
 
-@app.route("/review")
-def review():
-    return render_template("review.html")
+@app.route("/typinggame")
+def typinggame():
+    return render_template("typinggame.html")
 
 
-@app.route("/question")
-def question():
-    return render_template("question.html")
+@app.route("/draggame")
+def draggame():
+    return render_template("draggame.html")
+
+
+@app.route("/outputgame")
+def outputgame():
+    return render_template("outputgame.html")
 
 
 if __name__ == "__main__":

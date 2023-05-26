@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+            <!--- google fonts link -->
+		    <!--- google fonts link -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+		<!--- header section -->
+        <header>
+            <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+            <a href="/" class="logo">CODE PSE</a>
+            <div class="bx bx menu" id="menu-icon"></div>
+    
+            <ul class="navlist">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/test_list">CODING TEST</a></li>
+                <li><a href="/typinggame">TYPING GAME</a></li>
+                <li><a href="/draggame">DRAG GAME</a></li>
+                <li><a href="/outputgame">OUTPUT GAME</a></li>
+    
+            </ul>
+        </header>
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	        <!--- cutom css line -->
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/typinggame.css') }}">
+
+
+    <title>Typing Game</title>
+</head>
+
+<body>
+    <h5>타이핑 게임<p1>⌨️</p1></h5>
+    <div class="wrapper">
+        <textarea class="input-field"></textarea>
+        <!-- Add language and code description here -->
+        <div class="code-info">   <!-- New div added -->
+            <p class="language"><strong>언어:</strong> <span><b></b></span></p>   <!-- Move language info here -->
+            <p class="code-description"></p>
+        </div>
+		<div class="content-box">
+			<div class="typing-text">
+				<p></p>
+			</div>
+			<div class="content">
+				<ul class="result-details">
+					<li class="timeLeft">
+						<p>time Left:</p>
+						<span><b>100</b>s</span>
+					</li>
+				</ul>
+				<button class="nextbtn">다음 문제</button>
+			</div>
+		</div>
+	</div>
+
+            <!--- custom js file link -->
+            <script src="{{ url_for('static', filename='js/typinggame.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,462 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Dosis', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    border: none;
+    outline: none;
+}
+
+:root{
+    --bg-color: #191919;
+    --secont-bg-color: #101010;
+    --main-color: #e9204f;
+    --text-color: #fff;
+    --second-color: #e4e4e4;
+    --other-color: #c6cd8f;
+
+    --h1-font: 7rem;
+    --h2-font: 3.5rem;
+    --p-font: 1.1rem;
+
+}
+
+body{
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+header{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 11%;
+    border-bottom: 1px solid transparent;
+    transition: all ease .50s;
+}
+
+.logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 35px;
+    text-decoration: none;
+    font-family: 'Permanent Marker', sans-serif;
+}
+
+.navlist
+{
+    display: flex;
+}
+
+.navlist a{
+    color: #ffffff;
+    font-size: var(--p-font);
+    margin: 0 30px;
+    font-weight: bold; /* 텍스트를 두껍게 설정 */
+    transition: all ease .40s;  /*전환*/
+}
+
+.navlist a:hover{
+    color: #a570ff;
+}
+
+.navlist i{
+    color: var(--second-color);
+    font-size: 1rem;
+    margin: 0 40px 0 0;
+    font-family: 'Do Hyeon', sans-serif;
+    transition: all ease .40s;  /*전환*/
+    transform: skewX(0);
+}
+
+.navlist i:hover{
+    color: #a570ff;
+}
+
+.navlist j{
+    color: var(--second-color);
+    font-size: 0.5rem;
+    /*font-family: 'Do Hyeon', sans-serif;*/
+    transition: all ease .40s;  /*전환*/
+   /* border: 1px solid var(--second-color); /* 테두리 속성 추가 */
+    padding: 2px 10px; /* 내부 여백 설정 */
+}
+
+.navlist j:hover{
+    color: #a570ff;
+    /*border-color: #a570ff;*/
+}
+
+
+section{
+    padding: 120px 19% 100px;
+}
+
+.home{
+    position: relative;
+    min-height:  100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /*background: #101010;*/
+    background: url(/static/images/background.png);
+}
+.home-img {
+    margin-left: 150px;
+    object-fit: contain;
+    /*object-fit: fill; 최대한 확대*/
+}
+.home-img img{
+    width: 100%;
+    height: 100%; 
+}
+
+.hero-text {
+    margin-top: -50px;
+    margin-right: 100px; /* .home-img와의 오른쪽 간격 조정 */
+  }
+
+.hero-text h3{
+    color: #ffffff;
+    font-size: 33px;
+    font-weight: 600; /*글짜 길이?라고 하긴 그렇고 떨어진 정도*/
+    margin-bottom: 5px;
+}
+
+.hero-text h1{
+    font-family: 'Dosis', sans-serif;
+    font-size: 90px;
+    color:#ffffff;
+    font-weight: 800;
+}
+
+.hero-text h4{
+    margin-top: 20px;
+    font-size: #ffffff;
+    color:#ffffff;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 3.5rem;
+}
+
+.btn{
+    display: inline-block;
+    padding: 16px 45px;
+    background-color: #e9ce00;
+    color: var(--text-color);
+    font-size: var(--p-font);
+    font-weight: 600;
+    border: 2px solid #000000;
+    transition: all ease .50s;
+    background: linear-gradient(70deg, blue, pink);
+}
+
+.btn:hover{
+    transform: translateX(5px);
+    background: transparent;
+    border: 2px solid #8742ff;
+}
+
+header.sticky{
+    padding: 15px 11%;
+    background: #000;
+    border-bottom: 1px solid #425055;
+}
+
+.home-img img{
+    animation: imgg 2s ease-in-out infinite;
+    animation-delay: 0.3s;
+}
+
+@keyframes imgg{
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-22px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+
+.about{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    align-items: center;
+    gap: 4rem;
+    background: url(/static/images/second_back.png);
+
+}
+
+.about-img img{
+    width: 750px;;
+    height: auto;
+}
+.about-text {
+margin-top: 130px;
+}
+
+.about-text h2{
+    font-family: 'Dosis', sans-serif;
+    font-size: var(--h2-font);
+    color:v#fff;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.about-text h5{
+    font-size: 25px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    color:v#fff;
+}
+
+span {
+    color: #bc86f3;
+}
+
+.about-text p{
+    color: #ffffff;
+    font-size: var(--p-font);
+    line-height: 30px;
+    margin-bottom: 3rem;
+
+}
+
+.service{
+    background: url(/static/images/background.png);
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-center h2{
+    font-family: 'Dosis', sans-serif;
+    font-size: var(--h2-font);
+    color:var(--text-color);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.text-center h4{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.service-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, auto));
+    align-items: center;
+    gap: 2.2rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.service-box{
+    padding: 45px 30px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0.8rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all ease .50s;
+}
+
+.service i{
+    font-size: 50px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.service h3{
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.service p{
+    font-size: 23px;
+    font-weight: var(--p-font);
+    margin-bottom: 1.5rem;
+    line-height: 30px;
+    color: #fffaee;
+}
+
+.c-btn{
+    display: inline-block;
+    padding: 9px 24px;
+    background-color: #bc86f3;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: bolder;
+    border: 2px solid #bc86f3;
+    border-radius: 2rem;
+    transition: all ease .50s;
+    
+}
+
+.c-btn:hover{
+    transform: translateX(0px);
+    background: transparent;
+    border: 2px solid #9400e9;   
+}
+
+.service-box:hover{
+    transform: translate(-8px);
+    border:1px solid #d3d3d3
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*여기서는 모바일 화면 부분입니당*/
+
+@media (max-width:1600px){
+    header{
+        padding: 14px 4%;
+    }
+    section{
+        padding: 100px 5% 80px;
+    }
+}
+
+@media (max-width:1200px){
+    .home{
+        min-height: 90vh;
+    }
+    .navlist{
+        margin: 0 20px;
+    }
+    :root{
+        --h1-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1rem;       
+    }
+}
+
+@media (max-width:1060px){
+    .about{
+        grid-template-columns: 1fr;
+    }
+    .about-img{
+        text-align: center;
+        order: 2;
+    }
+    .about-img img{
+        max-width: 100%;
+        width: 600px;
+        height: auto;
+    }
+    .service-item{
+        grid-template-columns: repeat(auto-fit, minmax(350px, auto));
+    }
+    .concat{
+        grid-template-columns: 1fr;
+    }
+    .left-concat{
+        margin:auto;
+    }
+}
+@media (max-width:1060px){
+    #menu-icon{
+        display: block;
+    }
+    .navlist{
+        position: absolute;
+        top: -800px;
+        right: 0;
+        left: 0;
+        display: flex;
+        flex-direction:column;
+        background: #000;
+        padding:20px 0;
+        text-align: left;
+        transition: all .50s ease;
+    }
+    .navlist a{
+        display: block;
+        font-size: 20px;
+        padding: 12px 0;
+    }
+    .navlist.open{
+        top:100%;
+    }
+}
+@media (max-width:600px){
+    .home{
+        min-height: 80vh;
+    }
+    :root{
+        --h1-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1rem;       
+    }
+    .hero-text h4{
+        font-size: 18px;
+        word-spacing: 10px;
+        margin-bottom: 30px;
+    }
+    .btn{
+        padding: 10px 35px;
+    }
+    .left-concat{
+        gap: 3rem;
+    }
+}
+
+
