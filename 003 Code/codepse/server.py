@@ -2,7 +2,7 @@ import os
 import html
 from flask import Flask, render_template, request, session
 from database.database import get_db_connection
-from app.gpt_api import get_feedback
+from app.gpt_api import get_feedback, generate_response
 from database.models import QList
 from app.compile import compile_code, grade_code
 from app.config import Config
@@ -98,6 +98,21 @@ def feedback():
     problem_description = q_info.q_content
     feedback = get_feedback(problem_description, code)
     return feedback
+
+
+@app.route("/ai_chatbot")
+def ai_chatbot():
+    return render_template("ai_chatbot.html")
+
+
+@app.route("/ai_chatbot_submit", methods=["GET", "POST"])
+def ai_chatbot_submit():
+    if request.method == "POST":
+        content = request.form["userText"]
+        chatbot_response = generate_response(content)
+        # 이제 'content'에 사용자가 입력한 텍스트가 저장되어 있습니다.
+        # 이 변수를 원하는 대로 사용할 수 있습니다.
+    return chatbot_response
 
 
 @app.route("/typinggame")

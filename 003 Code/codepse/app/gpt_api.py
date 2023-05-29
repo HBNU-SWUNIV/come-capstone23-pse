@@ -18,3 +18,18 @@ def get_feedback(problem_description, code):
 
     feedback = response.choices[0].text.strip()
     return feedback
+
+
+def generate_response(content):
+    prompt = f"{content}\n\n:"
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=1024,
+        n=1,
+        stop=None,
+        temperature=0.5,
+    )
+
+    feedback = response.choices[0].text.strip()
+    return feedback
