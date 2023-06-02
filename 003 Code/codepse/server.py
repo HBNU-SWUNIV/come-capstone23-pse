@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, session
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
 from database.models import QList
-from app.compile import compile_code, grade_code
+from app.compile import c_compile_code, python_compile_code, grade_code
 from app.config import Config
 
 app = Flask(__name__, static_folder="app/static")
@@ -49,27 +49,27 @@ def test_view(q_id):
     return render_template("test.html", q_list=q_info)
 
 
-code = ""
-
-
 @app.route("/compile", methods=["POST"])
 def compile():
-    global code
     code = request.form.get("code")
+    language = request.form.get("language")
 
-    output_str = compile_code(code)
+    if language == "python":
+        output_str = python_compile_code(code)
+    elif language == "c":
+        output_str = c_compile_code(code)
+    # 여기에 더 많은 언어에 대한 처리를 추가할 수 있습니다
 
     return output_str
 
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    global code
     conn = get_db_connection()
 
     code = request.form.get("code")
 
-    output_str = compile_code(code)
+    output_str = c_compile_code(code)
 
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
     expected_output = q_info.answer
@@ -90,7 +90,6 @@ def answer():
 
 @app.route("/feedback")
 def feedback():
-    global code
     code = request.form.get("code")
 
     conn = get_db_connection()

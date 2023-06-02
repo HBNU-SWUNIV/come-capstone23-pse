@@ -45,9 +45,16 @@
         <p class="ttext2">{{ q_list.ex_print | safe }}</p>
     </div>
     <form action="/compile" method="POST">
-        <textarea name="code" placeholder="정답을 입력해 주세요" rows="15" cols="150"></textarea>
+        <label for="language">언어 선택:</label>
+        <select name="language">
+          <option value="c">C</option>
+          <option value="python">Python</option>
+          <!-- 여기에 더 많은 언어를 추가할 수 있습니다 -->
+        </select>
+        <textarea name="code" style="margin-top: 20px;" placeholder="정답을 입력해 주세요" rows="15" cols="150"></textarea>
+
         <div class="button-group">
-        <input type="submit" id="compile"  value="컴파일">
+        <input type="submit" id="compile"  value="실행">
         <button type="button" id="submit">제출</button>
         <button type="button" id="answer">정답</button>
         <button type="button" id="feedback">피드백</button></div>
@@ -73,15 +80,18 @@
     });
 
     $("#submit").click(function() {
-    $.ajax({
-      type: "POST",
-      url: "/submit",
-      data: { code: $("textarea[name='code']").val() },
-      success: function(result) {
-        $("#grade-box").html("<pre>" + result + "</pre>");
-        $("#grade-box").removeClass("hidden"); // 박스를 보이도록 클래스 제거
-      }
-    });
+      $.ajax({
+        type: "POST",
+        url: "/submit",
+        data: { 
+          code: $("textarea[name='code']").val(),
+          language: $("select[name='language']").val()  // 언어 선택 값을 추가
+        },
+        success: function(result) {
+          $("#grade-box").html("<pre>" + result + "</pre>");
+          $("#grade-box").removeClass("hidden"); // 박스를 보이도록 클래스 제거
+        }
+      });
   });
 
       // 정답 버튼 클릭 시 'answer-box' 박스가 나타나도록 설정
@@ -107,6 +117,8 @@
       }
     });
   });
+
+  
 })
 
 

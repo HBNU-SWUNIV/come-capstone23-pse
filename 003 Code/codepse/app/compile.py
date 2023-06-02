@@ -1,8 +1,9 @@
 import os
 import subprocess
+import py_compile
 
 
-def compile_code(code):
+def c_compile_code(code):
     file = open("user_code.c", "w")
     file.write(code)
     file.close()
@@ -26,6 +27,29 @@ def compile_code(code):
 
     os.remove("user_code.c")  # user_code.c 파일 삭제
     os.remove("executable")  # executable 파일 삭제
+
+    return output_str
+
+
+def python_compile_code(code):
+    file = open("user_code.py", "w")
+    file.write(code)
+    file.close()
+
+    try:
+        py_compile.compile("user_code.py", doraise=True)
+
+        # Python 코드 실행
+        run_result = subprocess.run(
+            ["python", "user_code.py"], capture_output=True, text=True
+        )
+
+        # 출력 결과 또는 오류 메시지 반환
+        output_str = run_result.stdout or run_result.stderr
+    except py_compile.PyCompileError as e:
+        output_str = str(e)
+
+    os.remove("user_code.py")  # user_code.py 파일 삭제
 
     return output_str
 
