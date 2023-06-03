@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, session
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
 from database.models import QList
-from app.compile import c_compile_code, python_compile_code, grade_code
+from app.compile import c_compile_code, python_run_code, java_run_code, grade_code
 from app.config import Config
 
 app = Flask(__name__, static_folder="app/static")
@@ -55,9 +55,12 @@ def compile():
     language = request.form.get("language")
 
     if language == "python":
-        output_str = python_compile_code(code)
+        output_str = python_run_code(code)
     elif language == "c":
         output_str = c_compile_code(code)
+    elif language == "java":
+        output_str = java_run_code(code)
+
     # 여기에 더 많은 언어에 대한 처리를 추가할 수 있습니다
 
     return output_str

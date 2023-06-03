@@ -41,3 +41,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-python  # Python 컴파일러용 Dockerfile 지정
+      
+  javacompiler:
+    build:
+      context: .
+      dockerfile: Dockerfile-java  # Java 컴파일러용 Dockerfile 지정
