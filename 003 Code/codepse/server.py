@@ -28,7 +28,7 @@ def test_list():
     # 데이터베이스에서 데이터 가져오기
     q_list = conn.query(QList.q_id, QList.q_name).all()
 
-    # 가져온 데이터를 html 파일에 전달하기
+    # 가져온 데이터를 html 파일에 전달하기..
     return render_template("test_list.html", q_list=q_list)
 
 
