@@ -20,11 +20,6 @@ def home():
     return render_template("main.html")
 
 
-#테스트
-#테스스트트트
-#xptmxm22
-#kdfnsdklnlks
-
 @app.route("/test_list")
 def test_list():
     # 데이터베이스 연결
