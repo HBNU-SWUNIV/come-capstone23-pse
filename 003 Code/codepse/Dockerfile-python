@@ -6,6 +6,3 @@ WORKDIR /app
 
 # Python 스크립트 복사
 COPY . .
-
-# Python 코드를 바이트 코드로 컴파일
-RUN python -m compileall .
