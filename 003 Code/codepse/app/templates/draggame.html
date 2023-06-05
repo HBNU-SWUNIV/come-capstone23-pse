@@ -2,12 +2,12 @@
 <html lang="en">
     <html>
             <!--- google fonts link -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-		<!--- header section -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+      <!--- header section -->
         <header>
             <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
             <a href="/" class="logo">CODE PSE</a>
@@ -32,8 +32,8 @@
 <body>
     <div id="login-section" style="margin-bottom: 20px;">
         <h1>코드퍼즐🧩</h1><br>
-       
-
+        <div class="wrapper">
+        <div class="content-box">
         <h2>닉네임을 입력해주세요</h2><br>
         <!--<label for="username">닉네임: </label>-->
         <input type="text" placeholder="Enter your nickname" id="username" /><br>
@@ -45,12 +45,17 @@
               <option value="javascript">JavaScript</option>
               <option value="c++">C++</option>
               <option value="c">C</option>
+              <option value="c#">C#</option>
               <option value="sql">SQL</option>
-            </select>
-          </div>
+              <option value="random">Random</option>
+            </select> 
+    </div>
+</div>
+</div>
           <button id="startQuizButton">퀴즈 시작</button>
       </div>
     </div>
+
 </div>
     <div id="quiz-section" style="display: none;">
     <h6>보기를 드래그하여 소스코드를 완성시켜 주세요!</h6>

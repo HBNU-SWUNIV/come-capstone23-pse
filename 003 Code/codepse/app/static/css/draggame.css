@@ -47,6 +47,45 @@ section.game {
     /* Your existing styles... */
 }
 
+.wrapper {
+  width: 300px;
+  padding: 35px;
+  color: #f1f5f9;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  margin-top: -50px;
+  margin-bottom: -30px;
+}
+
+.wrapper .input-field {
+  opacity: 0;
+  z-index: -999;
+  position: absolute;
+  color: #fff;
+  margin-bottom: -30px;
+}
+
+.wrapper .content-box {
+  padding: 20px 20px 0;
+  border-radius: 10px;
+  border: 2px solid #d6d6d6;
+  padding: 30px; /* 내부 여백 */
+  margin-bottom: 20px; /* 아래 여백 */
+}
+
+.content-box .typing-text {
+  overflow: hidden;
+  max-height: 256px;
+  width: 200px;
+  
+  
+}
+
+#startScreen {
+  margin-bottom: 20px;
+}
+
+
 #login-section {
   width: 60%;  
 
@@ -68,6 +107,8 @@ section.game {
 
   h4{
     color: #67ebd7;
+    margin-top: 11px;
+    font-size: 18px;
   }
   
 
@@ -281,7 +322,6 @@ h3 {
   width:100%;
   transition:800ms ease all;
 }
-
 
 
 
