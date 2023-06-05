@@ -100,6 +100,12 @@ section{
     padding: 120px 5% 100px;
 }
 
+section.home {
+    width: 100vw; /* Viewport width의 100%를 차지합니다. */
+    height: 100vh; /* Viewport height의 100%를 차지합니다. */
+    background-position: center -100px; /* 배경 이미지를 아래로 50픽셀 이동시킵니다. */
+}
+
 .home{
     position: relative;
     min-height:  100vh;
@@ -110,10 +116,13 @@ section{
     align-items: center;
     justify-content: flex-start;
     /*background: #101010;*/
-    background: url(/static/images/background.png);
+    background: url(/static/images/background3.png);
+    
 }
 .home-img {
-    margin-left: 200px;
+    margin-left: 250px;
+    margin-top: 85px;
+    
    
     /*object-fit: fill; 최대한 확대*/
 }
@@ -154,10 +163,11 @@ section{
   .dropdown:hover .dropdown-content {display: block;}
   
 
-.hero-text {
-    margin-top: -50px;
-    margin-right: 50px; /* .home-img와의 오른쪽 간격 조정 */
-  }
+  .hero-text {
+    margin-top: 100px;
+    margin-left: 80px; /* 텍스트를 오른쪽으로 이동시킵니다. */
+}
+
 
 .hero-text h3{
     color: #ffffff;
@@ -176,7 +186,7 @@ section{
 .hero-text h4{
     margin-top: 20px;
     color:#ffffff;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 600;
     margin-bottom: 3.5rem;
 }
@@ -265,14 +275,15 @@ margin-top: 130px;
 }
 
 span {
-    color: #bc86f3;
+    color: #dab5ff;
 }
 
 .about-text p{
     color: #ffffff;
-    font-size: var(--p-font);
+    font-size: 17px;
     line-height: 30px;
     margin-bottom: 3rem;
+    font-weight: bold;
 
 }
 
@@ -358,6 +369,12 @@ span {
     transform: translate(-8px);
     border:1px solid #d3d3d3
 }
+
+
+
+
+
+
 
 
 
