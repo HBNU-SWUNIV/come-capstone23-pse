@@ -8,6 +8,7 @@ class QList(Base):
     __tablename__ = "q_list"
 
     q_lang = Column(String, nullable=False)
+    q_level = Column(String, nullable=False)
     q_id = Column(Integer, primary_key=True, nullable=False)
     q_name = Column(String, nullable=False)
     q_content = Column(Text, nullable=False)
