@@ -20,3 +20,4 @@ sr.reveal('.about-text, .text-center, right-concat h2',{origin:'top'});
 sr.reveal('.left-concat',{origin:'right'});
 sr.reveal('.right-concat',{origin:'left'});
 sr.reveal('.end-section',{origin:'top'});
+
