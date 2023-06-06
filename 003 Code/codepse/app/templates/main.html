@@ -93,58 +93,92 @@
     <!--- services section -->
     <section class="service" id="service">
         <div class="text-center">
-            <h2>OUR SERVICES</h2>
-            <h4>Do your best to use it!</h4>
+          <h2>OUR SERVICES</h2>
+          <h4>Do your best to use it!</h4>
         </div>
-
-        <div class="service-item">
+      
+        <div class="service-slider">
+          <div class="service-item">
             <div class="service-box">
-                <i class='bx bx-code-block'></i>
-                <h3>Coding Test</h3>
-                <p> 
-                </p>
-
-                    <a href="/test_list" class="c-btn">Go Test</a>
+              <i class='bx bx-code-block'></i>
+              <h3>CODING TEST</h3>
+              <p>
+              </p>
+              <a href="/test_list" class="c-btn">Go Test</a>
             </div>
-
-                <div class="service-box">
-                    <i class='bx bx-code-block'></i>
-                    <h3>AI CHATBOT</h3>
-                    <p> 
-                    </p>
-    
-                        <a href="/test_list" class="c-btn">Go Test</a>
-                </div>
-
+          </div>
+      
+          <div class="service-item">
             <div class="service-box">
-                <i class='bx bxs-keyboard'></i>
-                <h3>TYPING GAME</h3>
-                <p>
-
-                </p>
-                    <a href="/typinggame" class="c-btn">Go Game</a>
+              <i class='bx bx-message-dots'></i>
+              <h3>AI CHATBOT</h3>
+              <p>
+              </p>
+              <a href="/test_list" class="c-btn">Go Ask</a>
             </div>
-
+          </div>
+      
+          <div class="service-item">
             <div class="service-box">
-                <i class='bx bx-mouse-alt'></i>
-                <h3>DRAG GAME</h3>
-                <p>
-
-                </p>
-                    <a href="/draggame" class="c-btn">Go Game</a>
+              <i class='bx bxs-keyboard'></i>
+              <h3>TYPING GAME</h3>
+              <p>
+              </p>
+              <a href="/typinggame" class="c-btn">Go Game</a>
             </div>
-
+          </div>
+      
+          <div class="service-item">
             <div class="service-box">
-                <i class='bx bx-desktop' ></i>
-                <h3>OUTPUT GAME</h3>
-                <p>
-                    
-                </p>
-                    <a href="/outputgame" class="c-btn">Go GAME</a>
+              <i class='bx bx-mouse-alt'></i>
+              <h3>DRAG GAME</h3>
+              <p>
+              </p>
+              <a href="/draggame" class="c-btn">Go Game</a>
             </div>
-
+          </div>
+      
+          <div class="service-item">
+            <div class="service-box">
+              <i class='bx bx-desktop'></i>
+              <h3>OUTPUT GAME</h3>
+              <p>
+              </p>
+              <a href="/outputgame" class="c-btn">Go Game</a>
+            </div>
+          </div>
         </div>
+          <!-- 추가된 부분 -->
+    <div class="slider-controls">
+        <span class="slider-btn prev-btn">&lt;</span>
+        <span class="slider-btn next-btn">&gt;</span>
+    </div>
 
+      
+      <script>
+        const slider = document.querySelector('.service-slider');
+        const items = Array.from(slider.children);
+        let currentIndex = 0;
+      
+        function update() {
+          const offset = -currentIndex * 100;
+          items.forEach(item => {
+            item.style.transform = `translateX(${offset}%)`;
+          });
+        }
+      
+        document.querySelector('.prev-btn').addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + items.length) % items.length;
+          update();
+        });
+      
+        document.querySelector('.next-btn').addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % items.length;
+          update();
+        });
+      </script>
+      
+      
     </section>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

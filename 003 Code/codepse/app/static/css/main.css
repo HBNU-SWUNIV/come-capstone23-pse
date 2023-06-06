@@ -377,6 +377,72 @@ section.service {
 
 
 
+  
+.service {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-slider {
+  display: flex;
+  width: fit-content;
+  transform: translateX(0);
+  transition: transform 0.5s ease;
+  white-space: nowrap;
+}
+
+.service-item {
+  flex: 0 0 33.33%;
+  padding: 0 15px;
+  display: inline-block;
+  white-space: normal;
+}
+
+.service-box {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.slider-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.slider-btn {
+  display: inline-block;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+  
+  .slider-btn:hover {
+    color: #000000;
+  }
+  
+
+.prev-btn {
+  margin-right: 10px;
+}
+
+.service-slider {
+    display: flex;
+
+    overflow: hidden;
+    margin-left: 150px;
+  }
+  
+  .service-item {
+    flex-shrink: 0; /* Prevent items from shrinking */
+    width: 100%; /* Each item takes up 100% of the container width */
+    transition: transform 0.5s ease-in-out; /* Smooth transition */
+  }
+  
+  
+  
+  
+
+
 
 
 
