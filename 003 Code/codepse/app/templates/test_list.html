@@ -53,8 +53,6 @@
           <table class="board-table">
             <thead>
               <tr>
-                <th scope="col" class="th-num">언어</th>
-                <th scope="col" class="th-num">난이도</th>
                 <th scope="col" class="th-num">번호</th>
                 <th scope="col" class="th-title">제목</th>
               </tr>
@@ -62,12 +60,10 @@
             <tbody>
               {% for i in q_list %}
               <tr>
-                <td>{{ i[0] }}</td> <!-- 문제 언어 -->
-                <td>{{ i[1] }}</td> <!-- 문제 난이도 -->
-                <td>{{ i[2] }}</td> <!-- 문제 번호 -->
+                <td>{{ i[0] }}</td> <!-- 문제 번호 -->
                 <th>
-                  <a href="{{ url_for('test_view', q_id=i[2]) }}">{{ i[3] }}</a> <!--i[1]: 문제 이름-->
-                  <p>{{ i[3] }}</p>
+                  <a href="{{ url_for('test_view', q_id=i[0]) }}">{{ i[1] }}</a> <!--i[1]: 문제 이름-->
+                  <p>{{ i[1] }}</p>
                 </th>
               </tr>
               {% endfor %}
