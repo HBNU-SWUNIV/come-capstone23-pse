@@ -70,12 +70,26 @@ section.game {
 h1 {
     font-size: 2em; /* 텍스트 크기 조정 */
     text-align: center; /* 가운데 정렬 */
-    margin-bottom: 30px;
+    margin-bottom: 22px;
   }
   
 
 h2{
     color: #ffd736;
+    font-size: 22px;
+    margin-bottom: 22px;
+}
+
+#languageSelect{
+    margin-top: 10px;
+    display: block; /* 가로로 붙어있는 요소를 블록 레벨 요소로 변경 */
+    margin-bottom: 20px; /* 선택 필드 아래쪽 여백 설정 */
+    margin-left: 80px;
+  
+}
+
+#username {
+  margin-bottom: 20px; /* 입력 필드 아래쪽 여백 설정 */
 }
 
 .correct-answer {
@@ -85,9 +99,9 @@ h2{
 
 #login-section {
     width: 60%;  
-
+    text-align: center;
+   
 }
-
 
 
 #quiz-section {
@@ -115,3 +129,15 @@ button {
     margin-bottom: 20px;
     font-family: 'Do Hyeon', sans-serif;
 }
+
+
+#startScreen {
+  margin-left: 300px;
+
+}
+
+button.start-quiz {
+  margin-top: 20px; /* 버튼 위쪽 여백 설정 */
+  /* 다른 스타일 속성들... */
+}
+

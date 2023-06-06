@@ -1,26 +1,48 @@
 <!DOCTYPE html>
-<html>
-            <!--- google fonts link -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-		<!--- header section -->
-        <header>
-            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}">
-            <a href="/" class="logo">CODE PSE</a>
-            <div class="bx bx menu" id="menu-icon"></div>
-    
-            <ul class="navlist">
-                <li><a href="/">HOME</a></li>
-                <li><a href="/test_list">CODING TEST</a></li>
-                <li><a href="/typinggame">TYPING GAME</a></li>
-                <li><a href="/draggame">DRAG GAME</a></li>
-                <li><a href="/outputgame">OUTPUT GAME</a></li>
-    
-            </ul>
-        </header>
+<head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--- header section -->
+    <header>
+        <a href="/main" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li class="dropdown">
+                <a href="/test_list" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+              </li>
+
+
+        </ul>
+    </header>
 
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/outputgame.css') }}">
@@ -31,9 +53,10 @@
 		<div class="content-box">
     
     <div id="login-section" style="margin-bottom: 20px;">
+      <div id="startScreen">
         <h2>닉네임을 입력해주세요</h2>
         <input id="username" type="text" placeholder="Enter your nickname" style="width: 200px; height: 30px;">
-        <div id="startScreen">
+       
             <h4>언어를 선택해주세요</h4><br>
             <select id="languageSelect">
               <option value="java">Java</option>
@@ -41,8 +64,8 @@
               <option value="c">C</option>
               <option value="random">Random</option>
             </select>
-          </div>
-        <button onclick="startQuiz()">Start Quiz</button>
+          <button onclick="startQuiz()">Start Quiz</button>
+      </div>
     </div>
     <div id="quiz-section" style="display: none;">
         <p id="question"></p>

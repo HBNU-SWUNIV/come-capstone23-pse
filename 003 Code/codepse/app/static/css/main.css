@@ -116,7 +116,7 @@ section.home {
     align-items: center;
     justify-content: flex-start;
     /*background: #101010;*/
-    background: url(/static/images/background3.png);
+    background: url(/static/images/background2.png);
     
 }
 .home-img {
@@ -165,20 +165,20 @@ section.home {
 
   .hero-text {
     margin-top: 100px;
-    margin-left: 80px; /* 텍스트를 오른쪽으로 이동시킵니다. */
+    margin-left: 70px; /* 텍스트를 오른쪽으로 이동시킵니다. */
 }
 
 
 .hero-text h3{
     color: #ffffff;
-    font-size: 33px;
+    font-size: 28px;
     font-weight: 600; /*글짜 길이?라고 하긴 그렇고 떨어진 정도*/
     margin-bottom: 5px;
 }
 
 .hero-text h1{
     font-family: 'Dosis', sans-serif;
-    font-size: 90px;
+    font-size: 85px;
     color:#ffffff;
     font-weight: 800;
 }
@@ -186,7 +186,7 @@ section.home {
 .hero-text h4{
     margin-top: 20px;
     color:#ffffff;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 600;
     margin-bottom: 3.5rem;
 }
@@ -280,11 +280,16 @@ span {
 
 .about-text p{
     color: #ffffff;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 30px;
     margin-bottom: 3rem;
     font-weight: bold;
 
+}
+
+section.service {
+    width: 100vw; /* Viewport width의 100%를 차지합니다. */
+     /* Viewport height의 100%를 차지합니다. */
 }
 
 .service{
