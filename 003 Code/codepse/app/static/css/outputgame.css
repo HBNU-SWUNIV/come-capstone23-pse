@@ -8,7 +8,7 @@
 }
 
 body {
-  display: block;
+  display: flex;
   padding: 0 10px;
   align-items: center;
   justify-content: center;
@@ -16,29 +16,12 @@ body {
   background: #647fb4;
 }
 
-
-#login-section {
-  width: 400px;
-  height: 400px;
-  margin-bottom: 20px;
-  text-align: center;
-  padding: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#login-section h1 {
-  margin-top: 0;
-}
-
 header {
     position: fixed;
     width: 100%;
     height: 100px;
     /* Your existing styles... */
-    background-color: #647fb4;
+    background-color:#647fb4;
 }
 section.game {
     padding-top: 110px; 
@@ -47,280 +30,88 @@ section.game {
     /* Your existing styles... */
 }
 
+.highlight {  
+    font-weight: bold;   
+}
+/*여기 그 마지막 채점 부분*/
+
+
 .wrapper {
-  width: 300px;
-  padding: 35px;
-  color: #f1f5f9;
-  border-radius: 10px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-  margin-top: -50px;
-  margin-bottom: -30px;
-}
-
-.wrapper .input-field {
-  opacity: 0;
-  z-index: -999;
-  position: absolute;
-  color: #fff;
-  margin-bottom: -30px;
-}
-
-.wrapper .content-box {
-  padding: 20px 20px 0;
-  border-radius: 10px;
-  border: 2px solid #d6d6d6;
-  padding: 30px; /* 내부 여백 */
-  margin-bottom: 20px; /* 아래 여백 */
-}
-
-.content-box .typing-text {
-  overflow: hidden;
-  max-height: 256px;
-  width: 200px;
+    width: 1000px;
+    padding: 35px;
+    color: #f1f5f9;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
   
+  .wrapper .input-field {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
+    color: #fff;
+    
+  }
   
+  .wrapper .content-box {
+    padding: 20px 20px 0;
+    border-radius: 10px;
+    border: 2px solid #dadada;
+  }
+
+
+
+.large-input {
+    font-size: 50px;
+    padding: 15px;
+    width: 300px;  /* Or any width you prefer */
+    margin-bottom: 15px;
 }
 
-#startScreen {
-  margin-bottom: 20px;
+h1 {
+    font-size: 2em; /* 텍스트 크기 조정 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 30px;
+  }
+  
+
+h2{
+    color: #ffd736;
+}
+
+.correct-answer {
+    color: rgb(74, 211, 74);
 }
 
 
 #login-section {
-  width: 60%;  
+    width: 60%;  
 
 }
+
+
 
 #quiz-section {
-  margin-top: 50px;
+    margin-top: 50px;
 }
 
+#question {
+    font-size: 20px;
+}
 
-  label {
-    font-size: 20px;   /* 텍스트 크기를 20픽셀로 설정 */
-    font-weight: bold; /* 텍스트를 굵게 설정*/
-  }
-
-  h2{
-    color: #67ebd7;
-  }
-
-  h4{
-    color: #67ebd7;
-    margin-top: 11px;
-    font-size: 18px;
-  }
-  
-
+#answer {
+    margin-top: 20px;
+    display: block;
+    width: 300px;
+    height: 30px;
+}
 
 button {
-  background-color: #fff;  /* 흰색 배경 */
-  color: #000;  /* 검정색 텍스트 */
-  border: none;
-  border-radius: 10px;
-  padding: 9px 13px;  /* 버튼 크기를 키우기 위해 padding 추가함. 이 값을 조정 */
-  margin-top: 20px; 
-  margin-bottom: 20px;
-}
-
-.wrapper {
-  width: 1000px;
-  padding: 35px;
-  color: #f1f5f9;
-  border-radius: 10px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-}
-
-.wrapper .input-field {
-  opacity: 0;
-  z-index: -999;
-  position: absolute;
-  color: #fff;
-}
-
-.wrapper .content-box {
-  padding: 20px 20px 0;
-  border-radius: 10px;
-  border: 1px solid #bfbfbf;
-}
-
-#dropzone {
-    border: 2px dashed #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    line-height: 2; /* 줄 간격 조절 */
-  }
-
-.option {
-    border: 1px solid #aaa;
-    padding: 5px 10px;
-    margin: 10px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-#username {
-  height: 50px; /* 높이를 50픽셀로 설정 */
-}
-
-
-
-#nextButton {
-    display: none;
-    background-color: #9e88eb;
+    background-color: #fff;  /* 흰색 배경 */
+    color: #000;  /* 검정색 텍스트 */
     border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 2px;
-    cursor: pointer;
-}
-
-.question-text {
-    font-size: 24px;
-    font-weight: bold;
+    border-radius: 10px;
+    padding: 9px 13px;  /* 버튼 크기를 키우기 위해 padding 추가함. 이 값을 조정 */
+    margin-top: 20px; 
     margin-bottom: 20px;
-    text-align: left;
-    width: auto;
+    font-family: 'Do Hyeon', sans-serif;
 }
-
-.answer-box {
-    display: inline-block;
-    border: 1px solid #aaa;
-    padding: 0 10px;
-    margin: 0 5px;
-    min-width: 30px;
-    text-align: center;
-  }
-  
-  .blank {
-    display: inline-block;
-    width: 80px;
-    height: 25px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    text-align: center;
-    vertical-align: middle; /* 상자 세로 가운데 정렬 */
-    line-height: 25px; /* 추가된 코드 */
-  }
-  
-  #checkButton {
-    display: inline-block;
-    background-color:  #9e88eb;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 10px 2px;
-    cursor: pointer;
-}
-
-#timer {
-    color: rgb(255, 241, 49);
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 35px;
-    margin-bottom: 30px; 
-    color: #ffffff; 
-}
-
-h6 {
-  font-size: 35px;
-  margin-bottom: 30px; 
-  color:rgb(255, 241, 49);
-}
-
-
-
-#restartButton {
-  display: inline-block;
-  background-color: #9e88eb;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  margin: 10px 2px;
-  cursor: pointer;
-}
-
-hr {
-  border: none;
-  border-top: 1px dotted #f00;
-  color: #fff;
-  background-color: #fff;
-  height: 1px;
-  width: 100%;
-}
-
-
-h3 {
-  font-size: 50px;
-  margin-bottom: 30px;
-  margin-top: 30px;  
-}
-
-#scoreDisplay {
-  border: 2px dashed #ccc;
-  padding: 15px;
-  margin-bottom: 20px;
-  line-height: 2; /* 줄 간격 조절 */
-}
-
-
-#startQuizButton{
-  background:#28c6a1;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:40px;
-  font-size:1em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-weight: bold;
-
-}
-
-#startQuizButton:hover{
-  background:#fff;
-  color:#1AAB8A;
-}
-
-#startQuizButton:before,#startQuizButton:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #1AAB8A;
-  transition:400ms ease all;
-}
-
-#startQuizButton:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-
-#startQuizButton:hover:before,#startQuizButton:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
-
-

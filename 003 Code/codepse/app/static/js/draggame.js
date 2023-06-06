@@ -481,7 +481,7 @@ function nextQuestion() {
       nextButton.style.display = "inline-block";  // Make the 'Next Question' button visible
       
       // 타이머를 설정
-      let timeLeft = 6; // 게임 시간을 저장할 변수를 추가합니다.
+      let timeLeft = 60; // 게임 시간을 저장할 변수를 추가합니다.
       countdown = setInterval(function() {
         document.getElementById("timer").innerText = `Timer : ${timeLeft} `;
         timeLeft--; // 시간 감소
