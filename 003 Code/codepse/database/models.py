@@ -13,5 +13,6 @@ class QList(Base):
     q_content = Column(Text, nullable=False)
     ex_print = Column(Text, nullable=False)
     c_answer_code = Column(Text, nullable=False)
+    cpp_answer_code = Column(Text, nullable=False)
     p_answer_code = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
