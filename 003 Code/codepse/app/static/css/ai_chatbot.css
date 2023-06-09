@@ -96,11 +96,12 @@ input[type="submit"]:hover {
 #chatloadimage {
    margin-left: 400px;
     padding: 10px;
-    margin-bottom: 100px;
+    
+    
 }
 
 #chatloadimage img {
-    width: 45%; /* 이미지 크기를 줄입니다 */
+    width: 50%; /* 이미지 크기를 줄입니다 */
     opacity: 0.3; /* 이미지를 반투명하게 만듭니다 */
 }
 
