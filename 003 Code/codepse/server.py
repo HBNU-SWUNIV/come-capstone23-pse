@@ -97,7 +97,7 @@ def answer():
 
     # 세션의 언어 정보에 따라 C 언어 정답 코드 혹은 Python 정답 코드를 가져옴
     if session["language"] == "c":
-        answer = html.escape(q_info.answer_code)
+        answer = html.escape(q_info.c_answer_code)
     elif session["language"] == "python":
         answer = html.escape(q_info.p_answer_code)
 
