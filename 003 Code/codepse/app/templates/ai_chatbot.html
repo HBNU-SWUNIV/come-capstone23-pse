@@ -52,7 +52,14 @@
     <h2>AI 챗봇을 활용하여 코드와 관련된 질문을 해보세요. 빠르고 정확한 도움을 얻을 수 있습니다</h2>
 
     <script>
-   $(document).ready(function(){
+$(document).ready(function(){
+    $('#userText').keypress(function(e){
+        if (e.keyCode == 13 && !e.shiftKey) { // keyCode 13 is 'Enter', and we want to check if shiftKey is not pressed
+            e.preventDefault(); // Prevent the default action
+            $("form").submit(); // Trigger the form submit
+        }
+    });
+
     $("form").on("submit", function(event){
         event.preventDefault();  // Prevent the form from being submitted normally
         var userText = $("#userText").val();  // Get the data from the form
@@ -63,19 +70,24 @@
             $("#chatbox").prepend("<div class='message ai-message'>AI: " + dataFormatted + "</div>");  // Add the chatbot response to the page
         });
         $("#userText").val('');  // Clear the input field
+        $("#chatloadimage").hide();  // Hide the image container when form is submitted
     });
 });
 
-    </script>
+        </script>
+        
 
 <body>
 
 <div id="chatbox">
     <!-- This div will contain the chat messages -->
+    <div id="chatloadimage">
+        <img src="{{ url_for('static', filename='images/chatbotimg.png') }}" alt="Chatbot Image">
+    </div>
 </div>
 
 <form action="/ai_chatbot_submit" method="post">
-    <textarea id="userText" name="userText" rows="3" cols="70"></textarea>
+    <textarea id="userText" name="userText" placeholder="질문을 입력해주세요" rows="3" cols="70"></textarea>
     <input type="submit" value="Submit">
 </form>
 
