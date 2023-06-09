@@ -78,6 +78,13 @@ def submit():
     expected_output = q_info.answer
 
     result = grade_code(output_str, expected_output)
+    # if language == "python":
+    #     output_str = python_run_code(code)
+    # elif language == "c":
+    #     output_str = c_compile_code(code)
+    # elif language == "java":
+    #     output_str = java_run_code(code)
+
     return result  # 채점 결과를 반환
 
 
