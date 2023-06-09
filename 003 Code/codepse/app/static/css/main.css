@@ -343,12 +343,19 @@ section.service {
     margin-bottom: 12px;
 }
 
+.service h4{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
 .service p{
-    font-size: 23px;
+    font-size: 16px;
     font-weight: var(--p-font);
     margin-bottom: 1.5rem;
     line-height: 30px;
     color: #fffaee;
+    font-weight: bold;
 }
 
 .c-btn{
@@ -363,6 +370,7 @@ section.service {
     transition: all ease .50s;
     
 }
+
 
 .c-btn:hover{
     transform: translateX(0px);
@@ -381,15 +389,17 @@ section.service {
 .service {
   position: relative;
   overflow: hidden;
+  
 }
 
 .service-slider {
-  display: flex;
-  width: fit-content;
-  transform: translateX(0);
-  transition: transform 0.5s ease;
-  white-space: nowrap;
+    display: flex;
+    width: fit-content;
+    transform: translateX(-58px); /* -50px만큼 왼쪽으로 이동 */
+    transition: transform 0.5s ease;
+    white-space: nowrap;
 }
+
 
 .service-item {
   flex: 0 0 33.33%;
@@ -409,21 +419,23 @@ section.service {
 }
 
 .slider-btn {
-  display: inline-block;
-  padding: 5px 10px;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-}
-  
-  .slider-btn:hover {
+    display: inline-block;
+    padding: 15px 20px; /* 기존보다 더 크게 padding 값을 설정 */
     color: #000000;
+    font-size: 24px; /* 글자 크기를 더 크게 설정 */
+    font-weight: bold; /* 글자 두껍게 설정 */
+    cursor: pointer;
+    margin-left: 12px;
+  }
+    
+  .slider-btn:hover {
+    color: #e3a3ff;
+  }
+    
+  .prev-btn {
+    margin-right: 10px;
   }
   
-
-.prev-btn {
-  margin-right: 10px;
-}
 
 .service-slider {
     display: flex;

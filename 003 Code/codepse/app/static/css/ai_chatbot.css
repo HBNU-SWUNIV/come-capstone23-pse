@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+section{
+    margin-top: 120px;
+}
+
+#chatbox {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    border: 3px solid rgb(255, 255, 255);
+    padding: 10px;
+    height: 500px;
+    width: 1200px;
+    margin-left: 180px;
+    background-color: #ffffff;
+    border-radius: 10px;
+
+}
+
+textarea{
+    font-size: 20px;
+}
+
+h1{
+font-size: 45px;
+text-align: center;
+margin-bottom: 10px;
+}
+
+h2{
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 450px;
+    margin-bottom: 50px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+}
+
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    max-width: 70%;
+    display: inline-block;
+    word-wrap: break-word; 
+}
+.user-message {
+    background-color: #d5baff;
+    align-self: flex-end;
+    color: black;
+}
+.ai-message {
+    background-color: #dcdcdc;
+    color: black;
+}
