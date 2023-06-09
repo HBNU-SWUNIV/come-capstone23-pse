@@ -32,20 +32,4 @@ services:
     ports:
       - "5000:5000"  # 외부 포트:컨테이너 포트
 
-  ccompiler:
-    build:
-      context: .
-      dockerfile: Dockerfile-c  # C 컴파일러용 Dockerfile 지정
-    command: ["tail", "-f", "/dev/null"]
 
-  pythoncompiler:
-    build:
-      context: .
-      dockerfile: Dockerfile-python  # Python 컴파일러용 Dockerfile 지정
-    command: ["tail", "-f", "/dev/null"]
-      
-  javacompiler:
-    build:
-      context: .
-      dockerfile: Dockerfile-java  # Java 컴파일러용 Dockerfile 지정
-    command: ["tail", "-f", "/dev/null"]

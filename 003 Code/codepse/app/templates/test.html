@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-            <!--- google fonts link -->
-		    <!--- google fonts link -->
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-		<!--- header section -->
-        <header>
-            <link rel="stylesheet" type="text/css" link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
-            <a href="/" class="logo">CODE PSE</a>
-            <div class="bx bx menu" id="menu-icon"></div>
-    
-            <ul class="navlist">
-                <li><a href="/">HOME</a></li>
-                <li><a href="/test_list">CODING TEST</a></li>
-                <li><a href="/typinggame">TYPING GAME</a></li>
-                <li><a href="/draggame">DRAG GAME</a></li>
-                <li><a href="/outputgame">OUTPUT GAME</a></li>
-    
-            </ul>
-        </header>
+<head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
 
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--- header section -->
+    <header>
+        <a href="/" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li class="dropdown">
+                <a href="/test_list" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+              </li>
+
+
+        </ul>
+    </header>
 <html lang="en">
 <section class="coding">
 <head>
@@ -48,11 +69,12 @@
         <label for="language">언어 선택:</label>
         <select name="language">
           <option value="c">C</option>
+          <option value="c++">C++</option>
           <option value="python">Python</option>
-          <option value="java">Java</option>
+          
           <!-- 여기에 더 많은 언어를 추가할 수 있습니다 -->
         </select>
-        <textarea name="code" style="margin-top: 20px;" placeholder="정답을 입력해 주세요" rows="15" cols="150"></textarea>
+        <textarea name="code" style="margin-top: 20px;" placeholder="정답을 입력해 주세요" rows="10" cols="75"></textarea>
 
         <div class="button-group">
         <input type="submit" id="compile"  value="실행">
