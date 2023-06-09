@@ -54,14 +54,14 @@ def compile():
     code = request.form.get("code")
     language = request.form.get("language")
 
+    session["language"] = language  # 여기에서 언어 정보를 세션에 저장
+
     if language == "python":
         output_str = python_run_code(code)
     elif language == "c":
         output_str = c_compile_code(code)
     elif language == "java":
         output_str = java_run_code(code)
-
-    # 여기에 더 많은 언어에 대한 처리를 추가할 수 있습니다
 
     return output_str
 
@@ -71,8 +71,16 @@ def submit():
     conn = get_db_connection()
 
     code = request.form.get("code")
+    language = request.form.get("language")
 
-    output_str = c_compile_code(code)
+    session["language"] = language  # 여기에서 언어 정보를 세션에 저장
+
+    if language == "python":
+        output_str = python_run_code(code)
+    elif language == "c":
+        output_str = c_compile_code(code)
+    elif language == "java":
+        output_str = java_run_code(code)
 
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
     expected_output = q_info.answer
@@ -86,7 +94,12 @@ def answer():
     conn = get_db_connection()
 
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
-    answer = html.escape(q_info.answer_code)
+
+    # 세션의 언어 정보에 따라 C 언어 정답 코드 혹은 Python 정답 코드를 가져옴
+    if session["language"] == "c":
+        answer = html.escape(q_info.answer_code)
+    elif session["language"] == "python":
+        answer = html.escape(q_info.p_answer_code)
 
     return "<pre>" + answer + "</pre>"
 
