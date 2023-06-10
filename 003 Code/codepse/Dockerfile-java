@@ -1,8 +1,0 @@
-# 공식 openjdk 런타임을 부모 이미지로 사용
-FROM openjdk:11-jdk
-
-# 컨테이너 내에서 /app을 작업 디렉토리로 설정
-WORKDIR /app
-
-ENV PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin/:${PATH}"
-

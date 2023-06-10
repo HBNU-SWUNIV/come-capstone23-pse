@@ -29,10 +29,10 @@
 
         <ul class="navlist">
             <li><a href="/">HOME</a></li>
-            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
             <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
             <li class="dropdown">
-                <a href="/test_list" class="dropbtn">CODING GAME</a>
+                <a href="/typinggame" class="dropbtn">CODING GAME</a>
                 <div class="dropdown-content">
                     <a href="/typinggame">TYPING GAME</a>
                     <a href="/draggame">DRAG GAME</a>
@@ -43,79 +43,54 @@
 
         </ul>
     </header>
-<head>
-    <title>ai chatbot</title>
+<section>
+   
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ai_chatbot.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  <!-- Include jQuery -->
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            margin: 0;
-            box-sizing: border-box;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        #chatbox {
-            flex-grow: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column-reverse;
-            border: 1px solid black;
-            padding: 10px;
-        }
-        form {
-            display: flex;
-            margin-top: 20px;
-        }
-        textarea {
-            flex-grow: 1;
-            margin-right: 10px;
-        }
-        .message {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            max-width: 70%;
-            display: inline-block;
-            word-wrap: break-word; 
-        }
-        .user-message {
-            background-color: #d1f7d1;
-            align-self: flex-end;
-        }
-        .ai-message {
-            background-color: #d1d1d1;
-        }
-        
-    </style>
+
+    <h1>AI CHATBOT</h1>
+    <h2>AI 챗봇을 활용하여 코드와 관련된 질문을 해보세요. 빠르고 정확한 도움을 얻을 수 있습니다</h2>
+
     <script>
-    $(document).ready(function(){
-        $("form").on("submit", function(event){
-            event.preventDefault();  // Prevent the form from being submitted normally
-            var userText = $("#userText").val();  // Get the data from the form
-            $("#chatbox").prepend("<div class='message user-message'>You: " + userText + "</div>");
-            $.post("/ai_chatbot_submit", { userText: userText }, function(data){
-                // This function is called when the server responds.
-                // 'data' contains the response from the server.
-                // You can now add this data to your page.
-                $("#chatbox").prepend("<div class='message ai-message'>AI: " + data + "</div>");  // Add the chatbot response to the page
-            });
-            $("#userText").val('');  // Clear the input field
-        });
+$(document).ready(function(){
+    $('#userText').keypress(function(e){
+        if (e.keyCode == 13 && !e.shiftKey) { // keyCode 13 is 'Enter', and we want to check if shiftKey is not pressed
+            e.preventDefault(); // Prevent the default action
+            $("form").submit(); // Trigger the form submit
+        }
     });
-    </script>
-</head>
+
+    $("form").on("submit", function(event){
+        event.preventDefault();  // Prevent the form from being submitted normally
+        var userText = $("#userText").val();  // Get the data from the form
+        var userTextFormatted = userText.replace(/\n/g, "<br />");  // Replace newline characters with <br />
+        $("#chatbox").prepend("<div class='message user-message'>You: " + userTextFormatted + "</div>");
+        $.post("/ai_chatbot_submit", { userText: userText }, function(data){
+            var dataFormatted = data.replace(/\n/g, "<br />");  // Replace newline characters in AI response with <br />
+            $("#chatbox").prepend("<div class='message ai-message'>AI: " + dataFormatted + "</div>");  // Add the chatbot response to the page
+        });
+        $("#userText").val('');  // Clear the input field
+        $("#chatloadimage").hide();  // Hide the image container when form is submitted
+    });
+});
+
+        </script>
+        
+
 <body>
 
 <div id="chatbox">
     <!-- This div will contain the chat messages -->
+    <div id="chatloadimage">
+        <img src="{{ url_for('static', filename='images/chatbotimg2.png') }}" alt="Chatbot Image">
+    </div>
 </div>
 
 <form action="/ai_chatbot_submit" method="post">
-    <textarea id="userText" name="userText" rows="2" cols="50"></textarea>
+    <textarea id="userText" name="userText" placeholder="질문을 입력해주세요" rows="3" cols="70"></textarea>
     <input type="submit" value="Submit">
 </form>
 
 </body>
+</section>
 </html>
