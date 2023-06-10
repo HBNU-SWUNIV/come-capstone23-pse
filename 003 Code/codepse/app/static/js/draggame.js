@@ -569,7 +569,7 @@ function nextQuestion() {
 
 
   let leaderboard = JSON.parse(localStorage.getItem(userLanguage + "Leaderboard") || "[]");
-  leaderboard.push({ username: username, score: score });
+  leaderboard.push({ username: username, score: score/2 });
   leaderboard.sort((a, b) => b.score - a.score);
   localStorage.setItem(userLanguage + "Leaderboard", JSON.stringify(leaderboard));
 
