@@ -79,19 +79,13 @@ def submit():
         output_str = python_run_code(code)
     elif language == "c":
         output_str = c_compile_code(code)
-    # elif language == "java":
-    #     output_str = java_run_code(code)
+    elif language == "c++":
+        output_str = cpp_compile_code(code)
 
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
     expected_output = q_info.answer
 
     result = grade_code(output_str, expected_output)
-    # if language == "python":
-    #     output_str = python_run_code(code)
-    # elif language == "c":
-    #     output_str = c_compile_code(code)
-    # elif language == "java":
-    #     output_str = java_run_code(code)
 
     return result  # 채점 결과를 반환
 
@@ -107,6 +101,8 @@ def answer():
         answer = html.escape(q_info.c_answer_code)
     elif session["language"] == "python":
         answer = html.escape(q_info.p_answer_code)
+    elif session["language"] == "c++":
+        answer = html.escape(q_info.cpp_answer_code)
 
     return "<pre>" + answer + "</pre>"
 
@@ -114,11 +110,12 @@ def answer():
 @app.route("/feedback")
 def feedback():
     code = request.form.get("code")
+    language = request.form.get("language")
 
     conn = get_db_connection()
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
     problem_description = q_info.q_content
-    feedback = get_feedback(problem_description, code)
+    feedback = get_feedback(problem_description, code, language)
     return feedback
 
 
