@@ -16,3 +16,12 @@ class QList(Base):
     cpp_answer_code = Column(Text, nullable=False)
     p_answer_code = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
+
+
+class TypingGame(Base):
+    __tablename__ = "typinggame"
+
+    id = Column(Integer, primary_key=True)
+    code = Column(Text, nullable=True)
+    language = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)

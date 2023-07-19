@@ -3,9 +3,11 @@ import html
 from flask import Flask, render_template, request, session
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
-from database.models import QList
+from database.models import QList, TypingGame
 from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from app.config import Config
+from sqlalchemy.sql import func
+from flask import jsonify
 
 app = Flask(__name__, static_folder="app/static")
 app.template_folder = os.path.join(
@@ -137,6 +139,18 @@ def ai_chatbot_submit():
 @app.route("/typinggame")
 def typinggame():
     return render_template("typinggame.html")
+
+
+@app.route("/api/get_random_code")
+def get_random_code():
+    conn = get_db_connection()
+    random_code = conn.query(TypingGame).order_by(func.random()).first()
+
+    return jsonify({
+        "code": random_code.code,
+        "language": random_code.language,
+        "description": random_code.description
+    })
 
 
 @app.route("/draggame")
