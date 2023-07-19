@@ -5,10 +5,10 @@ services:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=false
     environment:
-      MYSQL_ROOT_PASSWORD: Ajtdmw159##!
+      MYSQL_ROOT_PASSWORD: 0
       MYSQL_DATABASE: testdb
-      MYSQL_USER: admin          
-      MYSQL_PASSWORD: Ajtdmw159##!
+      MYSQL_USER: user          
+      MYSQL_PASSWORD: 0
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
@@ -28,7 +28,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      DB_HOST: pse-db.c21giljpduee.ap-northeast-2.rds.amazonaws.com
+      DB_HOST: db
     ports:
       - "5000:5000"  # 외부 포트:컨테이너 포트
 
