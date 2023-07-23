@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import JSON, Column, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -25,3 +25,23 @@ class TypingGame(Base):
     code = Column(Text, nullable=True)
     language = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
+
+
+class DragGame(Base):
+    __tablename__ = "draggame"
+
+    id = Column(Integer, primary_key=True)
+    language = Column(String(255), nullable=False)
+    text = Column(Text, nullable=True)
+    code = Column(Text, nullable=True)
+    answers = Column(JSON, nullable=True)
+    options = Column(JSON, nullable=True)
+
+
+class OutputGame(Base):
+    __tablename__ = "outputgame"
+
+    id = Column(Integer, primary_key=True)
+    language = Column(String(255), nullable=False)
+    question = Column(Text, nullable=True)
+    answer = Column(Text, nullable=True)

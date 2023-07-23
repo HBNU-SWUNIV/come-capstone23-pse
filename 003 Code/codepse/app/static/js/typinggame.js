@@ -13,7 +13,7 @@
     charIndex = errors = isTyping = 0;
   
   function loadParagraph() {
-    fetch('/api/get_random_code')
+    fetch('/api/get_typinggame_questions')
     .then(response => response.json())
     .then(data => {
       const code = data.code.split("\n");  // split with '\n' to handle each line
