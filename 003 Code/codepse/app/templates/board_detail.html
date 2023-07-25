@@ -56,11 +56,15 @@
             // 댓글 내용 가져오기
             const commentText = commentForm.querySelector('textarea').value;
 
+            // 현재 날짜 생성
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getFullYear()}.${currentDate.getMonth() + 1}.${currentDate.getDate()}`;
+
             // 댓글 생성
             const newComment = document.createElement('div');
             newComment.classList.add('comment');
             newComment.innerHTML = `
-                <p class="comment-info">작성자: 사용자 | 날짜: 2023.7.27</p>
+                <p class="comment-info">작성자: 사용자 | 날짜: ${formattedDate}</p>
                 <p class="comment-content">${commentText}</p>
             `; // 임의로 설정
 
