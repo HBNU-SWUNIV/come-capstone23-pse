@@ -32,6 +32,7 @@
         </div>
 
         <!-- 댓글 목록 -->
+        <!-- 동적 생성 댓글 -->
         <div class="comment-list-wrapper">
             <div class="comment">
                 <p class="comment-info">작성자: 피카츄 | 날짜: 2023.7.25</p>
@@ -43,5 +44,32 @@
             </div>
         </div>
     </div>
+
+    <!-- 댓글 추가 (자바스크립트) -->
+    <script>
+        const commentForm = document.querySelector('.comment-form');
+        const commentListWrapper = document.querySelector('.comment-list-wrapper');
+
+        commentForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // 페이지 이동 막음
+
+            // 댓글 내용 가져오기
+            const commentText = commentForm.querySelector('textarea').value;
+
+            // 댓글 생성
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            newComment.innerHTML = `
+                <p class="comment-info">작성자: 사용자 | 날짜: 2023.7.27</p>
+                <p class="comment-content">${commentText}</p>
+            `; // 임의로 설정
+
+            // 댓글 목록에 댓글 추가
+            commentListWrapper.appendChild(newComment);
+
+            // 댓글작성폼 내용 지움
+            commentForm.querySelector('textarea').value = '';
+        });
+    </script>
 </body>
 </html>

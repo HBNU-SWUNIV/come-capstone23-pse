@@ -34,3 +34,13 @@ tr:hover {
 h1 {
     text-align: center;
 }
+
+/* 하이퍼링크 */
+a {
+    color: #333333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
