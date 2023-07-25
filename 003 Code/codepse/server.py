@@ -198,9 +198,14 @@ def get_outputgame_questions():
     return jsonify(questions)
 
 
-@app.route("/board")
-def board():
-    return render_template("board.html")
+@app.route("/board_list")
+def board_list():
+    return render_template("board_list.html")
+
+
+@app.route("/board_detail")
+def board_detail():
+    return render_template("board_detail.html")
 
 
 if __name__ == "__main__":
