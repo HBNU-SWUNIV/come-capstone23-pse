@@ -3,9 +3,11 @@ import html
 from flask import Flask, render_template, request, session
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
-from database.models import QList
+from database.models import QList, TypingGame, DragGame, OutputGame
 from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from app.config import Config
+from sqlalchemy.sql import func
+from flask import jsonify
 
 app = Flask(__name__, static_folder="app/static")
 app.template_folder = os.path.join(
@@ -139,9 +141,40 @@ def typinggame():
     return render_template("typinggame.html")
 
 
+@app.route("/api/get_typinggame_questions")
+def get_typinggame_questions():
+    conn = get_db_connection()
+    typinggame_questions = conn.query(
+        TypingGame).order_by(func.random()).first()
+
+    return jsonify({
+        "code": typinggame_questions.code,
+        "language": typinggame_questions.language,
+        "description": typinggame_questions.description
+    })
+
+
 @app.route("/draggame")
 def draggame():
     return render_template("draggame.html")
+
+
+@app.route("/api/get_draggame_questions")
+def get_draggame_questions():
+    conn = get_db_connection()
+    draggame_questions = conn.query(DragGame).all()
+
+    allQuestions = []
+    for allQuestion in draggame_questions:
+        allQuestions.append({
+            "language": allQuestion.language,
+            "text": allQuestion.text,
+            "code": allQuestion.code,
+            "answers": allQuestion.answers,
+            "options": allQuestion.options
+        })
+
+    return jsonify(allQuestions)
 
 
 @app.route("/outputgame")
@@ -149,9 +182,20 @@ def outputgame():
     return render_template("outputgame.html")
 
 
-@app.route("/board")
-def board():
-    return render_template("board.html")
+@app.route("/api/get_outputgame_questions")
+def get_outputgame_questions():
+    conn = get_db_connection()
+    outputgame_questions = conn.query(OutputGame).all()
+
+    questions = []
+    for question in outputgame_questions:
+        questions.append({
+            "language": question.language,
+            "question": question.question,
+            "answer": question.answer
+        })
+
+    return jsonify(questions)
 
 
 if __name__ == "__main__":

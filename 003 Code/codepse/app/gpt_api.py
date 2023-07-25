@@ -6,7 +6,7 @@ openai.api_key = Config.CHATGPT_KEY
 
 
 def get_feedback(problem_description, code, language):
-    prompt = f"아래 주어진 코드는 {language}(으)로 작성된 코드이며, 사용자로부터 입력을 받아 {problem_description}를 수행한다.\n\n{code}\n\n 다음 코드에 문제가 있으면 수정해줘\n\n:"
+    prompt = f"The code provided below is written in {language} and requires {problem_description}.\n\n{code}\n\nIf there is a problem with the following code, please correct it.\n\n"
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt=prompt,
