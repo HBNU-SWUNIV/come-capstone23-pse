@@ -34,7 +34,7 @@ body {
     border: 1px solid #dddddd;
     padding: 10px;
     margin-top: 20px;
-    text-align: left; /* 왼쪽 정렬 */
+    text-align: left;
 }
 
 .comment-form textarea {
@@ -58,6 +58,9 @@ body {
 
 .comment {
     margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .comment-info {
@@ -68,6 +71,18 @@ body {
 .comment-content {
     font-size: 14px;
     line-height: 1.6;
+    text-align: left !important;
+}
+
+.comment-info-wrapper,
+.comment-content-wrapper {
+    flex-grow: 1;
+}
+
+.comment-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .comment-form-input {
@@ -84,30 +99,30 @@ body {
     flex-shrink: 0;
 }
 
-.edit-btn {
+.comment-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.edit-btn,
+.delete-btn {
     padding: 5px 10px;
-    background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: 10px;
 }
 
-.comment-form button:hover,
-.edit-btn:hover {
-    background-color: #0056b3;
+.edit-btn {
+    background-color: #007bff;
+    margin-right: 5px;
 }
 
-.comment {
-    margin-bottom: 10px;
-    position: relative;
+.delete-btn {
+    background-color: #dc3545;
 }
 
-.comment .edit-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
+.button {
     padding: 5px 10px;
     background-color: #007bff;
     color: white;
@@ -115,5 +130,12 @@ body {
     cursor: pointer;
 }
 
+.button:hover {
+    background-color: #0056b3;
+}
 
-
+.comment-content pre {
+    margin: 0;
+    line-height: 1.4;
+    text-align: left;
+}

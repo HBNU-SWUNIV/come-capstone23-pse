@@ -14,7 +14,6 @@
         </div>
         <div class="post-content">
             <pre>우리는 모두 친구
-
 피카츄 라이츄 파이리 꼬부기
 버터플 야도란 피죤투 또가스
 서로 생긴 모습은 달라도 우리는 모두 친구 (맞아)
@@ -40,18 +39,29 @@
             <div class="comment">
                 <div class="comment-info-wrapper">
                     <p class="comment-info">작성자: 피카츄 | 날짜: 2023.7.25</p>
-                    <button class="edit-btn">수정</button>
                 </div>
-                <p class="comment-content">1빠</p>
+                <div class="comment-content-wrapper">
+                    <p class="comment-content">1빠</p>
+                    <div class="buttons-wrapper">
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </div>
+                </div>
             </div>
+
             <div class="comment">
                 <div class="comment-info-wrapper">
                     <p class="comment-info">작성자: 피존투 | 날짜: 2023.7.26</p>
-                    <button class="edit-btn">수정</button>
                 </div>
-                <p class="comment-content">피존 앤 다우니</p>
+                <div class="comment-content-wrapper">
+                    <p class="comment-content">피존 앤 다우니</p>
+                    <div class="buttons-wrapper">
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </div>
+                </div>
             </div>
-        </div>     
+        </div>
     </div>
 
     <!-- 댓글 추가 (자바스크립트) -->
@@ -75,9 +85,14 @@
             newComment.innerHTML = `
                 <div class="comment-info-wrapper">
                     <p class="comment-info">작성자: 사용자 | 날짜: ${formattedDate}</p>
-                    <button class="edit-btn">수정</button>
                 </div>
-                <p class="comment-content">${commentText}</p>
+                <div class="comment-content-wrapper">
+                    <p class="comment-content">${commentText}</p>
+                    <div class="buttons-wrapper">
+                        <button class="edit-btn">수정</button>
+                        <button class="delete-btn">삭제</button>
+                    </div>
+                </div>
             `;
 
             // 댓글 목록에 댓글 추가
@@ -93,11 +108,15 @@
             if (target.classList.contains('edit-btn')) {
                 const comment = target.closest('.comment');
                 const commentContent = comment.querySelector('.comment-content');
-                const originalContent = commentContent.textContent;
-                const commentText = commentContent.textContent;
+                const originalContent = commentContent.textContent; // 사용자가 수정을 취소할 때 원래 댓글의 내용을 복구하기 위해 사용
+                const commentText = commentContent.textContent; // 수정 폼의 텍스트 영역에 원래 내용을 초기화하기 위해 사용
 
                 // 작성자와 날짜 가져오기
                 const commentInfo = comment.querySelector('.comment-info').textContent;
+                const datePattern = /날짜: (\d{4}\.\d{1,2}\.\d{1,2})/; // 날짜 정보를 추출하는 정규표현식
+
+                // 현재 날짜 추출
+                let currentDateString = datePattern.exec(commentInfo)[1];
 
                 // 수정 입력 폼 생성
                 const editForm = document.createElement('form');
@@ -109,8 +128,9 @@
                     <button type="button" class="cancel-btn">취소</button>
                 `;
 
-                // 기존 내용 감추기
+                // 기존 내용 감추기 및 버튼 숨기기
                 commentContent.style.display = 'none';
+                comment.querySelector('.buttons-wrapper').style.display = 'none';
 
                 // 수정 폼 삽입
                 comment.insertBefore(editForm, comment.querySelector('.comment-info-wrapper'));
@@ -121,19 +141,30 @@
                 // 수정 완료 버튼 클릭 시
                 editForm.addEventListener('submit', function (event) {
                     event.preventDefault();
-                    const editedText = editForm.querySelector('textarea').value;
-                    commentContent.innerHTML = `<pre>${editedText}</pre>`; // 수정된 부분
+
+                    // 새로운 내용으로 댓글 수정
+                    const newContent = editForm.querySelector('textarea').value;
+                    commentContent.textContent = newContent;
+
+                    // 수정 입력 폼 제거 및 기존 내용/버튼 보이게
                     commentContent.style.display = 'block';
-                    comment.querySelector('.comment-info-wrapper').style.display = 'flex'; // 수정된 부분
+                    comment.querySelector('.buttons-wrapper').style.display = 'block';
+                    comment.querySelector('.comment-info-wrapper').style.display = 'flex';
+
                     comment.removeChild(editForm);
                 });
 
                 // 취소 버튼 클릭 시
                 const cancelBtn = editForm.querySelector('.cancel-btn');
                 cancelBtn.addEventListener('click', function () {
-                    commentContent.innerHTML = `<pre>${originalContent}</pre>`; // 수정된 부분
+                    // 수정 취소하고 원래 내용으로 복구
+                    commentContent.textContent = originalContent;
+
+                    // 수정 입력 폼 제거 및 기존 내용/버튼 보이게
                     commentContent.style.display = 'block';
-                    comment.querySelector('.comment-info-wrapper').style.display = 'flex'; // 수정된 부분
+                    comment.querySelector('.buttons-wrapper').style.display = 'block';
+                    comment.querySelector('.comment-info-wrapper').style.display = 'flex';
+
                     comment.removeChild(editForm);
                 });
             }
