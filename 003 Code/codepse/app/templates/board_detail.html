@@ -28,7 +28,7 @@
         <!-- 댓글 작성 폼 -->
         <div class="comment-form-wrapper">
             <form class="comment-form">
-                <div class="comment-form-input">
+                <div class="comment-form-input"> <!-- 버튼 위치 -->
                     <textarea name="comment" placeholder="댓글을 작성하세요..."></textarea>
                     <button type="submit">댓글 작성</button>
                 </div>
@@ -38,16 +38,20 @@
         <!-- 댓글 목록 / 동적 생성 댓글 -->
         <div class="comment-list-wrapper">
             <div class="comment">
-                <p class="comment-info">작성자: 피카츄 | 날짜: 2023.7.25</p>
+                <div class="comment-info-wrapper">
+                    <p class="comment-info">작성자: 피카츄 | 날짜: 2023.7.25</p>
+                    <button class="edit-btn">수정</button>
+                </div>
                 <p class="comment-content">1빠</p>
-                <button class="edit-btn">수정</button>
             </div>
             <div class="comment">
-                <p class="comment-info">작성자: 피존투 | 날짜: 2023.7.26</p>
+                <div class="comment-info-wrapper">
+                    <p class="comment-info">작성자: 피존투 | 날짜: 2023.7.26</p>
+                    <button class="edit-btn">수정</button>
+                </div>
                 <p class="comment-content">피존 앤 다우니</p>
-                <button class="edit-btn">수정</button>
             </div>
-        </div>
+        </div>     
     </div>
 
     <!-- 댓글 추가 (자바스크립트) -->
@@ -69,9 +73,11 @@
             const newComment = document.createElement('div');
             newComment.classList.add('comment');
             newComment.innerHTML = `
-                <p class="comment-info">작성자: 사용자 | 날짜: ${formattedDate}</p>
+                <div class="comment-info-wrapper">
+                    <p class="comment-info">작성자: 사용자 | 날짜: ${formattedDate}</p>
+                    <button class="edit-btn">수정</button>
+                </div>
                 <p class="comment-content">${commentText}</p>
-                <button class="edit-btn">수정</button>
             `;
 
             // 댓글 목록에 댓글 추가
@@ -85,16 +91,19 @@
         commentListWrapper.addEventListener('click', function (event) {
             const target = event.target;
             if (target.classList.contains('edit-btn')) {
-                const comment = target.parentElement;
+                const comment = target.closest('.comment');
                 const commentContent = comment.querySelector('.comment-content');
                 const originalContent = commentContent.textContent;
-                const commentInfo = comment.querySelector('.comment-info');
                 const commentText = commentContent.textContent;
+
+                // 작성자와 날짜 가져오기
+                const commentInfo = comment.querySelector('.comment-info').textContent;
 
                 // 수정 입력 폼 생성
                 const editForm = document.createElement('form');
                 editForm.classList.add('edit-form');
                 editForm.innerHTML = `
+                    <p class="comment-info">${commentInfo}</p>
                     <textarea name="edit-comment">${commentText}</textarea>
                     <button type="submit">완료</button>
                     <button type="button" class="cancel-btn">취소</button>
@@ -104,22 +113,27 @@
                 commentContent.style.display = 'none';
 
                 // 수정 폼 삽입
-                comment.insertBefore(editForm, commentInfo);
+                comment.insertBefore(editForm, comment.querySelector('.comment-info-wrapper'));
+
+                // 작성자와 날짜가 위에 나타나도록 수정
+                comment.querySelector('.comment-info-wrapper').style.display = 'none';
 
                 // 수정 완료 버튼 클릭 시
                 editForm.addEventListener('submit', function (event) {
                     event.preventDefault();
                     const editedText = editForm.querySelector('textarea').value;
-                    commentContent.textContent = editedText;
+                    commentContent.innerHTML = `<pre>${editedText}</pre>`; // 수정된 부분
                     commentContent.style.display = 'block';
+                    comment.querySelector('.comment-info-wrapper').style.display = 'flex'; // 수정된 부분
                     comment.removeChild(editForm);
                 });
 
                 // 취소 버튼 클릭 시
                 const cancelBtn = editForm.querySelector('.cancel-btn');
                 cancelBtn.addEventListener('click', function () {
-                    commentContent.textContent = originalContent;
+                    commentContent.innerHTML = `<pre>${originalContent}</pre>`; // 수정된 부분
                     commentContent.style.display = 'block';
+                    comment.querySelector('.comment-info-wrapper').style.display = 'flex'; // 수정된 부분
                     comment.removeChild(editForm);
                 });
             }

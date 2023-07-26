@@ -70,7 +70,6 @@ body {
     line-height: 1.6;
 }
 
-/* 추가한 CSS 스타일 */
 .comment-form-input {
     display: flex;
     align-items: flex-start;
@@ -84,3 +83,37 @@ body {
 .comment-form-input button {
     flex-shrink: 0;
 }
+
+.edit-btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+.comment-form button:hover,
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.comment {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.comment .edit-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+
