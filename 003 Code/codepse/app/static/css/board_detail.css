@@ -70,3 +70,17 @@ body {
     line-height: 1.6;
 }
 
+/* 추가한 CSS 스타일 */
+.comment-form-input {
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-form-input textarea {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.comment-form-input button {
+    flex-shrink: 0;
+}

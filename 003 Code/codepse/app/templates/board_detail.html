@@ -4,8 +4,10 @@
     <title>board_detail</title>
     <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
 </head>
+
 <body>
-    <div class="post-details">
+    <div class="post-details"> 
+        <!-- 임의 게시글 -->
         <h2 class="post-title">피카츄 라이츄</h2>
         <div class="post-info">
             <p>작성자: 파이리 | 날짜: 2023.7.25 | 조회수: 3</p>
@@ -26,21 +28,24 @@
         <!-- 댓글 작성 폼 -->
         <div class="comment-form-wrapper">
             <form class="comment-form">
-                <textarea name="comment" placeholder="댓글을 작성하세요..."></textarea>
-                <button type="submit">댓글 작성</button>
+                <div class="comment-form-input">
+                    <textarea name="comment" placeholder="댓글을 작성하세요..."></textarea>
+                    <button type="submit">댓글 작성</button>
+                </div>
             </form>
         </div>
 
-        <!-- 댓글 목록 -->
-        <!-- 동적 생성 댓글 -->
+        <!-- 댓글 목록 / 동적 생성 댓글 -->
         <div class="comment-list-wrapper">
             <div class="comment">
                 <p class="comment-info">작성자: 피카츄 | 날짜: 2023.7.25</p>
                 <p class="comment-content">1빠</p>
+                <button class="edit-btn">수정</button>
             </div>
             <div class="comment">
                 <p class="comment-info">작성자: 피존투 | 날짜: 2023.7.26</p>
                 <p class="comment-content">피존 앤 다우니</p>
+                <button class="edit-btn">수정</button>
             </div>
         </div>
     </div>
@@ -66,13 +71,58 @@
             newComment.innerHTML = `
                 <p class="comment-info">작성자: 사용자 | 날짜: ${formattedDate}</p>
                 <p class="comment-content">${commentText}</p>
-            `; // 임의로 설정
+                <button class="edit-btn">수정</button>
+            `;
 
             // 댓글 목록에 댓글 추가
             commentListWrapper.appendChild(newComment);
 
             // 댓글작성폼 내용 지움
             commentForm.querySelector('textarea').value = '';
+        });
+
+        // 댓글 수정 기능
+        commentListWrapper.addEventListener('click', function (event) {
+            const target = event.target;
+            if (target.classList.contains('edit-btn')) {
+                const comment = target.parentElement;
+                const commentContent = comment.querySelector('.comment-content');
+                const originalContent = commentContent.textContent;
+                const commentInfo = comment.querySelector('.comment-info');
+                const commentText = commentContent.textContent;
+
+                // 수정 입력 폼 생성
+                const editForm = document.createElement('form');
+                editForm.classList.add('edit-form');
+                editForm.innerHTML = `
+                    <textarea name="edit-comment">${commentText}</textarea>
+                    <button type="submit">완료</button>
+                    <button type="button" class="cancel-btn">취소</button>
+                `;
+
+                // 기존 내용 감추기
+                commentContent.style.display = 'none';
+
+                // 수정 폼 삽입
+                comment.insertBefore(editForm, commentInfo);
+
+                // 수정 완료 버튼 클릭 시
+                editForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const editedText = editForm.querySelector('textarea').value;
+                    commentContent.textContent = editedText;
+                    commentContent.style.display = 'block';
+                    comment.removeChild(editForm);
+                });
+
+                // 취소 버튼 클릭 시
+                const cancelBtn = editForm.querySelector('.cancel-btn');
+                cancelBtn.addEventListener('click', function () {
+                    commentContent.textContent = originalContent;
+                    commentContent.style.display = 'block';
+                    comment.removeChild(editForm);
+                });
+            }
         });
     </script>
 </body>
