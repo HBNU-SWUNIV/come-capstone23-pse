@@ -54,6 +54,21 @@ def signup():
         return render_template("signup.html")
 
 
+@app.route('/check_duplicate', methods=['POST'])
+def check_duplicate():
+    session = get_db_connection()
+    email = request.form.get('username')
+
+    # 존재하는 user인지 확인
+    user = session.query(User).filter_by(user_email=email).first()
+
+    if user:
+        return jsonify({'message': '사용할 수 없는 이메일입니다.'})
+    else:
+        return jsonify({'message': '사용 가능한 이메일입니다.'})
+
+    
+
 @app.route("/test_list")
 def test_list():
     # 데이터베이스 연결

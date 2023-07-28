@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>회원가입</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery 추가 -->
   </head>
   <body>
     <h1>회원가입</h1>
@@ -9,10 +11,15 @@
       <label for="name">이름:</label>
       <input type="text" id="name" name="name" required /><br />
       <label for="username">이메일:</label>
-      <input type="text" id="username" name="username" required /><br />
+      <input type="text" id="username" name="username" required />
+      <button id="check-duplicate">중복 확인</button><br />
+      <!-- 중복 확인 버튼 추가 -->
       <label for="password">비밀번호:</label>
       <input type="password" id="password" name="password" required /><br />
       <input type="submit" value="회원가입" />
     </form>
+
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+    <!-- Ajax 요청을 처리할 JavaScript 파일 추가 -->
   </body>
 </html>
