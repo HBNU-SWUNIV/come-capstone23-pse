@@ -22,6 +22,16 @@ def home():
     return render_template("main.html")
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+
 @app.route("/test_list")
 def test_list():
     # 데이터베이스 연결
