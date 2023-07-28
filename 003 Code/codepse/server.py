@@ -1,13 +1,14 @@
 import os
 import html
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
-from database.models import QList, TypingGame, DragGame, OutputGame
+from database.models import User, QList, TypingGame, DragGame, OutputGame
 from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from app.config import Config
 from sqlalchemy.sql import func
 from flask import jsonify
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_folder="app/static")
 app.template_folder = os.path.join(
@@ -27,9 +28,30 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/signup")
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
-    return render_template("signup.html")
+    session = get_db_connection()
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("username")
+        password = request.form.get("password")
+
+        # 존재하는 user인지 확인
+        user = session.query(User).filter_by(user_email=email).first()
+        if user:
+            return 'User already exists.'
+
+        # 새로운 user 생성
+        new_user = User(username=name, user_email=email)
+        new_user.set_password(password)
+        
+        # db에 유저 저장
+        session.add(new_user)
+        session.commit()
+
+        return redirect(url_for('login'))  # assuming you have a login route
+    else:
+        return render_template("signup.html")
 
 
 @app.route("/test_list")
