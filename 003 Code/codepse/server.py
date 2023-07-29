@@ -5,23 +5,20 @@ from flask import (
     render_template,
     request,
     session,
-    # redirect,
-    # url_for,
-    # make_response,
-    # flash,
 )
 from app.auth import auth
+from app.game import game
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
-from database.models import QList, TypingGame, DragGame, OutputGame
+from database.models import QList
 from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from app.config import Config
-from sqlalchemy.sql import func
-from flask import jsonify
-from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_folder="app/static")
+
+app.register_blueprint(game)
 app.register_blueprint(auth)
+
 app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app", "templates")
 
 app.secret_key = Config.SECRET_KEY  # session 연결을 위한 키
@@ -144,73 +141,6 @@ def ai_chatbot_submit():
         # 이제 'content'에 사용자가 입력한 텍스트가 저장되어 있습니다.
         # 이 변수를 원하는 대로 사용할 수 있습니다.
     return chatbot_response
-
-
-@app.route("/typinggame")
-def typinggame():
-    return render_template("typinggame.html")
-
-
-@app.route("/api/get_typinggame_questions")
-def get_typinggame_questions():
-    conn = get_db_connection()
-    typinggame_questions = conn.query(TypingGame).order_by(func.random()).first()
-
-    return jsonify(
-        {
-            "code": typinggame_questions.code,
-            "language": typinggame_questions.language,
-            "description": typinggame_questions.description,
-        }
-    )
-
-
-@app.route("/draggame")
-def draggame():
-    return render_template("draggame.html")
-
-
-@app.route("/api/get_draggame_questions")
-def get_draggame_questions():
-    conn = get_db_connection()
-    draggame_questions = conn.query(DragGame).all()
-
-    allQuestions = []
-    for allQuestion in draggame_questions:
-        allQuestions.append(
-            {
-                "language": allQuestion.language,
-                "text": allQuestion.text,
-                "code": allQuestion.code,
-                "answers": allQuestion.answers,
-                "options": allQuestion.options,
-            }
-        )
-
-    return jsonify(allQuestions)
-
-
-@app.route("/outputgame")
-def outputgame():
-    return render_template("outputgame.html")
-
-
-@app.route("/api/get_outputgame_questions")
-def get_outputgame_questions():
-    conn = get_db_connection()
-    outputgame_questions = conn.query(OutputGame).all()
-
-    questions = []
-    for question in outputgame_questions:
-        questions.append(
-            {
-                "language": question.language,
-                "question": question.question,
-                "answer": question.answer,
-            }
-        )
-
-    return jsonify(questions)
 
 
 @app.route("/board_list")
