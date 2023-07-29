@@ -18,7 +18,7 @@ class User(Base):
     # 사용자가 계정을 만들거나 비밀번호를 변경할 때 사용됨.
     def set_password(self, password):
         hashed_password = generate_password_hash(password)
-        #print(f"Generated hash: {hashed_password}")
+        # print(f"Generated hash: {hashed_password}")
         self.password = hashed_password
 
     # 함수는 주어진 원시 비밀번호의 해시를 'password' 필드에 저장된 해시와 비교

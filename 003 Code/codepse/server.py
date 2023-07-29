@@ -5,14 +5,15 @@ from flask import (
     render_template,
     request,
     session,
-    redirect,
-    url_for,
-    make_response,
-    flash,
+    # redirect,
+    # url_for,
+    # make_response,
+    # flash,
 )
+from app.auth import auth
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
-from database.models import User, QList, TypingGame, DragGame, OutputGame
+from database.models import QList, TypingGame, DragGame, OutputGame
 from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from app.config import Config
 from sqlalchemy.sql import func
@@ -20,106 +21,15 @@ from flask import jsonify
 from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_folder="app/static")
+app.register_blueprint(auth)
 app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app", "templates")
 
 app.secret_key = Config.SECRET_KEY  # session 연결을 위한 키
 
 
-@app.route("/apptest")
-def apptest():
-    def test_password_persistence():
-        db_session = get_db_connection()
-        username = "test_user"
-        user_email = "test@test.com"
-        password = "test_password"
-
-        user = User()
-        user.username = username
-        user.user_email = user_email
-        user.set_password(password)
-
-        db_session.add(user)
-        db_session.commit()
-
-        user_in_db = db_session.query(User).filter(User.username == username).one()
-
-        print("User in DB after commit:", user_in_db)
-        print("Password in DB:", user_in_db.password)
-        print("Check password result:", user_in_db.check_password(password))
-
-        # Assert that the password check passes
-        assert user_in_db.check_password(password)
-
-    test_password_persistence()
-
-    return "<h1>test</h1>"
-
-
 @app.route("/")
 def home():
     return render_template("main.html")
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        db_session = get_db_connection()
-        email = request.form["useremail"]
-        password = request.form["password"]
-
-        user = db_session.query(User).filter_by(user_email=email).first()
-
-        if user is not None:
-            password_check = user.check_password(password)
-            # print(f"Password check result: {password_check}")  # 로그 추가
-            if password_check:
-                session["user_email"] = user.user_email
-                # print(f"Session: {session}")  # 로그 추가
-                flash("Logged in successfully.")
-                return redirect(url_for("home"))
-
-        flash("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
-
-    return render_template("login.html")
-
-
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    db_session = get_db_connection()
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("useremail")
-        password = request.form.get("password")
-
-        # 새로운 user 생성
-        new_user = User(username=name, user_email=email)
-        new_user.set_password(password)
-
-        # db에 유저 저장
-        db_session.add(new_user)
-        db_session.commit()
-
-        return redirect(url_for("login"))
-
-    else:
-        response = make_response(render_template("signup.html"))
-        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        response.headers["Pragma"] = "no-cache"
-        response.headers["Expires"] = "0"
-        return response
-
-
-@app.route("/check_duplicate", methods=["POST"])
-def check_duplicate():
-    db_session = get_db_connection()
-    email = request.form.get("useremail")
-
-    user = db_session.query(User).filter_by(user_email=email).first()
-
-    if user:
-        return jsonify({"success": False, "message": "사용할 수 없는 이메일입니다."})
-    else:
-        return jsonify({"success": True, "message": "사용 가능한 이메일입니다."})
 
 
 @app.route("/test_list")
