@@ -33,13 +33,8 @@ def signup():
     session = get_db_connection()
     if request.method == "POST":
         name = request.form.get("name")
-        email = request.form.get("username")
+        email = request.form.get("useremail")
         password = request.form.get("password")
-
-        # 존재하는 user인지 확인
-        user = session.query(User).filter_by(user_email=email).first()
-        if user:
-            return 'User already exists.'
 
         # 새로운 user 생성
         new_user = User(username=name, user_email=email)
@@ -57,17 +52,16 @@ def signup():
 @app.route('/check_duplicate', methods=['POST'])
 def check_duplicate():
     session = get_db_connection()
-    email = request.form.get('username')
+    email = request.form.get('useremail')
 
     # 존재하는 user인지 확인
     user = session.query(User).filter_by(user_email=email).first()
 
     if user:
-        return jsonify({'message': '사용할 수 없는 이메일입니다.'})
+        return jsonify({'success': False, 'message': '사용할 수 없는 이메일입니다.'})
     else:
-        return jsonify({'message': '사용 가능한 이메일입니다.'})
+        return jsonify({'success': True, 'message': '사용 가능한 이메일입니다.'})
 
-    
 
 @app.route("/test_list")
 def test_list():
