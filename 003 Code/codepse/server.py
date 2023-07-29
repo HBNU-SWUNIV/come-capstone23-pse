@@ -1,6 +1,15 @@
 import os
 import html
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import (
+    Flask,
+    render_template,
+    request,
+    session,
+    redirect,
+    url_for,
+    make_response,
+    flash,
+)
 from database.database import get_db_connection
 from app.gpt_api import get_feedback, generate_response
 from database.models import User, QList, TypingGame, DragGame, OutputGame
@@ -11,11 +20,39 @@ from flask import jsonify
 from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_folder="app/static")
-app.template_folder = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "app", "templates"
-)
+app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app", "templates")
 
 app.secret_key = Config.SECRET_KEY  # session 연결을 위한 키
+
+
+@app.route("/apptest")
+def apptest():
+    def test_password_persistence():
+        db_session = get_db_connection()
+        username = "test_user"
+        user_email = "test@test.com"
+        password = "test_password"
+
+        user = User()
+        user.username = username
+        user.user_email = user_email
+        user.set_password(password)
+
+        db_session.add(user)
+        db_session.commit()
+
+        user_in_db = db_session.query(User).filter(User.username == username).one()
+
+        print("User in DB after commit:", user_in_db)
+        print("Password in DB:", user_in_db.password)
+        print("Check password result:", user_in_db.check_password(password))
+
+        # Assert that the password check passes
+        assert user_in_db.check_password(password)
+
+    test_password_persistence()
+
+    return "<h1>test</h1>"
 
 
 @app.route("/")
@@ -23,14 +60,32 @@ def home():
     return render_template("main.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        db_session = get_db_connection()
+        email = request.form["useremail"]
+        password = request.form["password"]
+
+        user = db_session.query(User).filter_by(user_email=email).first()
+
+        if user is not None:
+            password_check = user.check_password(password)
+            # print(f"Password check result: {password_check}")  # 로그 추가
+            if password_check:
+                session["user_email"] = user.user_email
+                # print(f"Session: {session}")  # 로그 추가
+                flash("Logged in successfully.")
+                return redirect(url_for("home"))
+
+        flash("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
+
     return render_template("login.html")
 
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    session = get_db_connection()
+    db_session = get_db_connection()
     if request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("useremail")
@@ -39,28 +94,32 @@ def signup():
         # 새로운 user 생성
         new_user = User(username=name, user_email=email)
         new_user.set_password(password)
-        
+
         # db에 유저 저장
-        session.add(new_user)
-        session.commit()
+        db_session.add(new_user)
+        db_session.commit()
 
-        return redirect(url_for('login'))  # assuming you have a login route
+        return redirect(url_for("login"))
+
     else:
-        return render_template("signup.html")
+        response = make_response(render_template("signup.html"))
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+        return response
 
 
-@app.route('/check_duplicate', methods=['POST'])
+@app.route("/check_duplicate", methods=["POST"])
 def check_duplicate():
-    session = get_db_connection()
-    email = request.form.get('useremail')
+    db_session = get_db_connection()
+    email = request.form.get("useremail")
 
-    # 존재하는 user인지 확인
-    user = session.query(User).filter_by(user_email=email).first()
+    user = db_session.query(User).filter_by(user_email=email).first()
 
     if user:
-        return jsonify({'success': False, 'message': '사용할 수 없는 이메일입니다.'})
+        return jsonify({"success": False, "message": "사용할 수 없는 이메일입니다."})
     else:
-        return jsonify({'success': True, 'message': '사용 가능한 이메일입니다.'})
+        return jsonify({"success": True, "message": "사용 가능한 이메일입니다."})
 
 
 @app.route("/test_list")
@@ -185,14 +244,15 @@ def typinggame():
 @app.route("/api/get_typinggame_questions")
 def get_typinggame_questions():
     conn = get_db_connection()
-    typinggame_questions = conn.query(
-        TypingGame).order_by(func.random()).first()
+    typinggame_questions = conn.query(TypingGame).order_by(func.random()).first()
 
-    return jsonify({
-        "code": typinggame_questions.code,
-        "language": typinggame_questions.language,
-        "description": typinggame_questions.description
-    })
+    return jsonify(
+        {
+            "code": typinggame_questions.code,
+            "language": typinggame_questions.language,
+            "description": typinggame_questions.description,
+        }
+    )
 
 
 @app.route("/draggame")
@@ -207,13 +267,15 @@ def get_draggame_questions():
 
     allQuestions = []
     for allQuestion in draggame_questions:
-        allQuestions.append({
-            "language": allQuestion.language,
-            "text": allQuestion.text,
-            "code": allQuestion.code,
-            "answers": allQuestion.answers,
-            "options": allQuestion.options
-        })
+        allQuestions.append(
+            {
+                "language": allQuestion.language,
+                "text": allQuestion.text,
+                "code": allQuestion.code,
+                "answers": allQuestion.answers,
+                "options": allQuestion.options,
+            }
+        )
 
     return jsonify(allQuestions)
 
@@ -230,11 +292,13 @@ def get_outputgame_questions():
 
     questions = []
     for question in outputgame_questions:
-        questions.append({
-            "language": question.language,
-            "question": question.question,
-            "answer": question.answer
-        })
+        questions.append(
+            {
+                "language": question.language,
+                "question": question.question,
+                "answer": question.answer,
+            }
+        )
 
     return jsonify(questions)
 
