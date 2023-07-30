@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, render_template
+from flask_login import login_required
 from database.database import get_db_connection
 from database.models import TypingGame, DragGame, OutputGame
 from sqlalchemy.sql import func
@@ -7,6 +8,7 @@ game = Blueprint("game", __name__)
 
 
 @game.route("/typinggame")
+@login_required
 def typinggame():
     return render_template("typinggame.html")
 
@@ -26,6 +28,7 @@ def get_typinggame_questions():
 
 
 @game.route("/draggame")
+@login_required
 def draggame():
     return render_template("draggame.html")
 
@@ -51,6 +54,7 @@ def get_draggame_questions():
 
 
 @game.route("/outputgame")
+@login_required
 def outputgame():
     return render_template("outputgame.html")
 

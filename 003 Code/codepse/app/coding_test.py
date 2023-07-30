@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, session, request
+from flask_login import login_required
 from database.models import QList
 from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from database.database import get_db_connection
@@ -8,6 +9,7 @@ coding_test = Blueprint("coding_test", __name__)
 
 
 @coding_test.route("/test_list")
+@login_required
 def test_list():
     conn = get_db_connection()
 
