@@ -37,7 +37,7 @@ def login():
                 login_user(user)  # 사용자가 로그인
                 print(login_user(user))
                 # flash("Logged in successfully.")
-                return redirect(url_for("home2"))
+                return redirect(url_for("home"))
 
         flash("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
 

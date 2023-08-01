@@ -43,12 +43,12 @@ def unauthorized_callback():
 
 
 @app.route("/")
-def home():
+def not_logged_home():
     return render_template("main.html")
 
 
-@app.route("/main_login")
-def home2():
+@app.route("/main")
+def home():
     return render_template("main2.html")
 
 
