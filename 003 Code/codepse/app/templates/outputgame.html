@@ -40,8 +40,12 @@
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
               </li>
+              {% if current_user.is_authenticated %}
+                <!-- 로그인 한 사용자의 이름을 표시 -->
+                <li class="user-name">hello, {{ current_user.username }}</li>
+              {% endif %}
 
-
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
         </ul>
     </header>
 

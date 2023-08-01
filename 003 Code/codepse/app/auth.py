@@ -47,7 +47,7 @@ def login():
 @auth.route("/logout")
 @login_required
 def logout():
-    current_user._authenticated = False  # 사용자가 로그아웃 하였으므로 _authenticated를 False로 설정합니다.
+    current_user._authenticated = False  # 사용자가 로그아웃 하였으므로 _authenticated를 False로 설정
     logout_user()  # 로그아웃
     # flash("Logged out successfully.")
     return redirect(url_for("home"))
