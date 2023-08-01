@@ -9,6 +9,7 @@ from flask import (
     make_response,
     jsonify,
 )
+from flask_login import login_user, logout_user, login_required, current_user
 from database.database import get_db_connection
 from database.models import User
 
@@ -30,13 +31,26 @@ def login():
         if user is not None:
             password_check = user.check_password(password)
             if password_check:
-                session["user_email"] = user.user_email
-                flash("Logged in successfully.")
-                return redirect(url_for("home"))
+                user._authenticated = True
+                db_session.add(user)
+                db_session.commit()
+                login_user(user)  # 사용자가 로그인
+                print(login_user(user))
+                # flash("Logged in successfully.")
+                return redirect(url_for("home2"))
 
         flash("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
 
     return render_template("login.html")
+
+
+@auth.route("/logout")
+@login_required
+def logout():
+    current_user._authenticated = False  # 사용자가 로그아웃 하였으므로 _authenticated를 False로 설정합니다.
+    logout_user()  # 로그아웃
+    # flash("Logged out successfully.")
+    return redirect(url_for("home"))
 
 
 @auth.route("/signup", methods=["GET", "POST"])
