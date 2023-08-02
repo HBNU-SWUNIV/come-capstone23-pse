@@ -17,7 +17,8 @@ app.register_blueprint(game)
 app.register_blueprint(auth)
 app.register_blueprint(coding_test)
 
-app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app", "templates")
+app.template_folder = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "app", "templates")
 
 app.secret_key = Config.SECRET_KEY  # session 연결을 위한 키
 

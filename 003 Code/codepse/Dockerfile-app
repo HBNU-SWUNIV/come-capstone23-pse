@@ -17,8 +17,12 @@ RUN pip install -r requirements.txt
 # Java 컴파일을 위한 OpenJDK 설치
 RUN apt-get install -y openjdk-11-jdk
 
+# 사용자 로그인 및 세션 관리를 도와주는 라이브러리 설치
+
+
 # 앱 코드와 함께 Docker 이미지 내에 복사
 COPY . .
 
 # 앱을 실행하기 위한 CMD 명령어 사용
 CMD ["python", "server.py"]
+
