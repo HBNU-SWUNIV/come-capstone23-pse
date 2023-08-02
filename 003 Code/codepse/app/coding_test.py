@@ -1,7 +1,13 @@
 from flask import Blueprint, render_template, session, request
 from flask_login import login_required
 from database.models import QList
-from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
+from app.compile import (
+    c_compile_code,
+    python_run_code,
+    cpp_compile_code,
+    java_compile_run_code,
+    grade_code,
+)
 from database.database import get_db_connection
 import html
 
@@ -44,6 +50,8 @@ def compile():
         output_str = c_compile_code(code)
     elif language == "c++":
         output_str = cpp_compile_code(code)
+    elif language == "java":
+        output_str = java_compile_run_code(code)
 
     return output_str
 
@@ -63,6 +71,8 @@ def submit():
         output_str = c_compile_code(code)
     elif language == "c++":
         output_str = cpp_compile_code(code)
+    elif language == "java":
+        output_str = java_compile_run_code(code)
 
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
     expected_output = q_info.answer
@@ -85,5 +95,7 @@ def answer():
         answer = html.escape(q_info.p_answer_code)
     elif session["language"] == "c++":
         answer = html.escape(q_info.cpp_answer_code)
+    elif session["language"] == "Java":
+        answer = html.escape(q_info.java_answer_code)
 
     return "<pre>" + answer + "</pre>"
