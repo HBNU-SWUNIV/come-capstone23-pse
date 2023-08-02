@@ -79,6 +79,10 @@ h2{
     font-size: 22px;
     margin-bottom: 22px;
 }
+h4 {
+  color: #ffd736;
+}
+
 
 #languageSelect{
     margin-top: 10px;

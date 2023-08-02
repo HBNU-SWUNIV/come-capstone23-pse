@@ -1,112 +1,56 @@
 import os
-import html
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
+from flask_login import LoginManager, login_required
+
+from app.auth import auth
+from app.game import game
+from app.coding_test import coding_test
+
 from database.database import get_db_connection
+from database.models import QList, User
 from app.gpt_api import get_feedback, generate_response
-from database.models import QList, TypingGame
-from app.compile import c_compile_code, python_run_code, cpp_compile_code, grade_code
 from app.config import Config
-from sqlalchemy.sql import func
-from flask import jsonify
 
 app = Flask(__name__, static_folder="app/static")
+
+app.register_blueprint(game)
+app.register_blueprint(auth)
+app.register_blueprint(coding_test)
+
 app.template_folder = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "app", "templates"
 )
 
 app.secret_key = Config.SECRET_KEY  # session 연결을 위한 키
 
+# 로그인 매니저 설정
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    # 이 함수는 Flask-Login이 현재 사용자의 정보를 가져올 때 사용하는 함수
+    # 일반적으로는 데이터베이스에서 사용자 정보를 가져오는 코드가 위치
+    # 'user_id'는 Flask-Login이 세션에서 제공하는 사용자 ID
+    # 이 함수는 해당 ID에 해당하는 사용자 객체를 반환해야 함
+    return User.get(user_id)  # 여기서 User.get은 적절한 사용자 검색 코드로 교체해야 함
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return render_template("unauthorized.html")
+
 
 @app.route("/")
-def home():
+def not_logged_home():
     return render_template("main.html")
 
 
-@app.route("/test_list")
-def test_list():
-    # 데이터베이스 연결
-    conn = get_db_connection()
-
-    # 데이터베이스에서 데이터 가져오기
-    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name).all()
-
-    # 가져온 데이터를 html 파일에 전달하기..
-    return render_template("test_list.html", q_list=q_list)
-
-
-# 상세보기 페이지
-@app.route("/test/<int:q_id>")
-def test_view(q_id):
-    conn = get_db_connection()
-
-    # 해당 문제 정보 가져오기
-    q_info = conn.query(QList).filter(QList.q_id == q_id).first()
-
-    # 개행 문자를 <br> 태그로 변환
-    q_info.ex_print = q_info.ex_print.replace("\n", "<br>")
-
-    #  세션에 현재 질문 ID를 저장하며, /submit 라우터는 이 ID를 사용하여 데이터베이스에서 해당 질문의 정답을 가져옴.
-    session["q_id"] = q_id
-
-    return render_template("test.html", q_list=q_info)
-
-
-@app.route("/compile", methods=["POST"])
-def compile():
-    code = request.form.get("code")
-    language = request.form.get("language")
-
-    session["language"] = language  # 여기에서 언어 정보를 세션에 저장
-
-    if language == "python":
-        output_str = python_run_code(code)
-    elif language == "c":
-        output_str = c_compile_code(code)
-    elif language == "c++":
-        output_str = cpp_compile_code(code)
-
-    return output_str
-
-
-@app.route("/submit", methods=["POST"])
-def submit():
-    conn = get_db_connection()
-
-    code = request.form.get("code")
-    language = request.form.get("language")
-
-    session["language"] = language  # 여기에서 언어 정보를 세션에 저장
-
-    if language == "python":
-        output_str = python_run_code(code)
-    elif language == "c":
-        output_str = c_compile_code(code)
-    elif language == "c++":
-        output_str = cpp_compile_code(code)
-
-    q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
-    expected_output = q_info.answer
-
-    result = grade_code(output_str, expected_output)
-
-    return result  # 채점 결과를 반환
-
-
-@app.route("/answer")
-def answer():
-    conn = get_db_connection()
-
-    q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
-
-    # 세션의 언어 정보에 따라 C 언어 정답 코드 혹은 Python 정답 코드를 가져옴
-    if session["language"] == "c":
-        answer = html.escape(q_info.c_answer_code)
-    elif session["language"] == "python":
-        answer = html.escape(q_info.p_answer_code)
-    elif session["language"] == "c++":
-        answer = html.escape(q_info.cpp_answer_code)
-
-    return "<pre>" + answer + "</pre>"
+@app.route("/main")
+@login_required
+def home():
+    return render_template("main2.html")
 
 
 @app.route("/feedback")
@@ -122,6 +66,7 @@ def feedback():
 
 
 @app.route("/ai_chatbot")
+@login_required
 def ai_chatbot():
     return render_template("ai_chatbot.html")
 
@@ -136,31 +81,19 @@ def ai_chatbot_submit():
     return chatbot_response
 
 
-@app.route("/typinggame")
-def typinggame():
-    return render_template("typinggame.html")
+@app.route("/board_list")
+def board_list():
+    return render_template("board_list.html")
 
 
-@app.route("/api/get_random_code")
-def get_random_code():
-    conn = get_db_connection()
-    random_code = conn.query(TypingGame).order_by(func.random()).first()
-
-    return jsonify({
-        "code": random_code.code,
-        "language": random_code.language,
-        "description": random_code.description
-    })
+@app.route("/board_detail")
+def board_detail():
+    return render_template("board_detail.html")
 
 
-@app.route("/draggame")
-def draggame():
-    return render_template("draggame.html")
-
-
-@app.route("/outputgame")
-def outputgame():
-    return render_template("outputgame.html")
+@app.route("/mypage")
+def mypage():
+    return render_template("mypage.html")
 
 
 if __name__ == "__main__":
