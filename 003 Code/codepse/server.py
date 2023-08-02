@@ -48,6 +48,7 @@ def not_logged_home():
 
 
 @app.route("/main")
+@login_required
 def home():
     return render_template("main2.html")
 
