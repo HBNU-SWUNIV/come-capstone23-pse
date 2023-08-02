@@ -82,6 +82,44 @@ def python_run_code(code):
     return output_str
 
 
+def java_compile_run_code(code):
+    file = open("UserSolution.java", "w")
+    file.write(code)
+    file.close()
+
+    # 컴파일 명령어
+    compile_command = "javac UserSolution.java"
+
+    # 컴파일 실행
+    compile_result = subprocess.run(
+        compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+    )
+
+    # 컴파일 결과에 따라 결과 반환
+    if compile_result.returncode == 0:
+        # 실행 명령어
+        run_command = "java UserSolution"
+
+        # 실행
+        run_result = subprocess.run(
+            run_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+        )
+
+        # 실행 결과 반환
+        if run_result.returncode == 0:
+            output_str = run_result.stdout.decode("utf-8")
+        else:
+            output_str = run_result.stderr.decode("utf-8")
+    else:
+        output_str = compile_result.stderr.decode("utf-8")
+
+    os.remove("UserSolution.java")  # UserSolution.java 파일 삭제
+    if os.path.exists("UserSolution.class"):
+        os.remove("UserSolution.class")  # 컴파일된 클래스 파일 삭제
+
+    return output_str
+
+
 def grade_code(output_str, expected_output):
     if output_str.strip() == expected_output:
         return "정답입니다!"  # 정답인 경우
