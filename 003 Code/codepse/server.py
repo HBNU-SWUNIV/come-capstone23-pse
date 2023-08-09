@@ -5,17 +5,21 @@ from flask_login import LoginManager, login_required
 from app.auth import auth
 from app.game import game
 from app.coding_test import coding_test
+from app.board import board
 
 from database.database import get_db_connection
 from database.models import QList, User
 from app.gpt_api import get_feedback, generate_response
 from app.config import Config
 
+
 app = Flask(__name__, static_folder="app/static")
+
 
 app.register_blueprint(game)
 app.register_blueprint(auth)
 app.register_blueprint(coding_test)
+app.register_blueprint(board)
 
 app.template_folder = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "app", "templates"
@@ -79,17 +83,6 @@ def ai_chatbot_submit():
         # 이제 'content'에 사용자가 입력한 텍스트가 저장되어 있습니다.
         # 이 변수를 원하는 대로 사용할 수 있습니다.
     return chatbot_response
-
-
-@app.route("/board_list")
-def board_list():
-    return render_template("board_list.html")
-
-
-@app.route("/board_detail")
-def board_detail():
-    return render_template("board_detail.html")
-
 
 @app.route("/mypage")
 def mypage():
