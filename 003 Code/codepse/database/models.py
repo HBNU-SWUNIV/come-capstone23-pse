@@ -1,8 +1,10 @@
-from sqlalchemy import JSON, Column, Integer, String, Text, Boolean
+from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP
+from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import get_db_connection
-from sqlalchemy.orm import Session
+
+# from sqlalchemy.orm import Session
 
 Base = declarative_base()
 
@@ -63,6 +65,19 @@ class QList(Base):
     cpp_answer_code = Column(Text, nullable=False)
     p_answer_code = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
+
+
+class CodeSubmission(Base):
+    __tablename__ = "code_submissions"
+
+    submission_id = Column(Integer, primary_key=True, autoincrement=True)
+    q_id = Column(Integer, ForeignKey("q_list.q_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    code_content = Column(Text, nullable=False)
+    submission_time = Column(TIMESTAMP, default=func.now(), nullable=False)
+    is_correct = Column(Boolean)
+    compile_result = Column(Text)
+    language = Column(String(20), nullable=False)
 
 
 class TypingGame(Base):

@@ -51,6 +51,11 @@ def home():
     return render_template("main2.html")
 
 
+@app.route("/save_code")
+def code_save():
+    return "<h2>테스트</h2>"
+
+
 @app.route("/feedback")
 def feedback():
     code = request.form.get("code")

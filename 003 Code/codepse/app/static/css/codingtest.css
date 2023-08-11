@@ -145,7 +145,7 @@ section.coding{
   
 
 
-#compile, #submit, #answer, #feedback {
+#compile, #submit, #answer, #feedback, #save_code {
  
   background:#1AAB8A;
   color:#fff;
@@ -173,7 +173,6 @@ section.coding{
   color:#1AAB8A;
 }
 
-
 #answer:hover{
   background:#fff;
   color:#1AAB8A;
@@ -184,6 +183,10 @@ section.coding{
   color:#1AAB8A;
 }
 
+#save_code:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
 
 #compile:before,#compile:after{
   content:'';
@@ -229,6 +232,17 @@ section.coding{
   transition:400ms ease all;
 }
 
+#save_code:before,#save_code:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+
 #compile:after{
   right:inherit;
   top:inherit;
@@ -257,6 +271,13 @@ section.coding{
   bottom:0;
 }
 
+#save_code:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+
 #compile:hover:before,#compile:hover:after{
   width:100%;
   transition:800ms ease all;
@@ -273,6 +294,11 @@ section.coding{
 }
 
 #feedback:hover:before,#feedback:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+#save_code:hover:before,#save_code:hover:after{
   width:100%;
   transition:800ms ease all;
 }
