@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, request, redirect, url_for, flash
+from flask import Blueprint, Flask, render_template, request, redirect, send_from_directory, url_for, flash
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 import os
@@ -67,7 +67,7 @@ def board_write():
             original_filename = secure_filename(file.filename)
             safe_filename = unique_filename(original_filename)
             file.save(os.path.join(UPLOAD_PATH, safe_filename))
-            file_path = os.path.join(UPLOAD_PATH, safe_filename)
+            file_path = safe_filename
         else:
             file_path = None
 
@@ -83,13 +83,15 @@ def board_write():
         try:
             db_session.add(new_post)
             db_session.commit()
-            flash('게시글이 성공적으로 작성되었습니다.', 'success')
-            return redirect(url_for('board.board_list'))  # 게시글 목록 페이지로 리다이렉트
+            return redirect(url_for('board.board_list', message='게시글이 성공적으로 작성되었습니다.'))
         except Exception as e:
             db_session.rollback()
-            flash('게시글 작성 중 오류가 발생했습니다.', 'error')
-            print(f"Error: {e}")
+            return redirect(url_for('board.board_list', message='게시글 작성 중 오류가 발생했습니다.'))
         finally:
             db_session.close()
 
     return render_template('board_write.html')
+
+@board.route('/uploads/<filename>')
+def get_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)

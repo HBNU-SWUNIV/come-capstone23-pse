@@ -10,6 +10,9 @@ Base = declarative_base()
 
 kst = pytz.timezone('Asia/Seoul')  # 한국 시간
 
+def current_time():
+    return datetime.datetime.now(kst)
+
 
 # 비밀번호는 암호화되어 저장되어야 하며, 일반 텍스트로 저장되지 않아야 함.
 class User(Base):
@@ -107,7 +110,7 @@ class Board(Base):
     content = Column(Text, nullable=True)
     file_path = Column(String(255), nullable=True)
     view = Column(Integer, nullable=False)
-    created_at = Column(TIMESTAMP, default=datetime.datetime.now(kst))
+    created_at = Column(TIMESTAMP, default=current_time)
         
 class Game_Score(Base):
     __tablename__ = "game_score"
@@ -116,4 +119,4 @@ class Game_Score(Base):
     game_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     output_score = Column(Integer, nullable=False)
     output_game_language = Column(String(255), nullable=True)
-    output_created_at = Column(TIMESTAMP, default=datetime.datetime.now(kst))
+    created_at = Column(TIMESTAMP, default=current_time)

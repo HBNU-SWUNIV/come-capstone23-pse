@@ -1,9 +1,58 @@
 <!DOCTYPE html>
-<html>
 <head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--- header section -->
+    <header>
+        <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li class="dropdown">
+                <a href="/typinggame" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+                <li><a href="/board_list">BOARD</a></li>
+              </li>
+              {% if current_user.is_authenticated %}
+                <!-- 로그인 한 사용자의 이름을 표시 -->
+                <li class="user-name">hello, {{ current_user.username }}</li>
+              {% endif %}
+
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+
+
+        </ul>
+    </header>
     <title>board_detail</title>
     <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
-</head>
 
 <body>
     <div class="post-details"> 
@@ -15,6 +64,21 @@
         <div class="post-content">
             <pre>{{ post.Board.content }}</pre>
         </div>
+
+         <!-- 첨부된 파일이 이미지인 경우 -->
+        {% if post.Board.file_path and post.Board.file_path.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+        <div class="attached-image">
+            <img src="{{ url_for('board.get_file', filename=post.file_path) }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+
+        <!-- 첨부된 파일에 대한 다운로드 링크 제공 -->
+        {% if post.Board.file_path %}
+        <div class="download-link">
+            <a href="{{ url_for('board.get_file', filename=post.Board.file_path.split('/')[-1]) }}" download>첨부된 파일 다운로드</a>
+        </div>
+        {% endif %}
+
 
         <!-- 댓글 작성 폼 -->
         <div class="comment-form-wrapper">
@@ -57,4 +121,3 @@
     </div>
     <script src="{{ url_for('static', filename='js/board_detail.js') }}"></script>
 </body>
-</html>
