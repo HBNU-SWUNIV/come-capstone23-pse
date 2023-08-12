@@ -1,12 +1,23 @@
+import datetime
+from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text, Boolean, TIMESTAMP, func
+from sqlalchemy.ext.declarative import declarative_base
+from werkzeug.security import generate_password_hash, check_password_hash
+from database.database import get_db_connection
+from sqlalchemy.orm import Session
+import pytz
 from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import get_db_connection
 
-# from sqlalchemy.orm import Session
 
 Base = declarative_base()
+
+kst = pytz.timezone('Asia/Seoul')  # 한국 시간
+
+def current_time():
+    return datetime.datetime.now(kst)
 
 
 # 비밀번호는 암호화되어 저장되어야 하며, 일반 텍스트로 저장되지 않아야 함.
@@ -64,6 +75,7 @@ class QList(Base):
     c_answer_code = Column(Text, nullable=False)
     cpp_answer_code = Column(Text, nullable=False)
     p_answer_code = Column(Text, nullable=False)
+    j_answer_code = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
 
 
@@ -83,7 +95,7 @@ class CodeSubmission(Base):
 class TypingGame(Base):
     __tablename__ = "typinggame"
 
-    id = Column(Integer, primary_key=True)
+    tq_id = Column(Integer, primary_key=True)
     code = Column(Text, nullable=True)
     language = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
@@ -92,7 +104,7 @@ class TypingGame(Base):
 class DragGame(Base):
     __tablename__ = "draggame"
 
-    id = Column(Integer, primary_key=True)
+    dq_id = Column(Integer, primary_key=True)
     language = Column(String(255), nullable=False)
     text = Column(Text, nullable=True)
     code = Column(Text, nullable=True)
@@ -103,7 +115,27 @@ class DragGame(Base):
 class OutputGame(Base):
     __tablename__ = "outputgame"
 
-    id = Column(Integer, primary_key=True)
+    oq_id = Column(Integer, primary_key=True)
     language = Column(String(255), nullable=False)
     question = Column(Text, nullable=True)
     answer = Column(Text, nullable=True)
+
+class Board(Base):
+    __tablename__ = "board"
+
+    board_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, nullable=False)
+    title = Column(String(255), nullable=False)
+    content = Column(Text, nullable=True)
+    file_path = Column(String(255), nullable=True)
+    view = Column(Integer, nullable=False)
+    created_at = Column(TIMESTAMP, default=current_time)
+        
+class Game_Score(Base):
+    __tablename__ = "game_score"
+
+    id = Column(Integer, primary_key=True)
+    game_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    output_score = Column(Integer, nullable=False)
+    output_game_language = Column(String(255), nullable=True)
+    created_at = Column(TIMESTAMP, default=current_time)
