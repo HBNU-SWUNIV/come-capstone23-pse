@@ -1,46 +1,83 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <title>board_list</title>
-    <link href="{{ url_for('static', filename='css/board_list.css') }}" rel="stylesheet">
-</head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
 
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
 <body>
-    <h1>board list</h1>
+
+    <!--- header section -->
+    <header>
+        <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li class="dropdown">
+                <a href="/typinggame" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+                <li><a href="/board_list">BOARD</a></li>
+              </li>
+              {% if current_user.is_authenticated %}
+                <!-- 로그인 한 사용자의 이름을 표시 -->
+                <li class="user-name">hello, {{ current_user.username }}</li>
+              {% endif %}
+
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+
+
+        </ul>
+    </header>
+    <title>board_list</title>
+    <meta charset="UTF-8">
+    <link href="{{ url_for('static', filename='css/board_list.css') }}" rel="stylesheet">
+
+    <h1>게시글 목록</h1>
+    <div style="text-align:right; margin-bottom: 10px;">
+        <a href="/board_write" style="padding: 5px 10px; background-color: #007BFF; color: #FFFFFF; border-radius: 5px; text-decoration: none;">글쓰기</a>
+    </div>
     <table>
         <thead>
             <tr>
                 <th scope="col" class="th-num">번호</th>
                 <th scope="col" class="th-title">제목</th>
                 <th scope="col" class="th-title">작성자</th>
-                <th scope="col" class="th-num">날짜</th>
+                <th scope="col" class="th-num">작성일</th>
                 <th scope="col" class="th-num">조회</th>
             </tr>
         </thead>
-        <tbody> <!-- tbody 추가 -->
-            <!-- 출력 예시를 위해 임의로 동적 생성함 -->
-            <tr>
-                <td>1</td>
-                <td><a href="/board_detail">피카츄 라이츄</a></td>
-                <td>파이리</td>
-                <td>2023.7.25</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>파이리 꼬부기</td>
-                <td>피카츄</td>
-                <td>2023.7.26</td>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>돈까스 좋아해요?</td>
-                <td>스윙스</td>
-                <td>2023.7.26</td>
-                <td>333</td>
-            </tr>
+        <tbody>
+            {% for board, user in boards %}
+                <tr>
+                    <td>{{ board.board_id }}</td>
+                    <td><a href="{{ url_for('board.board_detail', board_id=board.board_id) }}">{{ board.title }}</a></td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }}</td>
+                    <td>{{ board.view }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-</body>
-</html>

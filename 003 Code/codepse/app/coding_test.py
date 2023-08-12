@@ -95,8 +95,8 @@ def answer():
         answer = html.escape(q_info.p_answer_code)
     elif session["language"] == "c++":
         answer = html.escape(q_info.cpp_answer_code)
-    elif session["language"] == "Java":
-        answer = html.escape(q_info.java_answer_code)
+    elif session["language"] == "java":
+        answer = html.escape(q_info.j_answer_code)
 
     return "<pre>" + answer + "</pre>"
 

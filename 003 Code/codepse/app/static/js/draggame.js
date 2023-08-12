@@ -1,7 +1,7 @@
 let currentQuestion; // 현재 플레이어가 풀고 있는 문제
 let allQuestions = [];
-let questions = [];  // Will be populated when user chooses a language
-let userLanguage;  // To store user's chosen language
+let questions = [];  
+let userLanguage;  
 let restartButton = document.getElementById("restartButton");
 let checkButton = document.getElementById("checkButton");
 let nextButton = document.getElementById("nextButton");
