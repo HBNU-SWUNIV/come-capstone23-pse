@@ -9,14 +9,29 @@ from flask import (
     make_response,
     jsonify,
 )
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 from database.database import get_db_connection
 from database.models import User
 
-# from werkzeug.security import generate_password_hash
-
 
 auth = Blueprint("auth", __name__)
+
+
+login_manager = LoginManager()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return render_template("unauthorized.html")
+
+
+def init_login_manager(app):
+    login_manager.init_app(app)
 
 
 @auth.route("/login", methods=["GET", "POST"])
