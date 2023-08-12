@@ -7,7 +7,6 @@ from app.game import game
 from app.coding_test import coding_test
 from app.ai_feedback import ai_feedback
 
-from database.models import User
 from app.config import Config
 
 app = Flask(__name__, static_folder="app/static")
@@ -33,11 +32,6 @@ def not_logged_home():
 @login_required
 def home():
     return render_template("main2.html")
-
-
-@app.route("/save_code")
-def code_save():
-    return "<h2>테스트</h2>"
 
 
 @app.route("/board_list")
