@@ -1,4 +1,13 @@
-from flask import Blueprint, Flask, render_template, request, redirect, send_from_directory, url_for, flash
+from flask import (
+    Blueprint,
+    Flask,
+    render_template,
+    request,
+    redirect,
+    send_from_directory,
+    url_for,
+    flash,
+)
 from flask_login import current_user, login_required
 import os
 from flask import jsonify
@@ -11,7 +20,7 @@ board = Blueprint("board", __name__)
 PER_PAGE = 10
 
 @board.route("/board_list")
-@login_required 
+@login_required
 def board_list():
     page = request.args.get('page', 1, type=int)
     search_query = request.args.get('search_query', None)
@@ -39,6 +48,7 @@ def board_list():
 
     return render_template("board_list.html", boards=boards, current_page=page, total_pages=(total_boards+PER_PAGE-1)//PER_PAGE, search_query=search_query)
 
+
 @board.route("/board_detail/<int:board_id>")
 def board_detail(board_id):
     db_session = get_db_connection()
@@ -48,8 +58,8 @@ def board_detail(board_id):
     comments = db_session.query(Comments, User).join(User, Comments.user_id == User.id).filter(Comments.board_id == board_id).all()    
     
     if not board_instance:
-        flash('게시글을 찾을 수 없습니다.', 'error')
-        return redirect(url_for('board.board_list'))
+        flash("게시글을 찾을 수 없습니다.", "error")
+        return redirect(url_for("board.board_list"))
 
     if board_instance.Board.file_path:
         is_image = any(extension in file for extension in ['.png', '.jpg', '.jpeg', '.gif'] for file in board_instance.Board.file_path)
@@ -65,9 +75,10 @@ def board_detail(board_id):
 
     return render_template("board_detail.html", post=board_instance, is_image=is_image, comments=comments)
 
+
 # 파일 업로드를 위한 설정
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads/')
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads/")
 
 # 전역 변수로 정의하여 사용 (이 부분은 Flask 앱의 config로 설정할 수도 있습니다.)
 UPLOAD_PATH = UPLOAD_FOLDER
@@ -84,7 +95,8 @@ def unique_filename(file_name):
 
     return new_name  # 변경된 이름을 반환
 
-@board.route('/board_write', methods=['GET', 'POST'])
+
+@board.route("/board_write", methods=["GET", "POST"])
 def board_write():
     if request.method == 'POST':
         title = request.form['title']
@@ -115,7 +127,7 @@ def board_write():
         try:
             db_session.add(new_post)
             db_session.commit()
-            return redirect(url_for('board.board_list', message='게시글이 성공적으로 작성되었습니다.'))
+            return redirect(url_for("board.board_list", message="게시글이 성공적으로 작성되었습니다."))
         except Exception as e:
             logging.error(f"Error updating board: {e}")
             db_session.rollback()
@@ -123,7 +135,7 @@ def board_write():
         finally:
             db_session.close()
 
-    return render_template('board_write.html')
+    return render_template("board_write.html")
 
 @board.route("/board_edit/<int:board_id>", methods=['GET', 'POST'])
 def board_edit(board_id):
