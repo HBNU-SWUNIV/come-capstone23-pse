@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, request, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from database.models import QList, CodeSubmission
 from app.compile import (
     c_compile_code,
@@ -79,6 +79,12 @@ def submit():
 
     result = grade_code(output_str, expected_output)
 
+    # 채점 결과를 세션에 저장
+    if result == "정답입니다!":
+        session["is_correct"] = True
+    else:
+        session["is_correct"] = False
+
     return result  # 채점 결과를 반환
 
 
@@ -105,26 +111,27 @@ def answer():
 def code_save():
     try:
         db_session = get_db_connection()
-        # 요청으로부터 데이터 가져오기
+
         q_id = request.form.get("q_id")
         user_id = request.form.get("user_id")
         code_content = request.form.get("code_content")
         language = request.form.get("language")
-        is_correct = request.form.get("is_correct", None)  # 선택적으로 가져오기
-        compile_result = request.form.get("compile_result", None)  # 선택적으로 가져오기
+        compile_result = request.form.get("compile_result")
+
+        is_correct = session.get("is_correct", None)  # 세션에서 채점 결과 가져오기
 
         # 데이터베이스에 저장
-        submission = CodeSubmission(
+        new_submission = CodeSubmission(
             q_id=q_id,
             user_id=user_id,
             code_content=code_content,
             language=language,
-            is_correct=is_correct if is_correct is not None else None,  # 선택적으로 저장
-            compile_result=compile_result if compile_result is not None else None,  # 선택적으로 저장
+            compile_result=compile_result,
+            is_correct=is_correct,
         )
 
-        db_session.session.add(submission)
-        db_session.session.commit()
+        db_session.add(new_submission)
+        db_session.commit()
 
         return jsonify({"message": "Code saved successfully!"})
 

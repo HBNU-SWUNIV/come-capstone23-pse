@@ -1,11 +1,6 @@
 import datetime
-from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text, Boolean, TIMESTAMP, func
-from sqlalchemy.ext.declarative import declarative_base
-from werkzeug.security import generate_password_hash, check_password_hash
-from database.database import get_db_connection
-from sqlalchemy.orm import Session
 import pytz
-from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP
+from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP, func
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,7 +9,8 @@ from database.database import get_db_connection
 
 Base = declarative_base()
 
-kst = pytz.timezone('Asia/Seoul')  # 한국 시간
+kst = pytz.timezone("Asia/Seoul")  # 한국 시간
+
 
 def current_time():
     return datetime.datetime.now(kst)
@@ -120,6 +116,7 @@ class OutputGame(Base):
     question = Column(Text, nullable=True)
     answer = Column(Text, nullable=True)
 
+
 class Board(Base):
     __tablename__ = "board"
 
@@ -130,12 +127,13 @@ class Board(Base):
     file_path = Column(String(255), nullable=True)
     view = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, default=current_time)
-        
+
+
 class Game_Score(Base):
     __tablename__ = "game_score"
 
     id = Column(Integer, primary_key=True)
-    game_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    game_user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     output_score = Column(Integer, nullable=False)
     output_game_language = Column(String(255), nullable=True)
     created_at = Column(TIMESTAMP, default=current_time)

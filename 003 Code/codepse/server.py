@@ -6,6 +6,7 @@ from app.auth import auth, init_login_manager
 from app.game import game
 from app.coding_test import coding_test
 from app.ai_feedback import ai_feedback
+from app.board import board
 
 from app.config import Config
 
@@ -15,6 +16,7 @@ app.register_blueprint(game)
 app.register_blueprint(auth)
 app.register_blueprint(coding_test)
 app.register_blueprint(ai_feedback)
+app.register_blueprint(board)
 
 app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app", "templates")
 
@@ -32,16 +34,6 @@ def not_logged_home():
 @login_required
 def home():
     return render_template("main2.html")
-
-
-@app.route("/board_list")
-def board_list():
-    return render_template("board_list.html")
-
-
-@app.route("/board_detail")
-def board_detail():
-    return render_template("board_detail.html")
 
 
 @app.route("/mypage")

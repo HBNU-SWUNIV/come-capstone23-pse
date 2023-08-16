@@ -97,8 +97,11 @@
         <div id="feedback-box" class="hidden"></div> 
        
 
+
 <script>
-            $(document).ready(function() {
+$(document).ready(function() {
+    var isCodeExecuted = false; // 코드가 실행되었는지 확인하는 flag
+
     $("form").submit(function(e) {
         e.preventDefault();
         $.ajax({
@@ -107,6 +110,7 @@
             data: $(this).serialize(),
             success: function(result) {
                 $("#result").html("<pre>" + result + "</pre>");
+                isCodeExecuted = true; // 코드가 실행된 후 flag를 true로 설정
             }
         });
     });
@@ -151,11 +155,41 @@
   });
 
   
-})
+  $("#save_code").click(function() {
+        if (!isCodeExecuted) {
+            alert("코드를 실행해주세요.");
+            return;
+        }
 
+        var codeContent = $("textarea[name='code']").val().trim();
+        if (codeContent === "") {
+            alert("코드를 작성해주세요.");
+            return;
+        }
 
+        // 결과를 가져오기
+        var compileResult = $("#result pre").text();
 
-        </script>
+        $.ajax({
+            type: "POST",
+            url: "/save_code",
+            data: { 
+                q_id: '{{ q_list.q_id }}',
+                user_id: '{{ current_user.id }}',
+                code_content: codeContent,
+                language: $("select[name='language']").val(),
+                compile_result: compileResult
+            },
+            success: function(result) {
+                alert("코드가 저장되었습니다.");
+            },
+            error: function(error) {
+                alert("코드 저장 중 문제가 발생했습니다.");
+            }
+        });
+    });
+});
+</script>
     </form>
 
 </body>
