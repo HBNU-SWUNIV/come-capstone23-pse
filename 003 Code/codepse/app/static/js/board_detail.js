@@ -100,4 +100,116 @@ const commentListWrapper = document.querySelector('.comment-list-wrapper');
                 comment.removeChild(editForm);
             });
         }
+        
     });
+    
+    const toggleFileTrigger = document.getElementById("toggle-file-trigger");
+
+    if (toggleFileTrigger) {
+        toggleFileTrigger.addEventListener("click", function() {
+            const fileList = document.querySelector(".file-list");
+            if (fileList.style.display === "none" || fileList.style.display === "") {
+                fileList.style.display = "block";
+            } else {
+                fileList.style.display = "none";
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Edit comment functionality
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+    
+                const commentId = e.target.getAttribute('data-id');
+                const commentDiv = e.target.closest('.comment');
+                const contentDiv = commentDiv.querySelector('.comment-content-wrapper');
+                const contentText = contentDiv.querySelector('.comment-content').textContent;
+                
+                // Replace the content div with a form
+                contentDiv.innerHTML = `
+                    <form action="/edit_comment/${commentId}" method="POST" class="edit-comment-form">
+                        <textarea name="new_content">${contentText}</textarea>
+                        <input type="submit" value="수정">
+                        <button class="cancel-edit-btn">취소</button>
+                    </form>
+                `;
+    
+                // Cancel button functionality
+                const cancelBtn = contentDiv.querySelector('.cancel-edit-btn');
+                cancelBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    contentDiv.innerHTML = `
+                        <p class="comment-content">${contentText}</p>
+                        <div class="buttons-wrapper">
+                            <button data-id="${commentId}" class="edit-btn">수정</button>
+                            <button data-id="${commentId}" class="delete-btn">삭제</button>
+                        </div>
+                    `;
+                });
+    
+                // Handle form submission
+                const form = contentDiv.querySelector('.edit-comment-form');
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+    
+                    const newContent = form.querySelector('textarea').value;
+    
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                'new_content': newContent,
+                            }),
+                        });
+    
+                        if (response.status === 200) {
+                            contentDiv.innerHTML = `
+                                <p class="comment-content">${newContent}</p>
+                                <div class="buttons-wrapper">
+                                    <button data-id="${commentId}" class="edit-btn">수정</button>
+                                    <button data-id="${commentId}" class="delete-btn">삭제</button>
+                                </div>
+                            `;
+                        } else {
+                            console.error('Failed to edit comment.');
+                        }
+                    } catch (error) {
+                        console.error('There was an error editing the comment:', error);
+                    }
+                });
+            });
+        });
+    
+        // Delete comment functionality
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async (e) => {
+                e.preventDefault();
+    
+                const commentId = e.target.getAttribute('data-id');
+                const commentDiv = e.target.closest('.comment');
+    
+                try {
+                    const response = await fetch(`/delete_comment/${commentId}`, {
+                        method: 'POST',
+                    });
+    
+                    if (response.status === 200) {
+                        commentDiv.remove();
+                    } else {
+                        console.error('Failed to delete comment.');
+                    }
+                } catch (error) {
+                    console.error('There was an error deleting the comment:', error);
+                }
+            });
+        });
+    });
+
+    

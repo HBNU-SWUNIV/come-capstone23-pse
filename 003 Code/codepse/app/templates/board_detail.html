@@ -1,11 +1,14 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="uft-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Codepse main</title>
 	
 	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+
 
 
     <!--- box icons link -->
@@ -54,70 +57,76 @@
     <title>board_detail</title>
     <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
 
-<body>
     <div class="post-details"> 
         <!-- 임의 게시글 -->
         <h2 class="post-title">{{ post.Board.title }}</h2>
+
+        <div class="edit-delete-buttons">
+            <a href="/board_list">목록</a>
+        </div>
+
+            <!-- 게시글 작성자가 현재 로그인한 사용자와 동일한 경우 수정 및 삭제 버튼 표시 -->
+        {% if current_user.id == post.User.id %}
+        <div class="edit-delete-buttons">
+            <a href="{{ url_for('board.board_edit', board_id=post.Board.board_id) }}">수정</a>
+            <a href="{{ url_for('board.board_delete', board_id=post.Board.board_id) }}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+        </div>
+        {% endif %}
         <div class="post-info">
             <p>작성자: {{ post.User.username }} | 날짜: {{ post.Board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }} | 조회수: {{ post.Board.view }}</p>
-        </div>
-        <div class="post-content">
-            <pre>{{ post.Board.content }}</pre>
-        </div>
+    </div>
 
-         <!-- 첨부된 파일이 이미지인 경우 -->
-        {% if post.Board.file_path and post.Board.file_path.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+    <!-- 첨부된 파일이 있을 때만 '첨부파일' 텍스트 표시 -->
+    {% if post.Board.file_path %}
+        <p class="toggle-file-list"><span id="toggle-file-trigger">첨부파일</span></p>
+        <div class="file-list">
+            {% for filename in post.Board.file_path %}
+                <a href="{{ url_for('board.get_file', filename=filename) }}" download>{{ filename }}</a>
+                {% if not loop.last %}<br>{% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="post-content">
+        <pre>{{ post.Board.content }}</pre>
+    </div>
+        
+    <!-- 첨부된 파일이 이미지인 경우 -->
+    {% for filename in post.Board.file_path %}
+        {% if filename.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
         <div class="attached-image">
-            <img src="{{ url_for('board.get_file', filename=post.file_path) }}" alt="Uploaded Image">
+            <img src="{{ url_for('board.get_file', filename=filename) }}" alt="Uploaded Image" width="300">
         </div>
         {% endif %}
+    {% endfor %}
 
-        <!-- 첨부된 파일에 대한 다운로드 링크 제공 -->
-        {% if post.Board.file_path %}
-        <div class="download-link">
-            <a href="{{ url_for('board.get_file', filename=post.Board.file_path.split('/')[-1]) }}" download>첨부된 파일 다운로드</a>
-        </div>
-        {% endif %}
-
-
-        <!-- 댓글 작성 폼 -->
+    <!-- 댓글 작성 폼 -->
         <div class="comment-form-wrapper">
-            <form class="comment-form">
-                <div class="comment-form-input"> <!-- 버튼 위치 -->
-                    <textarea name="comment" placeholder="댓글을 작성하세요..."></textarea>
-                    <button type="submit">댓글 작성</button>
-                </div>
-            </form>
-        </div>
+        <form action="{{ url_for('board.add_comment', board_id=post.Board.board_id) }}" method="post">
+            <textarea name="comment" placeholder="댓글을 작성하세요..." required></textarea>
+            <input type="submit" value="댓글 작성">
+        </form>
+    </div>
 
         <!-- 댓글 목록 / 동적 생성 댓글 -->
-        <div class="comment-list-wrapper">
-            <div class="comment">
-                <div class="comment-info-wrapper">
-                    <p class="comment-info">작성자: 피카츄 | 날짜: 2023.7.25</p>
-                </div>
-                <div class="comment-content-wrapper">
-                    <p class="comment-content">1빠</p>
-                    <div class="buttons-wrapper">
-                        <button class="edit-btn">수정</button>
-                        <button class="delete-btn">삭제</button>
+        <form class="comment-form" method="post" action="{{ url_for('board.add_comment', board_id=post.Board.board_id) }}">
+            <div class="comment-list-wrapper">
+                {% for comment, user in comments %}
+                <div class="comment">
+                    <div class="comment-info-wrapper">
+                        <p class="comment-info">작성자: {{ user.username }} | 날짜: {{ comment.created_at.strftime('%Y.%m.%d / %H:%M:%S') }}</p>
+                    </div>
+                    <div class="comment-content-wrapper">
+                        <p class="comment-content">{{ comment.content }}</p>
+                        {% if current_user.id == user.id %}
+                        <div class="buttons-wrapper">
+                            <button data-id="{{ comment.id }}" class="edit-btn">수정</button>
+                            <button data-id="{{ comment.id }}" class="delete-btn">삭제</button>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
-
-            <div class="comment">
-                <div class="comment-info-wrapper">
-                    <p class="comment-info">작성자: 피존투 | 날짜: 2023.7.26</p>
-                </div>
-                <div class="comment-content-wrapper">
-                    <p class="comment-content">피존 앤 다우니</p>
-                    <div class="buttons-wrapper">
-                        <button class="edit-btn">수정</button>
-                        <button class="delete-btn">삭제</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            {% endfor %}
     <script src="{{ url_for('static', filename='js/board_detail.js') }}"></script>
 </body>
+</html>

@@ -47,38 +47,44 @@
               {% endif %}
 
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
-
-
         </ul>
 
     </header>
     <title>board_write</title>
     <meta charset="UTF-8">
-    <link href="{{ url_for('static', filename='css/board_write.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/board_edit.css') }}" rel="stylesheet">
 
 <body>
-    <h1>글쓰기</h1>
-    <form action="/board_write" method="post" enctype="multipart/form-data">
-        <div class="input-group">
-            <label for="title">제목:</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-
-        <div class="input-group">
-            <label for="content">내용:</label>
-            <textarea id="content" name="content" rows="10" required></textarea>
-        </div>
-
-        <div class="input-group">
+    <form method="post" enctype="multipart/form-data">
+    <h1>글수정</h1>
+        <label for="title">제목:</label>
+        <input type="text" name="title" value="{{ post.title }}" required>
+        <br>
+        <label for="content">내용:</label>
+        <textarea name="content" rows="5" required>{{ post.content }}</textarea>
+        <br>
+        <!-- 기존 첨부파일 목록 표시 -->
+        {% if post.file_path and post.file_path != [] %}
+        <div id="existing-files">       
             <label for="file">첨부파일:</label>
             <input type="file" id="file" name="file" multiple>
-            <div id="file-names"></div>
+            {% for file in post.file_path %}
+            <div class="file-item">
+                <span>{{ file }}</span>
+                <button type="button" name="remove_files" class="remove-file" data-filename="{{ file }}">x</button>
+                <input type="hidden" name="original_files" value="{{ file }}">
+            </div>
+            {% endfor %}
         </div>
-
-        <div class="submit-btn">
-            <button type="submit">작성하기</button>
-        </div>
+        <div id="file-names"></div>
+        {% else %}
+        <!-- 게시글에 첨부파일이 없을 때의 파일 입력 영역 -->
+        <label for="file">첨부파일:</label>
+        <input type="file" id="file" name="file" multiple>
+        <div id="file-names"></div>
+        {% endif %}
+        <br>
+        <input type="submit" value="수정하기">
     </form>
-    <script src="{{ url_for('static', filename='js/board_write.js') }}"></script>
-    
+    <script src="{{ url_for('static', filename='js/board_edit.js') }}"></script>
 </body>

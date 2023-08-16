@@ -127,7 +127,7 @@ class Board(Base):
     user_id = Column(Integer, nullable=False)
     title = Column(String(255), nullable=False)
     content = Column(Text, nullable=True)
-    file_path = Column(String(255), nullable=True)
+    file_path = Column(JSON, nullable=True)
     view = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, default=current_time)
         
@@ -138,4 +138,13 @@ class Game_Score(Base):
     game_user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     output_score = Column(Integer, nullable=False)
     output_game_language = Column(String(255), nullable=True)
+    created_at = Column(TIMESTAMP, default=current_time)
+
+class Comments(Base):
+    __tablename__ = "comments"
+
+    comment_id = Column(Integer, primary_key=True)
+    board_id = Column(Integer, ForeignKey('board.board_id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    content = Column(Text, nullable=False)
     created_at = Column(TIMESTAMP, default=current_time)
