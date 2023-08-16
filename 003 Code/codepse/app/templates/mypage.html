@@ -6,12 +6,103 @@
 </head>
 <body>
     <div class="container">
-        <h1>my page</h1>
+        <h1>My Page</h1>
+        
+        <!-- 사용자 정보 섹션 -->
         <div class="user-info">
+            <h2>Profile Information</h2>
             <p><strong>이름:</strong> {{ current_user.username }}</p>
-            <p><strong>이메일:</strong>{{ current_user.user_email }}</p>
-            <!-- <p><strong>생년월일:</strong>2023.7.26</p>
-            <p><strong>학번:</strong>20207777</p> -->
+            <p><strong>이메일:</strong> {{ current_user.user_email }}</p>
+        </div>
+        <br>
+
+        <!-- 사용자 게시물 섹션 -->
+        <div class="user-posts">
+            <h2>My Posts</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Views</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for post in user_posts %}
+                    <tr>
+                        <td>{{ post.board_id }}</td>
+                        <td><a href="{{ url_for('board.board_detail', board_id=post.board_id) }}">{{ post.title }}</a></td>
+                        <td>{{ post.view }}</td>
+                        <td>{{ post.created_at }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <!-- 사용자가 작성한 댓글 섹션 -->
+        <div class="user-comments">
+            <h2>My Comments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Board ID</th>
+                        <th>Content</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in user_comments %}
+                    <tr>
+                        <td><a href="{{ url_for('board.board_detail', board_id=comment.board_id) }}">{{ comment.board_id }}</a></td>
+                        <td>{{ comment.content }}</td>
+                        <td>{{ comment.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <!-- 사용자가 작성한 코드 섹션 -->
+        <div class="user-codes">
+            <h2>My Codes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>제출 번호</th>
+                        <th>문제 번호</th>
+                        <th>문제 이름</th>
+                        <th>작성한 언어</th>
+                        <th>제출 날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set ns = namespace(submission_count=1) %}
+                    {% for code_submission, q_list in user_codes %}
+                    <tr>
+                        <td>{{ ns.submission_count }}</td>
+                        <td>{{ q_list.q_id }}</td>
+                        <td>{{ q_list.q_name }}</td>
+                        <td>{{ code_submission.language }}</td>
+                        <td>{{ code_submission.submission_time }}</td>
+                    </tr>
+                    {% set ns.submission_count = ns.submission_count + 1 %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 게임 결과 섹션 -->
+        <div class="game-results">
+            <h2>My Game Results</h2>
+            <ul>
+            {% for result in game_results %}
+                <li>{{ result.game_name }}: {{ result.score }}</li>
+            {% endfor %}
+            </ul>
         </div>
     </div>
 </body>

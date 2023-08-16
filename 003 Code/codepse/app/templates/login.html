@@ -12,13 +12,14 @@
       <input type="password" id="password" name="password" required /><br />
       <input type="submit" value="로그인" />
     </form>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class="flashes">
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
     <p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
+    <script>
+      // 페이지가 로드되었을 때 알림창 표시
+      window.onload = function() {
+        {% if error_message %}
+        alert("{{ error_message }}");
+        {% endif %}
+      }
+    </script>
   </body>
 </html>

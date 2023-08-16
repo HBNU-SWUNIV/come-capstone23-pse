@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, request, jsonify
-from flask_login import login_required, current_user
+from flask_login import login_required
 from database.models import QList, CodeSubmission
 from app.compile import (
     c_compile_code,

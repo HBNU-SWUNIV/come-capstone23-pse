@@ -2,10 +2,8 @@ from flask import (
     Blueprint,
     request,
     render_template,
-    flash,
     redirect,
     url_for,
-    session,
     make_response,
     jsonify,
 )
@@ -36,6 +34,7 @@ def init_login_manager(app):
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    error_message = None
     if request.method == "POST":
         db_session = get_db_connection()
         email = request.form["useremail"]
@@ -50,13 +49,12 @@ def login():
                 db_session.add(user)
                 db_session.commit()
                 login_user(user)  # 사용자가 로그인
-                print(login_user(user))
-                # flash("Logged in successfully.")
                 return redirect(url_for("home"))
+            else:
+                error_message = "이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요."
 
-        flash("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
         db_session.close()
-    return render_template("login.html")
+    return render_template("login.html", error_message=error_message)
 
 
 @auth.route("/logout")
