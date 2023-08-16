@@ -16,6 +16,7 @@ def feedback():
     q_info = conn.query(QList).filter(QList.q_id == session["q_id"]).first()
     problem_description = q_info.q_content
     feedback = get_feedback(problem_description, code, language)
+    conn.close()
     return feedback
 
 

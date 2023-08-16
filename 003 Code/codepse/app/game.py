@@ -18,6 +18,8 @@ def get_typinggame_questions():
     conn = get_db_connection()
     typinggame_questions = conn.query(TypingGame).order_by(func.random()).first()
 
+    conn.close()
+
     return jsonify(
         {
             "code": typinggame_questions.code,
@@ -49,6 +51,7 @@ def get_draggame_questions():
                 "options": allQuestion.options,
             }
         )
+    conn = get_db_connection()
 
     return jsonify(allQuestions)
 
@@ -73,5 +76,7 @@ def get_outputgame_questions():
                 "answer": question.answer,
             }
         )
+
+    conn = get_db_connection()
 
     return jsonify(questions)

@@ -21,6 +21,8 @@ def test_list():
 
     q_list = conn.query(QList.q_id, QList.q_level, QList.q_name).all()
 
+    conn.close()
+
     return render_template("test_list.html", q_list=q_list)
 
 
@@ -33,6 +35,8 @@ def test_view(q_id):
     q_info.ex_print = q_info.ex_print.replace("\n", "<br>")
 
     session["q_id"] = q_id
+
+    conn.close()
 
     return render_template("test.html", q_list=q_info)
 
@@ -52,7 +56,6 @@ def compile():
         output_str = cpp_compile_code(code)
     elif language == "java":
         output_str = java_compile_run_code(code)
-
     return output_str
 
 
@@ -85,6 +88,8 @@ def submit():
     else:
         session["is_correct"] = False
 
+    conn.close()
+
     return result  # 채점 결과를 반환
 
 
@@ -104,6 +109,8 @@ def answer():
     elif session["language"] == "java":
         answer = html.escape(q_info.j_answer_code)
 
+    conn.close()
+
     return "<pre>" + answer + "</pre>"
 
 
@@ -117,7 +124,6 @@ def code_save():
         code_content = request.form.get("code_content")
         language = request.form.get("language")
         compile_result = request.form.get("compile_result")
-
         is_correct = session.get("is_correct", None)  # 세션에서 채점 결과 가져오기
 
         # 데이터베이스에 저장
@@ -132,6 +138,8 @@ def code_save():
 
         db_session.add(new_submission)
         db_session.commit()
+
+        db_session.close()
 
         return jsonify({"message": "Code saved successfully!"})
 

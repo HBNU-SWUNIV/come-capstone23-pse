@@ -55,7 +55,7 @@ def login():
                 return redirect(url_for("home"))
 
         flash("이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.")
-
+        db_session.close()
     return render_template("login.html")
 
 
@@ -84,6 +84,7 @@ def signup():
         db_session.add(new_user)
         db_session.commit()
 
+        db_session.close()
         return redirect(url_for("auth.login"))
 
     else:
@@ -91,6 +92,7 @@ def signup():
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         response.headers["Pragma"] = "no-cache"
         response.headers["Expires"] = "0"
+        db_session.close()
         return response
 
 
@@ -102,6 +104,8 @@ def check_duplicate():
     user = db_session.query(User).filter_by(user_email=email).first()
 
     if user:
+        db_session.close()
         return jsonify({"success": False, "message": "사용할 수 없는 이메일입니다."})
     else:
+        db_session.close()
         return jsonify({"success": True, "message": "사용 가능한 이메일입니다."})
