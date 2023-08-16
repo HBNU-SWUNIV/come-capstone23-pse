@@ -124,7 +124,7 @@ def code_save():
         code_content = request.form.get("code_content")
         language = request.form.get("language")
         compile_result = request.form.get("compile_result")
-        is_correct = session.get("is_correct", None)  # 세션에서 채점 결과 가져오기
+        is_correct = session.pop("is_correct", None)
 
         # 데이터베이스에 저장
         new_submission = CodeSubmission(

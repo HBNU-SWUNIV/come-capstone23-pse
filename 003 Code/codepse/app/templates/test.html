@@ -102,8 +102,19 @@
 $(document).ready(function() {
     var isCodeExecuted = false; // 코드가 실행되었는지 확인하는 flag
 
+    function isCodePresent() {
+        return $("textarea[name='code']").val().trim() !== "";
+    }
+
     $("form").submit(function(e) {
         e.preventDefault();
+
+        // 코드가 작성되었는지 확인
+        if (!isCodePresent()) {
+            alert("코드를 작성해주세요.");
+            return;
+        }
+      
         $.ajax({
             type: "POST",
             url: "/compile",
@@ -116,6 +127,12 @@ $(document).ready(function() {
     });
 
     $("#submit").click(function() {
+      // 코드가 작성되었는지 확인
+      if (!isCodePresent()) {
+            alert("코드를 작성해주세요.");
+            return;
+        }
+
       $.ajax({
         type: "POST",
         url: "/submit",
@@ -132,6 +149,18 @@ $(document).ready(function() {
 
       // 정답 버튼 클릭 시 'answer-box' 박스가 나타나도록 설정
   $("#answer").click(function() {
+    // 코드가 작성되었는지 확인
+    if (!isCodePresent()) {
+            alert("코드를 작성해주세요.");
+            return;
+        }
+    
+     // 코드가 실행되었는지 확인
+     if (!isCodeExecuted) {
+            alert("코드를 실행해주세요.");
+            return;
+        }
+
     $.ajax({
       type: "GET",
       url: "/answer",
@@ -144,6 +173,18 @@ $(document).ready(function() {
 
   // 피드백 버튼 클릭 시 'feedback-box' 박스가 나타나도록 설정
   $("#feedback").click(function() {
+    // 코드가 작성되었는지 확인
+    if (!isCodePresent()) {
+            alert("코드를 작성해주세요.");
+            return;
+        }
+    
+    // 코드가 작성되었는지 확인
+    if (!isCodePresent()) {
+            alert("코드를 작성해주세요.");
+            return;
+        }
+            
     $.ajax({
       type: "GET",
       url: "/feedback",
