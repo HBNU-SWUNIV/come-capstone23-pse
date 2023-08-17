@@ -21,6 +21,7 @@
   <body>
     <h1>회원가입</h1>
     <form method="post" action="/signup">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
       <div class="field-container">
         <label for="name">이름:</label>
         <input type="text" id="name" name="name" required pattern="^[가-힣a-zA-Z]{1,50}$" />

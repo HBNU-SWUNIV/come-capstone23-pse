@@ -8,12 +8,14 @@ from flask import (
     jsonify,
 )
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
+from flask_wtf.csrf import generate_csrf
+
+from app.forms import LoginForm, SignupForm
+from app.csrf_protection import csrf
 from database.database import get_db_connection
 from database.models import User
 
-
 auth = Blueprint("auth", __name__)
-
 
 login_manager = LoginManager()
 
@@ -34,11 +36,16 @@ def init_login_manager(app):
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+
+    form = LoginForm()  # 폼 객체 생성
     error_message = None
-    if request.method == "POST":
+
+    if request.method == "POST" and form.validate_on_submit():  # 폼 검증 추가
         db_session = get_db_connection()
-        email = request.form["useremail"]
-        password = request.form["password"]
+        email = form.useremail.data  # 폼 데이터 사용
+        password = form.password.data  # 폼 데이터 사용
 
         user = db_session.query(User).filter_by(user_email=email).first()
 
@@ -54,7 +61,7 @@ def login():
                 error_message = "이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요."
 
         db_session.close()
-    return render_template("login.html", error_message=error_message)
+    return render_template("login.html", form=form, error_message=error_message)
 
 
 @auth.route("/logout")
@@ -68,11 +75,16 @@ def logout():
 
 @auth.route("/signup", methods=["GET", "POST"])
 def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+
+    form = SignupForm()
     db_session = get_db_connection()
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("useremail")
-        password = request.form.get("password")
+
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.useremail.data
+        password = form.password.data
 
         # 새로운 user 생성
         new_user = User(username=name, user_email=email)
@@ -84,17 +96,18 @@ def signup():
 
         db_session.close()
         return redirect(url_for("auth.login"))
-
     else:
-        response = make_response(render_template("signup.html"))
+        csrf_token = generate_csrf()
+        response = make_response(render_template("signup.html", csrf_token=csrf_token))
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         response.headers["Pragma"] = "no-cache"
         response.headers["Expires"] = "0"
         db_session.close()
-        return response
+    return response
 
 
 @auth.route("/check_duplicate", methods=["POST"])
+@csrf.exempt
 def check_duplicate():
     db_session = get_db_connection()
     email = request.form.get("useremail")

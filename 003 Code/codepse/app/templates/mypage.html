@@ -3,6 +3,15 @@
 <head>
     <title>My Page</title>
     <link href="{{ url_for('static', filename='css/mypage.css') }}" rel="stylesheet">
+    <script>
+        // 페이지 로드 시 flash 메시지에 따른 알림창 띄우기
+        window.onload = function() {
+            var message = "{{ get_flashed_messages()[-1] if get_flashed_messages() else '' }}";
+            if (message) {
+                alert(message);
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -83,7 +92,7 @@
                     {% set ns = namespace(submission_count=1) %}
                     {% for code_submission, q_list in user_codes %}
                     <tr>
-                        <td><a href="{{ url_for('mycode', submission_id=code_submission.submission_id) }}">{{ ns.submission_count }}</a></td>
+                        <td><a href="{{ url_for('user_profile.mycode', submission_id=code_submission.submission_id) }}">{{ ns.submission_count }}</a></td>
                         <td>{{ q_list.q_id }}</td>
                         <td>{{ q_list.q_name }}</td>
                         <td>{{ code_submission.language }}</td>

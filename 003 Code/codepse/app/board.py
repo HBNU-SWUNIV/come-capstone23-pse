@@ -1,3 +1,5 @@
+import os
+
 from flask import (
     Blueprint,
     Flask,
@@ -7,10 +9,9 @@ from flask import (
     send_from_directory,
     url_for,
     flash,
+    jsonify,
 )
 from flask_login import current_user, login_required
-import os
-from flask import jsonify
 
 from database.database import get_db_connection
 from database.models import Board, User, Comments

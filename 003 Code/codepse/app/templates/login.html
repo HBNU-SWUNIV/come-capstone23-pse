@@ -6,12 +6,13 @@
   <body>
     <h1>로그인</h1>
     <form method="post" action="/login">
-      <label for="useremail">이메일:</label>
-      <input type="text" id="useremail" name="useremail" required /><br />
-      <label for="password">비밀번호:</label>
-      <input type="password" id="password" name="password" required /><br />
+      {{ form.csrf_token }}
+      <label for="useremail">{{ form.useremail.label }}</label>
+      {{ form.useremail }}<br />
+      <label for="password">{{ form.password.label }}</label>
+      {{ form.password }}<br />
       <input type="submit" value="로그인" />
-    </form>
+  </form>
     <p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
     <script>
       // 페이지가 로드되었을 때 알림창 표시

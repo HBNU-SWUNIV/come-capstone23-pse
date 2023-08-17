@@ -3,6 +3,19 @@
 <head>
     <title>My Code Details</title>
     <!-- 스타일 및 스크립트 추가는 여기에 -->
+    <script>
+        function confirmDelete() {
+            return confirm("정말로 삭제하시겠습니까?");
+        }
+
+        // 페이지 로드 시 flash 메시지에 따른 알림창 띄우기
+        window.onload = function() {
+            var message = "{{ get_flashed_messages()[-1] if get_flashed_messages() else '' }}";
+            if (message) {
+                alert(message);
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -29,7 +42,8 @@
         </div>
 
         <div class="actions">
-            <form action="{{ url_for('delete_code', submission_id=code_submission.submission_id) }}" method="post">
+            <form action="{{ url_for('user_profile.delete_code', submission_id=code_submission.submission_id) }}" method="post" onsubmit="return confirmDelete();">
+                {{ form.hidden_tag() }}
                 <input type="submit" value="삭제하기">
             </form>
         </div>
