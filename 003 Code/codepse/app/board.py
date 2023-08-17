@@ -110,7 +110,7 @@ def board_detail(board_id):
 
 # 파일 업로드를 위한 설정
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads/")
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "upload/")
 
 # 전역 변수로 정의하여 사용 (이 부분은 Flask 앱의 config로 설정할 수도 있습니다.)
 UPLOAD_PATH = UPLOAD_FOLDER
@@ -251,7 +251,7 @@ def board_delete(board_id):
         return redirect(url_for("board.board_list"))
 
 
-@board.route("/uploads/<filename>")
+@board.route("/upload/<filename>")
 def get_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
