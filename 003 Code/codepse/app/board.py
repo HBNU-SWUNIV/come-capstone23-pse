@@ -1,5 +1,6 @@
 import os
 import logging
+import pytz
 
 from flask import (
     Blueprint,
@@ -10,13 +11,13 @@ from flask import (
     send_from_directory,
     url_for,
     flash,
-    jsonify,
 )
 from flask_login import current_user, login_required
 
 from app.forms import BoardWriteForm, BoardEditForm, CommentForm
 from database.database import get_db_connection
 from database.models import Board, User, Comments
+from datetime import datetime
 
 board = Blueprint("board", __name__)
 
@@ -104,7 +105,7 @@ def board_detail(board_id):
     db_session.commit()
 
     return render_template(
-        "board_detail.html", form=form, post=board_instance, is_image=is_image, comments=comments
+        "board_detail.html", form=form, post=board_instance, is_image=is_image, comments=comments,  board_id=board_id
     )
 
 
@@ -279,51 +280,43 @@ def add_comment(board_id):
     return redirect(url_for("board.board_detail", form=form, board_id=board_id))
 
 
-@board.route("/edit_comment/<int:comment_id>", methods=["POST"])
+@board.route("/board_detail/<int:board_id>/edit_comment/<int:comment_id>", methods=["POST"])
 @login_required
-def edit_comment(comment_id):
+def edit_comment(board_id, comment_id):
+    form = CommentForm(request.form)
     db_session = get_db_connection()
-    comment = db_session.query(Comments).filter_by(id=comment_id).first()
+    
+    comment = db_session.query(Comments).filter_by(comment_id=comment_id).first()
 
-    if comment.user_id != current_user.id:
-        flash("권한이 없습니다.", "error")
-        return redirect(url_for("board.board_detail", board_id=comment.board_id))
-
-    comment.content = request.form.get("new_content")
-    try:
+    if comment and current_user.id == comment.user_id:
+        comment.content = form.comment.data
+        comment.is_edited = True
+        comment.content = form.comment.data
+        comment.is_edited = True
+        seoul_timezone = pytz.timezone('Asia/Seoul') # 한국 시간
+        comment.updated_at = datetime.now(seoul_timezone)
         db_session.commit()
+
         flash("댓글이 성공적으로 수정되었습니다.", "success")
-        return jsonify({"status": "success"})
-    except:
-        db_session.rollback()
+    else:
         flash("댓글 수정 중 오류가 발생했습니다.", "error")
-        return jsonify({"status": "error"})
-    finally:
-        db_session.close()
 
-    # return redirect(url_for('board.board_detail', board_id=comment.board_id))
+    db_session.close()
+    return redirect(url_for("board.board_detail", board_id=board_id))
 
-
-@board.route("/delete_comment/<int:comment_id>", methods=["POST"])
+@board.route("/board_detail/<int:board_id>/delete_comment/<int:comment_id>", methods=["POST"])
 @login_required
-def delete_comment(comment_id):
+def delete_comment(board_id, comment_id):
     db_session = get_db_connection()
-    comment = db_session.query(Comments).filter_by(id=comment_id).first()
+    
+    comment = db_session.query(Comments).filter_by(comment_id=comment_id).first()
 
-    if comment.user_id != current_user.id:
-        flash("권한이 없습니다.", "error")
-        return redirect(url_for("board.board_detail", board_id=comment.board_id))
-
-    try:
+    if comment and current_user.id == comment.user_id:
         db_session.delete(comment)
         db_session.commit()
         flash("댓글이 성공적으로 삭제되었습니다.", "success")
-        return jsonify({"status": "success"})
-    except:
-        db_session.rollback()
+    else:
         flash("댓글 삭제 중 오류가 발생했습니다.", "error")
-        return jsonify({"status": "error"})
-    finally:
-        db_session.close()
 
-    # return redirect(url_for('board.board_detail', board_id=comment.board_id))
+    db_session.close()
+    return redirect(url_for("board.board_detail", board_id=board_id))

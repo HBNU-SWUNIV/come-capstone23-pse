@@ -55,7 +55,7 @@
                 <!-- 로그인 한 사용자의 이름을 표시 -->
                 <li class="user-name">hello, {{ current_user.username }}</li>
               {% endif %}
-
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
 
 
@@ -112,29 +112,47 @@
         <form action="{{ url_for('board.add_comment', board_id=post.Board.board_id) }}" method="post">
             {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
             <textarea name="comment" placeholder="댓글을 작성하세요..." required></textarea>
-            <input type="submit" value="댓글 작성">
+            <input type="submit" value="댓글 작성" class="edit-btn">
         </form>
     </div>
 
         <!-- 댓글 목록 / 동적 생성 댓글 -->
-        <form class="comment-form" method="post" action="{{ url_for('board.add_comment', board_id=post.Board.board_id) }}">
-            <div class="comment-list-wrapper">
-                {% for comment, user in comments %}
-                <div class="comment">
-                    <div class="comment-info-wrapper">
-                        <p class="comment-info">작성자: {{ user.username }} | 날짜: {{ comment.created_at.strftime('%Y.%m.%d / %H:%M:%S') }}</p>
-                    </div>
-                    <div class="comment-content-wrapper">
-                        <p class="comment-content">{{ comment.content }}</p>
-                        {% if current_user.id == user.id %}
-                        <div class="buttons-wrapper">
-                            <button data-id="{{ comment.id }}" class="edit-btn">수정</button>
-                            <button data-id="{{ comment.id }}" class="delete-btn">삭제</button>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
+    <div class="comment-list-wrapper">
+        {% for comment, user in comments %}
+        <div class="comment">
+            <div class="comment-info-wrapper">
+                <p class="comment-info">
+                    작성자: {{ user.username }} |
+                    날짜: 
+                    {% if comment.is_edited %}
+                        {{ comment.updated_at.strftime('%Y.%m.%d / %H:%M:%S') }} (수정됨)
+                    {% else %}
+                        {{ comment.created_at.strftime('%Y.%m.%d / %H:%M:%S') }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="comment-content-wrapper">
+                <p class="comment-content" id="commentContent{{ comment.comment_id }}">{{ comment.content }}</p>
+                
+                <div class="comment-buttons">
+                    {% if current_user.id == user.id %}
+                        <button class="edit-btn" id="editBtn{{ comment.comment_id }}" onclick="showEditComment({{ comment.comment_id }})">수정</button>
+                        <form class="edit-comment-form" id="editCommentForm{{ comment.comment_id }}" action="{{ url_for('board.edit_comment', board_id=board_id, comment_id=comment.comment_id) }}" method="post" style="display: none;">
+                            {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
+                            <textarea name="comment" class="edit-comment-textarea" required>{{ comment.content }}</textarea>
+                            <input type="submit" value="저장">
+                            <button type="button" onclick="hideEditComment({{ comment.comment_id }})">취소</button>
+                        </form>
+                        <form id="deleteCommentForm{{ comment.comment_id }}" action="{{ url_for('board.delete_comment', board_id=board_id, comment_id=comment.comment_id) }}" method="post">
+                            {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
+                        <button type="submit" class="delete-btn" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+                        </form>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+
+        {% endfor %}
     <script src="{{ url_for('static', filename='js/board_detail.js') }}"></script>
 </body>
 </html>

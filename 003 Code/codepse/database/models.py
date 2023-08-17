@@ -147,3 +147,5 @@ class Comments(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     content = Column(Text, nullable=False)
     created_at = Column(TIMESTAMP, default=current_time)
+    updated_at = Column(TIMESTAMP, default=current_time)
+    is_edited = Column(Boolean, default=False)
