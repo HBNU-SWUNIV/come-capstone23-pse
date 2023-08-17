@@ -1,4 +1,4 @@
 secrets.json
 init.sql
 setting.json
-/003 Code/codepse/app/uploads/
+app\uploads

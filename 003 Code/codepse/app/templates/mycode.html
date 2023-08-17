@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Code Details</title>
+    <!-- 스타일 및 스크립트 추가는 여기에 -->
+</head>
+<body>
+    <div class="container">
+        <h1>Code Submission Details</h1>
+
+        <!-- 상단 정보 섹션 -->
+        <div class="code-info">
+            <p><strong>문제 이름:</strong> {{ q_list.q_name }}</p>
+            <p><strong>작성한 시간:</strong> {{ code_submission.submission_time }}</p>
+            <p><strong>사용한 언어:</strong> {{ code_submission.language }}</p>
+        </div>
+
+        <!-- 코드 내용 섹션 -->
+        <div class="code-content">
+            <h2>Code</h2>
+            <pre>{{ code_submission.code_content }}</pre>
+        </div>
+
+        <!-- 결과 섹션 -->
+        <div class="result-info">
+            <h2>Results</h2>
+            <p><strong>정답 여부:</strong> {% if code_submission.is_correct %}O{% else %}X{% endif %}</p>
+            <p><strong>컴파일 결과:</strong> {{ code_submission.compile_result }}</p>
+        </div>
+
+        <div class="actions">
+            <form action="{{ url_for('delete_code', submission_id=code_submission.submission_id) }}" method="post">
+                <input type="submit" value="삭제하기">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

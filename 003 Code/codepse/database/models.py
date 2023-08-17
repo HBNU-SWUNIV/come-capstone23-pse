@@ -1,7 +1,6 @@
 import datetime
 import pytz
-from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP, func
-from sqlalchemy.sql import func
+from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import get_db_connection
@@ -83,7 +82,7 @@ class CodeSubmission(Base):
     q_id = Column(Integer, ForeignKey("q_list.q_id"), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     code_content = Column(Text, nullable=False)
-    submission_time = Column(TIMESTAMP, default=func.now(), nullable=False)
+    submission_time = Column(TIMESTAMP, default=current_time, nullable=False)
     is_correct = Column(Boolean)
     compile_result = Column(Text)
     language = Column(String(20), nullable=False)

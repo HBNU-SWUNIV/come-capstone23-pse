@@ -83,7 +83,7 @@
                     {% set ns = namespace(submission_count=1) %}
                     {% for code_submission, q_list in user_codes %}
                     <tr>
-                        <td>{{ ns.submission_count }}</td>
+                        <td><a href="{{ url_for('mycode', submission_id=code_submission.submission_id) }}">{{ ns.submission_count }}</a></td>
                         <td>{{ q_list.q_id }}</td>
                         <td>{{ q_list.q_name }}</td>
                         <td>{{ code_submission.language }}</td>
