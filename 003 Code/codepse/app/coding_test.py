@@ -1,6 +1,8 @@
+import html
+
 from flask import Blueprint, render_template, session, request, jsonify
 from flask_login import login_required
-from database.models import QList, CodeSubmission
+
 from app.compile import (
     c_compile_code,
     python_run_code,
@@ -8,8 +10,10 @@ from app.compile import (
     java_compile_run_code,
     grade_code,
 )
+from app.csrf_protection import csrf
 from database.database import get_db_connection
-import html
+from database.models import QList, CodeSubmission
+
 
 coding_test = Blueprint("coding_test", __name__)
 
@@ -42,6 +46,7 @@ def test_view(q_id):
 
 
 @coding_test.route("/compile", methods=["POST"])
+@csrf.exempt
 def compile():
     code = request.form.get("code")
     language = request.form.get("language")
@@ -60,6 +65,7 @@ def compile():
 
 
 @coding_test.route("/submit", methods=["POST"])
+@csrf.exempt
 def submit():
     conn = get_db_connection()
 
@@ -94,6 +100,7 @@ def submit():
 
 
 @coding_test.route("/answer")
+@csrf.exempt
 def answer():
     conn = get_db_connection()
 
@@ -115,6 +122,7 @@ def answer():
 
 
 @coding_test.route("/save_code", methods=["POST"])
+@csrf.exempt
 def code_save():
     try:
         db_session = get_db_connection()

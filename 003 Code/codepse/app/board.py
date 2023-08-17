@@ -1,4 +1,5 @@
 import os
+import logging
 
 from flask import (
     Blueprint,
@@ -13,6 +14,7 @@ from flask import (
 )
 from flask_login import current_user, login_required
 
+from app.forms import BoardWriteForm, BoardEditForm, CommentForm
 from database.database import get_db_connection
 from database.models import Board, User, Comments
 
@@ -63,6 +65,8 @@ def board_list():
 
 @board.route("/board_detail/<int:board_id>")
 def board_detail(board_id):
+    form = CommentForm()
+
     db_session = get_db_connection()
 
     # 해당 ID를 가진 게시글 가져오기
@@ -100,7 +104,7 @@ def board_detail(board_id):
     db_session.commit()
 
     return render_template(
-        "board_detail.html", post=board_instance, is_image=is_image, comments=comments
+        "board_detail.html", form=form, post=board_instance, is_image=is_image, comments=comments
     )
 
 
@@ -127,9 +131,11 @@ def unique_filename(file_name):
 
 @board.route("/board_write", methods=["GET", "POST"])
 def board_write():
-    if request.method == "POST":
-        title = request.form["title"]
-        content = request.form["content"]
+    form = BoardWriteForm()  # 폼 객체 생성
+
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
         files = request.files.getlist("file")
         file_paths = []
 
@@ -140,7 +146,6 @@ def board_write():
                 file.save(os.path.join(UPLOAD_PATH, safe_filename))
                 file_paths.append(safe_filename)
 
-        # 파일이 없을 경우 None 대신 빈 리스트 사용
         if not file_paths:
             file_paths = None
 
@@ -152,19 +157,25 @@ def board_write():
         try:
             db_session.add(new_post)
             db_session.commit()
-            return redirect(url_for("board.board_list", message="게시글이 성공적으로 작성되었습니다."))
+
+            # 방금 생성된 게시글의 ID를 사용하여 상세 페이지로 리디렉션
+            flash("게시글이 성공적으로 작성되었습니다.")  # 메시지 전달
+            return redirect(url_for("board.board_detail", board_id=new_post.board_id))
         except Exception as e:
             logging.error(f"Error updating board: {e}")
             db_session.rollback()
-            return redirect(url_for("board.board_list", message="게시글 수정 중 오류가 발생했습니다."))
+            flash("게시글 수정 중 오류가 발생했습니다.")  # 메시지 전달
+            return redirect(url_for("board.board_list"))
         finally:
             db_session.close()
 
-    return render_template("board_write.html")
+    return render_template("board_write.html", form=form)  # 템플릿에 폼 객체 전달
 
 
 @board.route("/board_edit/<int:board_id>", methods=["GET", "POST"])
 def board_edit(board_id):
+    form = BoardEditForm()
+
     db_session = get_db_connection()
     board_instance = db_session.query(Board).filter(Board.board_id == board_id).first()
 
@@ -174,9 +185,13 @@ def board_edit(board_id):
     if board_instance.user_id != current_user.id:
         return redirect(url_for("board.board_detail", board_id=board_id, message="수정 권한이 없습니다."))
 
-    if request.method == "POST":
-        board_instance.title = request.form["title"]
-        board_instance.content = request.form["content"]
+    if request.method == "GET":
+        form.title.data = board_instance.title
+        form.content.data = board_instance.content
+
+    if form.validate_on_submit():
+        board_instance.title = form.title.data
+        board_instance.content = form.content.data
 
         # 파일 업로드 처리
         files = request.files.getlist("file")
@@ -192,9 +207,9 @@ def board_edit(board_id):
         # 삭제할 파일 리스트 처리
         files_to_remove = request.form.getlist("remove_files")
         for file_to_remove in files_to_remove:
-            if file_to_remove in file_paths:  # 데이터베이스에 해당 파일이 존재하는지 확인
+            if file_to_remove in file_paths:
                 file_path_to_remove = os.path.join(UPLOAD_PATH, file_to_remove)
-                if os.path.exists(file_path_to_remove):  # 해당 파일이 실제로 존재하면 삭제
+                if os.path.exists(file_path_to_remove):
                     os.remove(file_path_to_remove)
                 file_paths.remove(file_to_remove)
 
@@ -202,12 +217,16 @@ def board_edit(board_id):
 
         try:
             db_session.commit()
-            return redirect(url_for("board.board_list", message="게시글이 성공적으로 수정되었습니다."))
+            flash("게시글이 성공적으로 수정되었습니다.")  # 메시지 전달
+            return redirect(url_for("board.board_detail", board_id=board_id))
         except Exception as e:
             db_session.rollback()
-            return redirect(url_for("board.board_list", message="게시글 수정 중 오류가 발생했습니다."))
+            flash("게시글 수정 중 오류가 발생했습니다.")  # 메시지 전달
+            return redirect(url_for("board.board_detail", board_id=board_id))
+        finally:
+            db_session.close()
 
-    return render_template("board_edit.html", post=board_instance)
+    return render_template("board_edit.html", post=board_instance, form=form)
 
 
 @board.route("/board_delete/<int:board_id>")
@@ -224,10 +243,12 @@ def board_delete(board_id):
     try:
         db_session.delete(board_instance)
         db_session.commit()
-        return redirect(url_for("board.board_list", message="게시글이 성공적으로 삭제되었습니다."))
+        flash("게시글이 성공적으로 삭제되었습니다.")
+        return redirect(url_for("board.board_list"))
     except:
         db_session.rollback()
-        return redirect(url_for("board.board_list", message="게시글 삭제 중 오류가 발생했습니다."))
+        flash("게시글 삭제 중 오류가 발생했습니다.")
+        return redirect(url_for("board.board_list"))
 
 
 @board.route("/uploads/<filename>")
@@ -238,20 +259,24 @@ def get_file(filename):
 @board.route("/board_detail/<int:board_id>/add_comment", methods=["POST"])
 @login_required
 def add_comment(board_id):
-    content = request.form.get("comment")
-    new_comment = Comments(user_id=current_user.id, board_id=board_id, content=content)
+    form = CommentForm()  # 폼 인스턴스 생성
 
-    db_session = get_db_connection()
-    try:
-        db_session.add(new_comment)
-        db_session.commit()
-        flash("댓글이 성공적으로 추가되었습니다.", "success")
-    except:
-        db_session.rollback()
-        flash("댓글 추가 중 오류가 발생했습니다.", "error")
-    finally:
-        db_session.close()
-    return redirect(url_for("board.board_detail", board_id=board_id))
+    if form.validate_on_submit():
+        content = form.comment.data
+        new_comment = Comments(user_id=current_user.id, board_id=board_id, content=content)
+
+        db_session = get_db_connection()
+        try:
+            db_session.add(new_comment)
+            db_session.commit()
+            flash("댓글이 성공적으로 추가되었습니다.", "success")
+        except:
+            db_session.rollback()
+            flash("댓글 추가 중 오류가 발생했습니다.", "error")
+        finally:
+            db_session.close()
+
+    return redirect(url_for("board.board_detail", form=form, board_id=board_id))
 
 
 @board.route("/edit_comment/<int:comment_id>", methods=["POST"])

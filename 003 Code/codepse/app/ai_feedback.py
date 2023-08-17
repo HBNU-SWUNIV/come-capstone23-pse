@@ -1,13 +1,16 @@
 from flask import Blueprint, render_template, request, session
 from flask_login import login_required
+
+from app.gpt_api import get_feedback, generate_response
+from app.csrf_protection import csrf
 from database.database import get_db_connection
 from database.models import QList
-from app.gpt_api import get_feedback, generate_response
 
 ai_feedback = Blueprint("ai", __name__)
 
 
 @ai_feedback.route("/feedback")
+@csrf.exempt
 def feedback():
     code = request.form.get("code")
     language = request.form.get("language")
@@ -27,6 +30,7 @@ def ai_chatbot():
 
 
 @ai_feedback.route("/ai_chatbot_submit", methods=["GET", "POST"])
+@csrf.exempt
 def ai_chatbot_submit():
     if request.method == "POST":
         content = request.form["userText"]

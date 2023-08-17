@@ -24,7 +24,14 @@
 
 </head>
 <body>
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");
+        </script>
+    {% endif %}
+    {% endwith %}
+    
     <!--- header section -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
@@ -101,8 +108,9 @@
     {% endfor %}
 
     <!-- 댓글 작성 폼 -->
-        <div class="comment-form-wrapper">
+    <div class="comment-form-wrapper">
         <form action="{{ url_for('board.add_comment', board_id=post.Board.board_id) }}" method="post">
+            {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
             <textarea name="comment" placeholder="댓글을 작성하세요..." required></textarea>
             <input type="submit" value="댓글 작성">
         </form>
