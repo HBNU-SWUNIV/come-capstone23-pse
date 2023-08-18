@@ -4,7 +4,7 @@ from flask_login import current_user
 
 from app.csrf_protection import csrf
 from database.database import get_db_connection
-from database.models import OutputGameScore
+from database.models import OutputGameScore, DragGameScore
 
 
 game_score = Blueprint("game_score", __name__)
@@ -25,14 +25,26 @@ def save_game_result():
 
     score = data["score"]
     language = data["language"]
+    gameType = data["gameType"]
 
     conn = get_db_connection()
-    game_score = OutputGameScore(
-        user_id=current_user.id,
-        output_language=language,
-        output_score=score,
-        played_at=datetime.now(),
-    )
+
+    if gameType == "drag":
+        game_score = DragGameScore(
+            user_id=current_user.id,
+            drag_language=language,
+            drag_score=score,
+            played_at=datetime.now(),
+        )
+    elif gameType == "output":
+        game_score = OutputGameScore(
+            user_id=current_user.id,
+            output_language=language,
+            output_score=score,
+            played_at=datetime.now(),
+        )
+    else:
+        return jsonify({"message": "Invalid game type!"}), 400
 
     conn.add(game_score)
     conn.commit()

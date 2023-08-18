@@ -5,6 +5,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let userAnswers = [];
 let username;
+let gameType = "output"
 
 function startQuiz() {
     username = document.getElementById("username").value;
@@ -75,7 +76,8 @@ function sendGameResult(score, language) {
         },
         body: JSON.stringify({
             score: score,
-            language: language
+            language: language,
+            gameType: gameType
         })
     })
     .then(response => response.json())
