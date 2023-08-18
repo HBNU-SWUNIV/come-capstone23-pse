@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, session
 from flask_login import login_required
 
-from app.gpt_api import get_feedback, generate_response
 from app.csrf_protection import csrf
+from app.gpt_api import get_feedback, generate_response
 from database.database import get_db_connection
 from database.models import QList
 
