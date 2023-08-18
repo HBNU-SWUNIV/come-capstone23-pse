@@ -10,8 +10,8 @@ from flask import (
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
 from flask_wtf.csrf import generate_csrf
 
-from app.forms import LoginForm, SignupForm
 from app.csrf_protection import csrf
+from app.forms import LoginForm, SignupForm
 from database.database import get_db_connection
 from database.models import User
 

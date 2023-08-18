@@ -1,6 +1,7 @@
 import os
 import logging
 import pytz
+from datetime import datetime
 
 from flask import (
     Blueprint,
@@ -17,7 +18,7 @@ from flask_login import current_user, login_required
 from app.forms import BoardWriteForm, BoardEditForm, CommentForm
 from database.database import get_db_connection
 from database.models import Board, User, Comments
-from datetime import datetime
+
 
 board = Blueprint("board", __name__)
 
@@ -105,7 +106,12 @@ def board_detail(board_id):
     db_session.commit()
 
     return render_template(
-        "board_detail.html", form=form, post=board_instance, is_image=is_image, comments=comments,  board_id=board_id
+        "board_detail.html",
+        form=form,
+        post=board_instance,
+        is_image=is_image,
+        comments=comments,
+        board_id=board_id,
     )
 
 
@@ -285,7 +291,7 @@ def add_comment(board_id):
 def edit_comment(board_id, comment_id):
     form = CommentForm(request.form)
     db_session = get_db_connection()
-    
+
     comment = db_session.query(Comments).filter_by(comment_id=comment_id).first()
 
     if comment and current_user.id == comment.user_id:
@@ -293,7 +299,7 @@ def edit_comment(board_id, comment_id):
         comment.is_edited = True
         comment.content = form.comment.data
         comment.is_edited = True
-        seoul_timezone = pytz.timezone('Asia/Seoul') # 한국 시간
+        seoul_timezone = pytz.timezone("Asia/Seoul")  # 한국 시간
         comment.updated_at = datetime.now(seoul_timezone)
         db_session.commit()
 
@@ -304,11 +310,12 @@ def edit_comment(board_id, comment_id):
     db_session.close()
     return redirect(url_for("board.board_detail", board_id=board_id))
 
+
 @board.route("/board_detail/<int:board_id>/delete_comment/<int:comment_id>", methods=["POST"])
 @login_required
 def delete_comment(board_id, comment_id):
     db_session = get_db_connection()
-    
+
     comment = db_session.query(Comments).filter_by(comment_id=comment_id).first()
 
     if comment and current_user.id == comment.user_id:

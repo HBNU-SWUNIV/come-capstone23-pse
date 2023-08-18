@@ -129,14 +129,24 @@ class Board(Base):
     created_at = Column(TIMESTAMP, default=current_time)
 
 
-class Game_Score(Base):
-    __tablename__ = "game_score"
+# class Game_Score(Base):
+#     __tablename__ = "game_score"
 
-    id = Column(Integer, primary_key=True)
-    game_user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    output_score = Column(Integer, nullable=False)
-    output_game_language = Column(String(255), nullable=True)
-    created_at = Column(TIMESTAMP, default=current_time)
+#     id = Column(Integer, primary_key=True)
+#     game_user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+#     output_score = Column(Integer, nullable=False)
+#     output_game_language = Column(String(255), nullable=True)
+#     created_at = Column(TIMESTAMP, default=current_time)
+
+
+class OutputGameScore(Base):
+    __tablename__ = "output_game_scores"
+
+    output_score_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    output_language = Column(String(50))
+    output_score = Column(Integer)
+    played_at = Column(TIMESTAMP)
 
 
 class Comments(Base):
