@@ -12,6 +12,7 @@ let startTime = null;
 let countdown = null;
 let answeredQuestions = []; // 플레이어가 풀었던 문제들을 저장하는 배열
 let username;
+let gameType = "drag";
 
 // 문제와 그 선택 가능한 옵션들을 무작위로 섞는 함수
 function shuffleArray(array) {
@@ -254,6 +255,7 @@ function nextQuestion() {
            }
            codeHTML += `<span class="blank" style="background-color: ${color}; width: 100px;">${playerAnswer}</span>`;
            codeHTML += part[1];
+           
          }
     
          codeHTML = codeHTML.replace(/\n/g, "<br>");
@@ -265,7 +267,24 @@ function nextQuestion() {
          document.body.appendChild(codeElement);
     
          questionNumber++; // 질문 번호를 증가시킵니다.
+
        }
+
+       fetch("/api/save_game_result", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            score: score,
+            language: userLanguage,
+            gameType: gameType
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message); 
+    });
        // 닉네임 표시
   //document.getElementById("userRank").innerText = `내 닉네임: ${username}`;
 
@@ -284,6 +303,8 @@ function nextQuestion() {
   document.getElementById("quiz-section").style.display = "none";
   document.getElementById("result-section").style.display = "block";
 }
+
+
     // 퀴즈를 시작하는 함수
 function startQuiz() {
     document.getElementById("result-section").style.display = "none";

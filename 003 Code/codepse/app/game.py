@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, render_template
-from flask_login import login_required
+from flask_login import current_user, login_required
 from sqlalchemy.sql import func
 
 from app.csrf_protection import csrf
 from database.database import get_db_connection
-from database.models import TypingGame, DragGame, OutputGame
+from database.models import TypingGame, DragGame, OutputGame, Drag_game_scores
 
 
 game = Blueprint("game", __name__)
@@ -86,3 +86,11 @@ def get_outputgame_questions():
     conn = get_db_connection()
 
     return jsonify(questions)
+
+from flask_login import login_required
+
+@game.route("/api/get_logged_in_user_id", methods=["GET"])
+@login_required
+def get_logged_in_user_id():
+    return jsonify({"user_id": current_user.id})
+

@@ -8,6 +8,7 @@ engine = create_engine(db_url, pool_size=10, max_overflow=20, pool_recycle=3600)
 Session = sessionmaker(bind=engine)
 
 
+
 def get_db_connection():
     # 세션 생성
     session = Session()
