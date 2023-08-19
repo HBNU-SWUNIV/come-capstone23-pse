@@ -13,6 +13,7 @@ let countdown = null;
 let answeredQuestions = []; // 플레이어가 풀었던 문제들을 저장하는 배열
 let username;
 let gameType = "drag";
+let endStateShown = false;
 
 
 // 문제와 그 선택 가능한 옵션들을 무작위로 섞는 함수
@@ -105,6 +106,7 @@ function compareAnswer(playerAnswer, actualAnswer, blankElement) {
 
 // 플레이어의 답을 확인하는 함수, 사용자가 선택한 답과 정답을 비교
 function checkAnswer() {
+  console.log("Checking Answer...");
   let correctAnswersCount = 0;  // 올바른 답을 세기 위한 카운터
   const playerAnswers = {};
 
@@ -165,10 +167,11 @@ function nextQuestion() {
     
     // 각 버튼에 이벤트 리스너를 설정
     nextButton.addEventListener("click", nextQuestion);
-    checkButton.addEventListener("click", checkAnswer);
+    //checkButton.addEventListener("click", checkAnswer);
 
     // 게임을 시작하는 함수
     function startGame() {
+      endStateShown = false;
       console.log("startGame() called"); 
       // Remove previous end state elements
       const endStateElements = document.querySelectorAll("#endStateElement");
@@ -208,6 +211,8 @@ function nextQuestion() {
 
     // 게임이 종료된 후의 상태를 보여주는 함수
     function showEndState() {
+      if (endStateShown) return;
+      endStateShown = true;
       clearInterval(timer); // 타이머를 중지
       // 중복된 답변을 제거
       answeredQuestions = Array.from(new Set(answeredQuestions.map(JSON.stringify))).map(JSON.parse);
@@ -221,7 +226,7 @@ function nextQuestion() {
       document.getElementById("nextButton").style.display = "none";
       document.getElementById("restartButton").style.display = "inline-block";
       document.getElementById("result-section").style.display = "block";
-      document.getElementById("scoreDisplay").innerHTML =  `|￣￣￣￣￣￣￣￣￣￣￣￣￣￣|<br>'당신은 ${score/2}문제를 맞췄습니다!'<br>|＿＿＿＿＿＿＿＿＿＿＿＿＿＿|<br>\\ (•◡•) /<br>\\       /`;
+      document.getElementById("scoreDisplay").innerHTML =  `|￣￣￣￣￣￣￣￣￣￣￣￣￣￣|<br>'당신은 ${score}문제를 맞췄습니다!'<br>|＿＿＿＿＿＿＿＿＿＿＿＿＿＿|<br>\\ (•◡•) /<br>\\       /`;
       document.getElementById("result1").style.display = "inline-block";
       document.getElementById("scoreDisplay").style.display = "block";
       
@@ -286,12 +291,10 @@ function nextQuestion() {
       .then(data => {
         console.log(data.message); 
     });
-       // 닉네임 표시
-  //document.getElementById("userRank").innerText = `내 닉네임: ${username}`;
 
 
   let leaderboard = JSON.parse(localStorage.getItem(userLanguage + "Leaderboard") || "[]");
-  leaderboard.push({ username: username, score: score/2 });
+  leaderboard.push({ username: username, score: score });
   leaderboard.sort((a, b) => b.score - a.score);
   localStorage.setItem(userLanguage + "Leaderboard", JSON.stringify(leaderboard));
 
