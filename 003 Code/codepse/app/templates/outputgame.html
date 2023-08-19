@@ -27,7 +27,7 @@
     function fetchHighscore() {
         const userId = "{{ current_user.id }}";  // Flask 템플릿에서 현재 유저의 ID 가져오기
 
-        fetch(`/get_highscore?user_id=${userId}`)
+        fetch(`/get_highscore?user_id=${userId}&game_type=outputgame`)
         .then(response => response.json())
         .then(data => {
             if(data.language && data.score) {

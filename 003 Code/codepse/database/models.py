@@ -152,7 +152,7 @@ class OutputGameScore(Base):
 class DragGameScore(Base):
     __tablename__ = "drag_game_scores"
 
-    drage_score_id = Column(Integer, primary_key=True, autoincrement=True)
+    drag_score_id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     drag_language = Column(String(50))
     drag_score = Column(Integer)

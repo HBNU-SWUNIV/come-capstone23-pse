@@ -55,12 +55,29 @@ def save_game_result():
 @game_score.route("/get_highscore", methods=["GET"])
 def get_highscore():
     conn = get_db_connection()
-    user_id = request.args.get("user_id")  # 요청에서 user_id 가져오기
+    user_id = request.args.get("user_id")
+    game_type = request.args.get("game_type")  # 요청에서 game_type 가져오기
 
-    # 데이터베이스에서 user_id에 해당하는 최고 점수 찾기
-    score_data = conn.query(OutputGameScore).filter_by(user_id=user_id).first()
+    if game_type == "draggame":
+        score_data = (
+            conn.query(DragGameScore)
+            .filter_by(user_id=user_id)
+            .order_by(DragGameScore.drag_score.desc())
+            .first()
+        )
+        if score_data:
+            return jsonify({"language": score_data.drag_language, "score": score_data.drag_score})
 
-    if score_data:
-        return jsonify({"language": score_data.output_language, "score": score_data.output_score})
-    else:
-        return jsonify({"error": "User not found"}), 404
+    elif game_type == "outputgame":
+        score_data = (
+            conn.query(OutputGameScore)
+            .filter_by(user_id=user_id)
+            .order_by(OutputGameScore.output_score.desc())
+            .first()
+        )
+        if score_data:
+            return jsonify(
+                {"language": score_data.output_language, "score": score_data.output_score}
+            )
+
+    return jsonify({"error": "User not found or no score recorded"}), 404
