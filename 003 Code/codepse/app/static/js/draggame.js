@@ -14,6 +14,7 @@ let answeredQuestions = []; // 플레이어가 풀었던 문제들을 저장하�
 let username;
 let gameType = "drag";
 
+
 // 문제와 그 선택 가능한 옵션들을 무작위로 섞는 함수
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
