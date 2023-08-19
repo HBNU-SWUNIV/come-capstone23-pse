@@ -80,12 +80,13 @@
 <body>
     <div id="login-section" style="margin-bottom: 20px;">
         <h1>드래그 게임🖱️</h1><br>
-        <div class="wrapper">
-        <div class="content-box">
         <input id="username" type="text" value="{{ current_user.username }}" hidden>
         <div id="highscore" style="margin-bottom: 15px; font-size: 18px; font-weight: bold;">
             나의 최고 기록: <span id="highscore-value">0</span>
         </div>
+        <div class="wrapper">
+        <div class="content-box">
+
         <div id="startScreen">
             <h4>언어를 선택해주세요</h4><br>
             <select id="languageSelect">
