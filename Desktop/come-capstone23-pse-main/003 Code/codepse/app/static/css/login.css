@@ -1,0 +1,435 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Dosis', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    border: none;
+    outline: none;
+}
+
+:root{
+    --bg-color: #191919;
+    --secont-bg-color: #101010;
+    --main-color: #e9204f;
+    --text-color: #fff;
+    --second-color: #e4e4e4;
+    --other-color: #c6cd8f;
+
+    --h1-font: 7rem;
+    --h2-font: 3.5rem;
+    --p-font: 1.1rem;
+
+}
+
+body{
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+header{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 11%;
+    border-bottom: 1px solid transparent;
+    transition: all ease .50s;
+}
+
+.logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 35px;
+    text-decoration: none;
+    font-family: 'Permanent Marker', sans-serif;
+}
+
+.navlist
+{
+    display: flex;
+}
+
+.navlist a{
+    color: #ffffff;
+    font-size: var(--p-font);
+    margin: 0 30px;
+    font-weight: bold; /* 텍스트를 두껍게 설정 */
+    transition: all ease .40s;  /*전환*/
+}
+
+.navlist a:hover{
+    color: #a570ff;
+}
+
+.navlist i{
+    color: var(--second-color);
+    font-size: 1rem;
+    margin: 0 40px 0 0;
+    font-family: 'Do Hyeon', sans-serif;
+    transition: all ease .40s;  /*전환*/
+    transform: skewX(0);
+}
+
+.navlist i:hover{
+    color: #a570ff;
+}
+
+.navlist j{
+    color: var(--second-color);
+    font-size: 0.5rem;
+    /*font-family: 'Do Hyeon', sans-serif;*/
+    transition: all ease .40s;  /*전환*/
+   /* border: 1px solid var(--second-color); /* 테두리 속성 추가 */
+    padding: 2px 10px; /* 내부 여백 설정 */
+}
+
+.navlist j:hover{
+    color: #a570ff;
+    /*border-color: #a570ff;*/
+}
+
+
+section{
+    padding: 120px 5% 100px;
+}
+
+section.home {
+    width: 100vw; /* Viewport width의 100%를 차지합니다. */
+    height: 90vh; /* Viewport height의 100%를 차지합니다. */
+    background-position: center -100px; /* 배경 이미지를 아래로 50픽셀 이동시킵니다. */
+}
+
+.login{
+    position: relative;
+    min-height:  100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /*background: #101010;*/
+    background: url(/static/images/back.png);
+    
+}
+
+
+/* Dropdown Button */
+.dropbtn {
+    cursor: pointer;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 8px 12px; /* Decreased padding for smaller font size */
+    text-decoration: none;
+    display: block;
+
+   
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: transparent; /* Removed background color */
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.wrapper {
+    margin-top: 40px;
+    width: 500px;
+    padding: 75px;
+    border: 2px solid #ffffff;  /* 테두리 선 추가 */
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
+.wrapper h1 {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 60px;
+    margin-top: -20px;
+    text-align: center;
+}
+
+.wrapper .input-field {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
+
+}
+
+.wrapper label,
+/* 로그인 버튼 */
+.wrapper input[type="submit"] {
+    width: 100%;           /* 버튼의 너비를 최대로 설정 */
+    padding: 5px;         /* 버튼 내부의 패딩 설정 */
+    border: 3px solid #ffffff;  /* 버튼의 테두리 설정 */
+    background-color: #ffffff; /* 버튼의 배경색 설정 */
+    color: #333;           /* 버튼 내 텍스트 색상 */
+    font-size: 16px;       /* 버튼 내 텍스트 크기 */
+    font-weight: bold;     /* 텍스트 굵게 설정 */
+    border-radius: 30px;   /* 원형으로 만들기 위한 설정 */
+    cursor: pointer;       /* 마우스를 올렸을 때 손가락 모양으로 변경 */
+    outline: none;         /* 클릭시 테두리 제거 */
+    transition: border-color 0.3s;  /* 테두리 색상 변화 애니메이션 */
+    margin-bottom: 30px;
+}
+
+/* 버튼에 마우스를 올렸을 때(hover)의 스타일 */
+.wrapper input[type="submit"]:hover {
+    border-color: #007bff; /* 테두리 색상 변경 */
+    background-color: none;
+}
+
+
+
+
+.wrapper a {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 8px;
+}
+
+
+.wrapper a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+
+}
+
+/* 기존의 입력 칸 스타일을 리셋하고 밑줄 추가 */
+.wrapper input[type="text"], 
+.wrapper input[type="password"] {
+    background: none;          
+    border: none;            
+    border-bottom: 2px solid #d6d6d6;  /* 아래쪽에만 테두리(밑줄)를 추가합니다 */
+    outline: none;              
+    padding: 5px 0;            
+    font-size: 16px;           
+    width: 100%;               
+    box-sizing: border-box;    
+}
+
+/* 이메일 스타일 */
+.wrapper input[type="text"] {
+    display: block; 
+    margin-bottom: 30px;  
+    width: 100%;   
+}
+
+/* 비밀번호 스타일 */
+.wrapper input[type="password"] {
+    display: block;  
+    margin: 15px 0; 
+    width: 100%;    
+}
+
+
+/* 칸 눌렀을 때 */
+.wrapper input[type="text"]:focus, 
+.wrapper input[type="password"]:focus {
+    border-bottom-color: #007bff; /* 밑줄 색! */
+}
+
+.wrapper input[type="text"]::placeholder, 
+.wrapper input[type="password"]::placeholder {
+    color: #ffffff;  
+}
+
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*여기서는 모바일 화면 부분입니당*/
+
+@media (max-width:1600px){
+    header{
+        padding: 14px 4%;
+    }
+    section{
+        padding: 100px 5% 80px;
+    }
+}
+
+@media (max-width:1200px){
+    .home{
+        min-height: 90vh;
+    }
+    .navlist{
+        margin: 0 20px;
+    }
+    :root{
+        --h1-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1rem;       
+    }
+}
+
+@media (max-width:1060px){
+    .about{
+        grid-template-columns: 1fr;
+    }
+    .about-img{
+        text-align: center;
+        order: 2;
+    }
+    .about-img img{
+        max-width: 100%;
+        width: 600px;
+        height: auto;
+    }
+    .service-item{
+        grid-template-columns: repeat(auto-fit, minmax(350px, auto));
+    }
+    .concat{
+        grid-template-columns: 1fr;
+    }
+    .left-concat{
+        margin:auto;
+    }
+}
+@media (max-width:1060px){
+    #menu-icon{
+        display: block;
+    }
+    .navlist{
+        position: absolute;
+        top: -800px;
+        right: 0;
+        left: 0;
+        display: flex;
+        flex-direction:column;
+        background: #000;
+        padding:20px 0;
+        text-align: left;
+        transition: all .50s ease;
+    }
+    .navlist a{
+        display: block;
+        font-size: 20px;
+        padding: 12px 0;
+    }
+    .navlist.open{
+        top:100%;
+    }
+}
+@media (max-width:600px){
+    .home{
+        min-height: 80vh;
+    }
+    :root{
+        --h1-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1rem;       
+    }
+    .hero-text h4{
+        font-size: 18px;
+        word-spacing: 10px;
+        margin-bottom: 30px;
+    }
+    .btn{
+        padding: 10px 35px;
+    }
+    .left-concat{
+        gap: 3rem;
+    }
+}
+
+
