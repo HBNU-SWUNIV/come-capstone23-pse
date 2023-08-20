@@ -68,15 +68,15 @@
                    <a href="/typinggame">TYPING GAME</a>
                    <a href="/draggame">DRAG GAME</a>
                    <a href="/outputgame">OUTPUT GAME</a>
-                  </div>
-                  <li><a href="/board_list">BOARD</a></li>
-                </li>
-                <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
-                <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
-                {% if current_user.is_authenticated %}
-                <!-- 로그인 한 사용자의 이름을 표시 -->
-                <li class="user-name">hello, {{ current_user.username }}</li>
-                {% endif %}
+               </div>
+               <li><a href="/board_list">BOARD</a></li>
+             </li>
+             {% if current_user.is_authenticated %}
+               <!-- 로그인 한 사용자의 이름을 표시 -->
+               <li class="user-name">hello, {{ current_user.username }}</li>
+             {% endif %}
+             <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+             <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
        </ul>
    </header>
     <div class="game-and-leaderboard-container">
@@ -93,9 +93,9 @@
                 <br>
                 <h4>언어를 선택해주세요</h4><br>
                 <select id="languageSelect">
+                  <option value="c">C</option>
                   <option value="java">Java</option>
                   <option value="python">Python</option>
-                  <option value="c">C</option>
                   <option value="random">Random</option>
                 </select>
                 <button onclick="startQuiz()">Start Quiz</button>
@@ -107,9 +107,11 @@
               <button onclick="submitAnswer()">Submit</button>
             </div>
             <div id="result"></div>
-          </section>
-          <div id="leaderboard" style="margin-top: 20px;"></div>
-    </div>
+            <div id="restart-section" style="display: none;">
+              <button onclick="restartGame()">다시하기</button>
+            </div>
+            </section>
+            <div id="leaderboard" style="margin-top: 20px;"></div>
     <script src="{{ url_for('static', filename='js/outputgame.js') }}"></script>
 </body>
 </html>

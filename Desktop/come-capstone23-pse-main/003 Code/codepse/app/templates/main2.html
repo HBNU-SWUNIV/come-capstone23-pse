@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <head>
     <meta charset="uft-8">
@@ -43,12 +42,13 @@
                 </div>
               <li><a href="/board_list">BOARD</a></li>
               </li>
+              {% if current_user.is_authenticated %}
+                <!-- 로그인 한 사용자의 이름을 표시 -->
+                <li class="user-name">hello, {{ current_user.username }}</li>
+              {% endif %}
+              
               <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="logout-btn">LOGOUT</a></li>
-              {% if current_user.is_authenticated %}
-              <!-- 로그인 한 사용자의 이름을 표시 -->
-              <li class="user-name">hello, {{ current_user.username }}</li>
-            {% endif %}
         </ul>
     </header>
         <!--- hero section -->
@@ -160,30 +160,7 @@
               <a href="/outputgame" class="c-btn">Go Game</a>
             </div>
           </div>
-      
-
-        <div class="service-item">
-          <div class="service-box">
-            <i class='bx bx-clipboard'></i>
-            <h3>BOARD</h3>
-            <p>
-              다른 사용자와 함꼐 의견을 공유하며 정보를 얻는 공간입니다
-            </p>
-            <a href="/board_list" class="c-btn">Go Board</a>
-          </div>
         </div>
-
-        <div class="service-item">
-          <div class="service-box">
-            <i class='bx bx-user'></i>
-            <h3>MY PAGE</h3>
-            <p>
-              마이 페이지는 사용자의 정보 및 기록들이 저장되어 있습니다
-            </p>
-            <a href="/mypage" class="c-btn">Go Mypage</a>
-          </div>
-        </div>
-      </div>
           <!-- 추가된 부분 -->
     <div class="slider-controls">
         <span class="slider-btn prev-btn">&lt;</span>

@@ -36,6 +36,7 @@ function loadQuestion() {
     if (currentQuestionIndex >= questions.length) {
         sendGameResult(score, userLanguage);
 
+        document.getElementById("restart-section").style.display = "block";
         document.getElementById("quiz-section").style.display = "none";
         let resultText = "문제를 모두 풀었습니다! Your score is: " + score + "<br/><br/>";
         for (let i = 0; i < questions.length; i++) {
@@ -77,4 +78,58 @@ function sendGameResult(score, language) {
     .then(data => {
         console.log(data.message);
     });
+}
+
+function fetchLeaderboard() {
+    fetch(`/get_leaderboard?game_type=outputgame`)
+    .then(response => response.json())
+    .then(data => {
+        let leaderboardHTML = '<div class="leaderboard-container">';
+
+        for (let lang in data) {
+            leaderboardHTML += `
+            <div class="language-leaderboard">
+                <h2>${lang} Top 5 Rankings</h2>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>등수</th>
+                            <th>이름</th>
+                            <th>점수</th>
+                            <th>날짜</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            
+            data[lang].forEach((item, index) => {
+                leaderboardHTML += `
+                <tr>
+                    <td>${index + 1}등</td>
+                    <td>${item.username}</td>
+                    <td>${item.score}점</td>
+                    <td>${item.played_at}</td>
+                </tr>`;
+            });
+
+            leaderboardHTML += `
+                    </tbody>
+                </table>
+            </div>`;
+        }
+
+        leaderboardHTML += '</div>';
+
+        document.getElementById("leaderboard").innerHTML = leaderboardHTML;
+    });
+}
+
+function restartGame() {
+    currentQuestionIndex = 0;
+    score = 0;
+    userAnswers = [];
+
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("restart-section").style.display = "none";
+    document.getElementById("login-section").style.display = "block";
+    document.getElementById("leaderboard").style.display = "block";
 }

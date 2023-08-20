@@ -1,85 +1,26 @@
-
-
-<head>
-  <meta charset="uft-8">
-  <meta name="viewpoint" content="width=device-width, initial-scale=1">
-  <title>Codepse main</title>
-
-<!--- cutom css line -->
-  <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
-
-
-  <!--- box icons link -->
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-
-  <!--- google fonts link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-
-</head>
-<body>
-
-  <!--- header section -->
-  <header>
-      <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
-      <div class="bx bx menu" id="menu-icon"></div>
-
-      <ul class="navlist">
-          <!-- 로그인 상태에 따라 Home 링크를 변경 -->
-          <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
-          <!-- <li><a href="/">HOME</a></li> -->
-          <li><a href="/test_list">CODING TEST</a></li>
-          <li><a href="/ai_chatbot">AI CHATBOT</a></li>
-          <li class="dropdown">
-              <a href="/typinggame" class="dropbtn">CODING GAME</a>
-              <div class="dropdown-content">
-                  <a href="/typinggame">TYPING GAME</a>
-                  <a href="/draggame">DRAG GAME</a>
-                  <a href="/outputgame">OUTPUT GAME</a>
-              </div>
-            <li><a href="/board_list">BOARD</a></li>
-            </li>
-            <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
-      </ul>
-  </header>
-
-<head>
-  <title>Login</title>
-</head>
-<section class="login" id="login">
-<body>
-
-  <div class="center-container">
-  <div class="wrapper">
-    <textarea class="input-field"></textarea>
-  
-  <h1>로그인</h1>
-  <form method="post" action="/login">
-    {{ form.csrf_token }}
-    {{ form.useremail(placeholder="이메일") }} <!-- label 태그 제거 -->
-    <br />
-    {{ form.password(placeholder="비밀번호") }} <!-- label 태그 제거 -->
-    <br />
-    <input type="submit" value="로그인" />
-</form>
-
-  <p>계정이 없으신가요?    <a href="/signup">회원가입</a></p>
-  <script>
-    // 페이지가 로드되었을 때 알림창 표시
-    window.onload = function() {
-      {% if error_message %}
-      alert("{{ error_message }}");
-      {% endif %}
-    }
-    
-  </script>
-  </div>
-  </section>
-
-      </section>
-      <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <h1>로그인</h1>
+    <form method="post" action="/login">
+      {{ form.csrf_token }}
+      <label for="useremail">{{ form.useremail.label }}</label>
+      {{ form.useremail }}<br />
+      <label for="password">{{ form.password.label }}</label>
+      {{ form.password }}<br />
+      <input type="submit" value="로그인" />
+  </form>
+    <p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
+    <script>
+      // 페이지가 로드되었을 때 알림창 표시
+      window.onload = function() {
+        {% if error_message %}
+        alert("{{ error_message }}");
+        {% endif %}
+      }
+    </script>
+  </body>
+</html>
