@@ -2,6 +2,7 @@ import html
 
 from flask import Blueprint, render_template, session, request, jsonify
 from flask_login import login_required
+from sqlalchemy import func
 
 from app.compile import (
     c_compile_code,
@@ -17,17 +18,29 @@ from database.models import QList, CodeSubmission
 
 coding_test = Blueprint("coding_test", __name__)
 
+PER_PAGE = 10
+
 
 @coding_test.route("/test_list")
 @login_required
 def test_list():
+    page = request.args.get("page", 1, type=int)
     conn = get_db_connection()
 
-    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name).all()
+    total_tests = conn.query(func.count(QList.q_id)).scalar()
+    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name)\
+                .offset((page - 1) * PER_PAGE)\
+                .limit(PER_PAGE)\
+                .all()
 
     conn.close()
 
-    return render_template("test_list.html", q_list=q_list)
+    return render_template(
+        "test_list.html",
+        q_list=q_list,
+        current_page=page,
+        total_pages=(total_tests + PER_PAGE - 1) // PER_PAGE
+    )
 
 
 @coding_test.route("/test/<int:q_id>")
