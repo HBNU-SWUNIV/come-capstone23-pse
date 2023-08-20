@@ -1,11 +1,14 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="uft-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <title>Coding Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
 	
 	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+
 
 
     <!--- box icons link -->
@@ -19,18 +22,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 
-    <!-- checkbox 스타일링 -->
-    <link href="{{ url_for('static', filename='css/checkbox.css') }}" rel="stylesheet">
-    <!-- checkbox 리스트 보이기 -->
-    <script>
-        function toggleOptions() {
-            var menuList = document.querySelector('.menu-list');
-            menuList.classList.toggle('show');
-        }
-    </script>
 </head>
 <body>
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");
+        </script>
+    {% endif %}
+    {% endwith %}
+    
     <!--- header section -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
@@ -48,8 +49,8 @@
                     <a href="/draggame">DRAG GAME</a>
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
+                <li><a href="/board_list">BOARD</a></li>
               </li>
-              <li><a href="/board_list">BOARD</a></li>
               {% if current_user.is_authenticated %}
                 <!-- 로그인 한 사용자의 이름을 표시 -->
                 <li class="user-name">hello, {{ current_user.username }}</li>
@@ -60,76 +61,98 @@
 
         </ul>
     </header>
-    <title>문제 목록</title>
-    <meta charset="UTF-8">
-    <link href="{{ url_for('static', filename='css/test_list.css') }}" rel="stylesheet">
-  </head>
-  <body>
-    <section class="notice">
-      <div class="page-title">
-        <div class="container">
-          <h3>코딩테스트 문제</h3>
-        </div>
-      </div>
+    <title>board_detail</title>
+    <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
 
-      <!-- checkbox 추가 -->
-      <div class="dropdown">
-        <button class="title" onclick="toggleOptions()"> <!-- 여기에 class="title" 추가 -->
-            난이도
-            <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
-                <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
-            </svg>
-        </button>
-    
-        <ul class="menu-list">
-            <li class="item">
-                <label>
-                    <input name="levels" type="checkbox" value="0">
-                    하
-                </label>
-            </li>
-            <li class="item">
-                <label>
-                    <input name="levels" type="checkbox" value="1">
-                    중
-                </label>
-            </li>
-            <li class="item">
-                <label>
-                    <input name="levels" type="checkbox" value="2">
-                    상
-                </label>
-            </li>
-        </ul>
+    <div class="post-details"> 
+        <!-- 임의 게시글 -->
+        <h2 class="post-title">{{ post.Board.title }}</h2>
+
+        <div class="edit-delete-buttons">
+            <a href="/board_list">목록</a>
+        </div>
+
+            <!-- 게시글 작성자가 현재 로그인한 사용자와 동일한 경우 수정 및 삭제 버튼 표시 -->
+        {% if current_user.id == post.User.id %}
+        <div class="edit-delete-buttons">
+            <a href="{{ url_for('board.board_edit', board_id=post.Board.board_id) }}">수정</a>
+            <a href="{{ url_for('board.board_delete', board_id=post.Board.board_id) }}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+        </div>
+        {% endif %}
+        <div class="post-info">
+            <p>작성자: {{ post.User.username }} | 날짜: {{ post.Board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }} | 조회수: {{ post.Board.view }}</p>
     </div>
 
-      <!-- board list area -->
-      <div id="board-list">
-        <div class="container">
-          <table class="board-table">
-            <thead>
-              <tr>
-                <th scope="col" class="th-num">번호</th>
-                <th scope="col" class="th-num">난이도</th>
-                <th scope="col" class="th-title">제목</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for i in q_list %}
-              <tr>
-                <td>{{ i[0] }}</td> <!-- 문제 번호 -->
-                <td>{{ i[1] }}</td> <!-- 문제 난이도 -->
-                <th>
-                  <a href="{{ url_for('coding_test.test_view', q_id=i[0]) }}">{{ i[2] }}</a> <!--i[1]: 문제 이름-->
- <!--i[1]: 문제 이름-->
-                  <p>{{ i[2] }}</p>
-                </th>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+    <!-- 첨부된 파일이 있을 때만 '첨부파일' 텍스트 표시 -->
+    {% if post.Board.file_path %}
+        <p class="toggle-file-list"><span id="toggle-file-trigger">첨부파일</span></p>
+        <div class="file-list">
+            {% for filename in post.Board.file_path %}
+                <a href="{{ url_for('board.get_file', filename=filename) }}" download>{{ filename }}</a>
+                {% if not loop.last %}<br>{% endif %}
+            {% endfor %}
         </div>
-      </div>
-    </section>
-  </body>
+    {% endif %}
+
+    <div class="post-content">
+        <pre>{{ post.Board.content }}</pre>
+    </div>
+        
+    <!-- 첨부된 파일이 이미지인 경우 -->
+    {% for filename in post.Board.file_path %}
+        {% if filename.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+        <div class="attached-image">
+            <img src="{{ url_for('board.get_file', filename=filename) }}" alt="Uploaded Image" width="300">
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- 댓글 작성 폼 -->
+    <div class="comment-form-wrapper">
+        <form action="{{ url_for('board.add_comment', board_id=post.Board.board_id) }}" method="post">
+            {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
+            <textarea name="comment" placeholder="댓글을 작성하세요..." required></textarea>
+            <input type="submit" value="댓글 작성" class="edit-btn">
+        </form>
+    </div>
+
+        <!-- 댓글 목록 / 동적 생성 댓글 -->
+    <div class="comment-list-wrapper">
+        {% for comment, user in comments %}
+        <div class="comment">
+            <div class="comment-info-wrapper">
+                <p class="comment-info">
+                    작성자: {{ user.username }} |
+                    날짜: 
+                    {% if comment.is_edited %}
+                        {{ comment.updated_at.strftime('%Y.%m.%d / %H:%M:%S') }} (수정됨)
+                    {% else %}
+                        {{ comment.created_at.strftime('%Y.%m.%d / %H:%M:%S') }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="comment-content-wrapper">
+                <p class="comment-content" id="commentContent{{ comment.comment_id }}">{{ comment.content }}</p>
+                
+                <div class="comment-buttons">
+                    {% if current_user.id == user.id %}
+                        <button class="edit-btn" id="editBtn{{ comment.comment_id }}" onclick="showEditComment({{ comment.comment_id }})">수정</button>
+                        <form class="edit-comment-form" id="editCommentForm{{ comment.comment_id }}" action="{{ url_for('board.edit_comment', board_id=board_id, comment_id=comment.comment_id) }}" method="post" style="display: none;">
+                            {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
+                            <textarea name="comment" class="edit-comment-textarea" required>{{ comment.content }}</textarea>
+                            <input type="submit" value="저장">
+                            <button type="button" onclick="hideEditComment({{ comment.comment_id }})">취소</button>
+                        </form>
+                        <form id="deleteCommentForm{{ comment.comment_id }}" action="{{ url_for('board.delete_comment', board_id=board_id, comment_id=comment.comment_id) }}" method="post">
+                            {{ form.hidden_tag() }} <!-- CSRF 토큰 추가 -->
+                        <button type="submit" class="delete-btn" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+                        </form>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+
+        {% endfor %}
+    <script src="{{ url_for('static', filename='js/board_detail.js') }}"></script>
+</body>
 </html>
