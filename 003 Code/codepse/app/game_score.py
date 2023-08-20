@@ -4,7 +4,7 @@ from flask_login import current_user
 
 from app.csrf_protection import csrf
 from database.database import get_db_connection
-from database.models import OutputGameScore, DragGameScore
+from database.models import OutputGameScore, DragGameScore, User
 
 
 game_score = Blueprint("game_score", __name__)
@@ -81,3 +81,61 @@ def get_highscore():
             )
 
     return jsonify({"error": "User not found or no score recorded"}), 404
+
+
+@game_score.route("/get_leaderboard", methods=["GET"])
+def get_leaderboard():
+    conn = get_db_connection()
+    game_type = request.args.get("game_type")
+
+    if game_type == "outputgame":
+        leaderboard_data = (
+            conn.query(
+                User.username,
+                OutputGameScore.output_language,
+                OutputGameScore.output_score,
+                OutputGameScore.played_at,
+            )
+            .join(User, User.id == OutputGameScore.user_id)
+            .order_by(OutputGameScore.output_score.desc(), OutputGameScore.played_at.asc())
+            .limit(5)
+            .all()
+        )
+
+        leaderboard_list = [
+            {
+                "username": item.username,
+                "language": item.output_language,
+                "score": item.output_score,
+                "played_at": item.played_at.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            for item in leaderboard_data
+        ]
+        return jsonify(leaderboard_list)
+
+    elif game_type == "draggame":
+        leaderboard_data = (
+            conn.query(
+                User.username,
+                DragGameScore.drag_language,
+                DragGameScore.drag_score,
+                DragGameScore.played_at,
+            )
+            .join(User, User.id == DragGameScore.user_id)
+            .order_by(DragGameScore.drag_score.desc(), DragGameScore.played_at.asc())
+            .limit(5)
+            .all()
+        )
+
+        leaderboard_list = [
+            {
+                "username": item.username,
+                "language": item.drag_language,
+                "score": item.drag_score,
+                "played_at": item.played_at.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            for item in leaderboard_data
+        ]
+        return jsonify(leaderboard_list)
+
+    return jsonify({"error": "Invalid game type!"}), 400

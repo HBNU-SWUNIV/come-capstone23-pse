@@ -7,9 +7,12 @@ let userAnswers = [];
 let username;
 let gameType = "output"
 
+
 function startQuiz() {
     username = document.getElementById("username").value;
     userLanguage = document.getElementById("languageSelect").value;
+
+    document.getElementById("leaderboard").style.display = "none";
 
     fetch('/api/get_outputgame_questions')
     .then(response => response.json())
@@ -39,17 +42,7 @@ function loadQuestion() {
             resultText += `<span class="highlight">Question: <br/>${questions[i].question}<br/><br/>Your answer: ${userAnswers[i].answer}<br/><br/><span class="correct-answer">Correct answer: ${questions[i].answer}</span><br/><br/>`;
         }
         document.getElementById("result").innerHTML = resultText;
-
-        let leaderboard = JSON.parse(localStorage.getItem(userLanguage + "Leaderboard") || "[]");
-        leaderboard.push({ username: username, score: score });
-        leaderboard.sort((a, b) => b.score - a.score);
-        localStorage.setItem(userLanguage + "Leaderboard", JSON.stringify(leaderboard));
-
-        let leaderboardText = " ハ____ハ ｡ﾟﾟ･｡･ﾟﾟ｡<br> ꒰ ⬩ ω ⬩ ꒱  ˚｡.............｡˚ <br>| つ ~ good　ﾟ ･｡･ﾟ</br><h2>Leaderboard for " + userLanguage + "★</h2><br/><br/>";
-        for (let i = 0; i < leaderboard.length; i++) {
-            leaderboardText += `${i + 1}. ${leaderboard[i].username}: ${leaderboard[i].score}<br/><br/>`;  
-        }
-        document.getElementById("leaderboard").innerHTML = leaderboardText;
+        
 
         return;
     }

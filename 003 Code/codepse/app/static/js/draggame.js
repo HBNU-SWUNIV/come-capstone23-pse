@@ -311,6 +311,7 @@ function nextQuestion() {
 
     // 퀴즈를 시작하는 함수
 function startQuiz() {
+    document.getElementById("leaderboard").style.display = "none";
     document.getElementById("result-section").style.display = "none";
     username = document.getElementById("username").value;
     userLanguage = document.getElementById("languageSelect").value; 

@@ -1,10 +1,10 @@
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
 from flask_login import current_user, login_required
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, desc
 
 from app.csrf_protection import csrf
 from database.database import get_db_connection
-from database.models import TypingGame, DragGame, OutputGame
+from database.models import TypingGame, DragGame, OutputGame, OutputGameScore, User
 
 
 game = Blueprint("game", __name__)
