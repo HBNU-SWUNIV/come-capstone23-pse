@@ -6,7 +6,6 @@
     list-style: none;
     text-decoration: none;
     scroll-behavior: smooth;
-    border: none;
     outline: none;
 }
 
@@ -18,7 +17,7 @@
     --second-color: #e4e4e4;
     --other-color: #c6cd8f;
 
-    --h1-font: 7rem;
+    --h1-font: 7.1rem;
     --h2-font: 3.5rem;
     --p-font: 1.1rem;
 
