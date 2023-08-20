@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from app.forms import DeleteForm
 
 from database.database import get_db_connection
-from database.models import Board, CodeSubmission, QList, Comments
+from database.models import Board, CodeSubmission, QList, Comments, OutputGameScore, DragGameScore
 
 user_profile = Blueprint("user_profile", __name__)
 
@@ -13,22 +13,53 @@ user_profile = Blueprint("user_profile", __name__)
 @login_required
 def mypage():
     db_session = get_db_connection()
-    user_posts = db_session.query(Board).filter_by(user_id=current_user.id).all()  # 사용자의 게시물 가져오기
-    user_codes = (  # 사용자가 작성한 코드 정보 가져오기
+
+    # 사용자의 게시물 가져오기
+    user_posts = db_session.query(Board).filter_by(user_id=current_user.id).all()
+
+    # 사용자가 작성한 코드 정보 가져오기
+    user_codes = (
         db_session.query(CodeSubmission, QList)
         .join(QList, CodeSubmission.q_id == QList.q_id)
         .filter(CodeSubmission.user_id == current_user.id)
         .all()
     )
 
-    user_comments = (
-        db_session.query(Comments).filter_by(user_id=current_user.id).all()
-    )  # 사용자가 작성한 댓글 정보 가져오기
+    # 사용자가 작성한 댓글 정보 가져오기
+    user_comments = db_session.query(Comments).filter_by(user_id=current_user.id).all()
+
+    # 게임 기록 가져오기
+    output_game_scores = db_session.query(OutputGameScore).filter_by(user_id=current_user.id).all()
+    drag_game_scores = db_session.query(DragGameScore).filter_by(user_id=current_user.id).all()
+
+    game_results = []
+    for score in output_game_scores:
+        game_results.append(
+            {
+                "game_name": "out game",
+                "language": score.output_language,
+                "score": score.output_score,
+                "played_at": score.played_at,
+            }
+        )
+    for score in drag_game_scores:
+        game_results.append(
+            {
+                "game_name": "drag game",
+                "language": score.drag_language,
+                "score": score.drag_score,
+                "played_at": score.played_at,
+            }
+        )
 
     db_session.close()
 
     return render_template(
-        "mypage.html", user_posts=user_posts, user_codes=user_codes, user_comments=user_comments
+        "mypage.html",
+        user_posts=user_posts,
+        user_codes=user_codes,
+        user_comments=user_comments,
+        game_results=game_results,  # 추가된 게임 결과 리스트
     )
 
 

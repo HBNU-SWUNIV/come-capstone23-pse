@@ -17,7 +17,7 @@ h1 {
 }
 
 .user-info {
-    text-align: left;
+    text-align: center;
 }
 
 .user-info p {
@@ -27,6 +27,68 @@ h1 {
     padding: 10px;
 }
 
+
 .user-info strong {
     font-weight: bold;
+}
+
+.game-results-container {
+    display: flex;
+    gap: 20px;
+}
+
+.game-section {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+}
+
+.game-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.game-table th, .game-table td {
+    padding: 8px 15px;
+    border: 1px solid #e5e5e5;
+}
+
+.game-table th {
+    background-color: #f5f5f5;
+    color: #647fb4;
+}
+
+.game-table tr:hover {
+    background-color: #acb6c9;
+}
+
+/* 게시물, 댓글, 코드 부분에 대한 공통 스타일 */
+.user-posts, .user-comments, .user-codes {
+    border: 1px solid #dddddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* 각 섹션에 해당하는 테이블 스타일 */
+.user-posts table, .user-comments table, .user-codes table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-posts th, .user-posts td, 
+.user-comments th, .user-comments td, 
+.user-codes th, .user-codes td {
+    padding: 8px 15px;
+    border: 1px solid #e5e5e5;
+}
+
+.user-posts th, .user-comments th, .user-codes th {
+    background-color: #f5f5f5;
+    color: #647fb4;
+}
+
+.user-posts tr:hover, .user-comments tr:hover, .user-codes tr:hover {
+    background-color: #acb6c9;
 }
