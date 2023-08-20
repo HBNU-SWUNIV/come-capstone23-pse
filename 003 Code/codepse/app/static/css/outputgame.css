@@ -176,3 +176,42 @@ button.start-quiz {
   transform: translateY(-5px); /* 마우스를 올렸을 때 위로 조금 움직이게 만듦 */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자를 약간 더 크게 */
 }
+
+/* 리더보드 테이블 스타일링 */
+.leaderboard-table {
+  width: 100%;  
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+  border: 1px solid #d4eaff;
+  padding: 8px 12px; 
+  text-align: left;
+}
+
+.leaderboard-table th {
+  background-color: #f5f5f5;
+  color: #647fb4;
+  border: 1px solid #d4eaff;
+  padding: 8px 12px; 
+  text-align: left;
+}
+
+.leaderboard-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2개의 동일한 너비의 칼럼 생성 */
+  gap: 20px; /* 각 그리드 항목 사이의 간격 */
+  justify-content: center;
+  align-items: start;
+}
+
+.language-leaderboard {
+  width: 100%; 
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+#restart-section {
+  display: none;
+}

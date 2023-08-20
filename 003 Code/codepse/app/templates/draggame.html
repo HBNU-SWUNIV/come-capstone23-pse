@@ -98,14 +98,15 @@
                             <div id="startScreen">
                                 <h4>언어를 선택해주세요</h4><br>
                                 <select id="languageSelect">
-                                    <option value="java">Java</option>
-                                    <option value="python">Python</option>
-                                    <option value="javascript">JavaScript</option>
-                                    <option value="c++">C++</option>
                                     <option value="c">C</option>
                                     <option value="c#">C#</option>
-                                    <option value="sql">SQL</option>
+                                    <option value="c++">C++</option>
+                                    <option value="java">Java</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="python">Python</option>
                                     <option value="random">Random</option>
+                                    <option value="sql">SQL</option>
+
                                 </select>
                             </div>
                         </div>
@@ -115,7 +116,7 @@
                     </div>
                 </div>
             </section>
-            <div id="leaderboard" style="margin-top: 400px;"></div>
+            <div id="leaderboard" style="margin-top: 500px;"></div>
             </div>
         
             <div id="quiz-section" style="display: none;">
@@ -127,7 +128,7 @@
                 <div id="result"></div>
                 <div id="options" style="text-align: left;"></div>
                 <button id="checkButton" onclick="checkAnswer()">확인하기</button>
-                <button id="nextButton" onclick="nextQuestion()" disabled>다음 문제</button>
+                <button id="nextButton" style="display:none;">다음 문제</button>
             </div>
             <button id="restartButton" style="display: none;" >다시하기</button>
             <p id="scoreDisplay" style="display: none;"></p>

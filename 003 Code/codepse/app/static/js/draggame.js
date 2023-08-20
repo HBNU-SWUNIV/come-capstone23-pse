@@ -29,6 +29,10 @@ function displayQuestion() {
   // 현재 문제의 텍스트를 "question" ID를 가진 HTML 요소에 표시
   document.getElementById("question").innerText = currentQuestion.text;
 
+  const nextButton = document.getElementById("nextButton");
+  nextButton.disabled = true;          // '다음 문제' 버튼 비활성화
+  nextButton.style.backgroundColor = "gray";
+
   // 문제 코드를 분해하고 빈칸 ID를 추출
   const codeParts = currentQuestion.code.split("{[");
   const matchResult = currentQuestion.code.match(/\{\[([^\]]+)\]\}/g);
@@ -145,7 +149,10 @@ function checkAnswer() {
   });
 
   checkButton.disabled = true;
+
+  const nextButton = document.getElementById("nextButton");
   nextButton.disabled = false;
+  nextButton.style.backgroundColor = "#9e88eb"; // 보라색
 }
 
 // 다음 문제를 불러오는 함수
@@ -167,7 +174,6 @@ function nextQuestion() {
     
     // 각 버튼에 이벤트 리스너를 설정
     nextButton.addEventListener("click", nextQuestion);
-    //checkButton.addEventListener("click", checkAnswer);
 
     // 게임을 시작하는 함수
     function startGame() {
@@ -334,3 +340,46 @@ function startQuiz() {
     
     // 퀴즈 시작 버튼에 이벤트 리스너를 추가합니다.
     document.getElementById('startQuizButton').addEventListener('click', startQuiz);
+
+    function fetchLeaderboard() {
+      fetch(`/get_leaderboard?game_type=draggame`)
+      .then(response => response.json())
+      .then(data => {
+          let leaderboardHTML = '<div class="leaderboard-container">';
+  
+          for (let lang in data) {
+              leaderboardHTML += `
+              <div class="language-leaderboard">
+                  <h2>${lang} Top 5 Rankings</h2>
+                  <table class="leaderboard-table">
+                      <thead>
+                          <tr>
+                              <th>등수</th>
+                              <th>이름</th>
+                              <th>점수</th>
+                              <th>날짜</th>
+                          </tr>
+                      </thead>
+                      <tbody>`;
+              
+              data[lang].forEach((item, index) => {
+                  leaderboardHTML += `
+                  <tr>
+                      <td>${index + 1}등</td>
+                      <td>${item.username}</td>
+                      <td>${item.score}점</td>
+                      <td>${item.played_at}</td>
+                  </tr>`;
+              });
+  
+              leaderboardHTML += `
+                      </tbody>
+                  </table>
+              </div>`;
+          }
+  
+          leaderboardHTML += '</div>';
+  
+          document.getElementById("leaderboard").innerHTML = leaderboardHTML;
+      });
+  }
