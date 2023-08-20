@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Merriweather", sans-serif;
+}
+
+body {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #647fb4;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    /* Your existing styles... */
+    background-color:#647fb4;
+}
+section.game {
+    padding-top: 110px; 
+ 
+
+    /* Your existing styles... */
+}
+
+.game-and-leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 50px; 
+}
+
+
+.highlight {  
+    font-weight: bold;   
+}
+/*여기 그 마지막 채점 부분*/
+
+
+.wrapper {
+    width: 1000px;
+    padding: 35px;
+    color: #f1f5f9;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .wrapper .input-field {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
+    color: #fff;
+    
+  }
+  
+  .wrapper .content-box {
+    padding: 20px 20px 0;
+    border-radius: 10px;
+    border: 2px solid #dadada;
+  }
+
+
+
+.large-input {
+    font-size: 50px;
+    padding: 15px;
+    width: 300px;  /* Or any width you prefer */
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2em; /* 텍스트 크기 조정 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 22px;
+  }
+  
+  
+h2{
+  color: #67ebd7;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px; /* 위아래에 약간의 패딩 추가 */
+  margin-bottom: 20px; /* 아래쪽 여백 추가 */
+}
+
+
+#languageSelect{
+    margin-top: 10px;
+    display: block; /* 가로로 붙어있는 요소를 블록 레벨 요소로 변경 */
+    margin-bottom: 20px; /* 선택 필드 아래쪽 여백 설정 */
+    margin-left: 80px;
+  
+}
+
+#username {
+  margin-bottom: 20px; /* 입력 필드 아래쪽 여백 설정 */
+}
+
+.correct-answer {
+    color: rgb(74, 211, 74);
+}
+
+
+#login-section {
+    width: 60%;  
+    text-align: center;
+   
+}
+
+
+#quiz-section {
+    margin-top: 50px;
+}
+
+#question {
+    font-size: 20px;
+}
+
+#answer {
+    margin-top: 20px;
+    display: block;
+    width: 300px;
+    height: 30px;
+}
+
+button {
+    background-color: #fff;  /* 흰색 배경 */
+    color: #000;  /* 검정색 텍스트 */
+    border: none;
+    border-radius: 10px;
+    padding: 9px 13px;  /* 버튼 크기를 키우기 위해 padding 추가함. 이 값을 조정 */
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+
+#startScreen {
+  margin-left: 300px;
+
+}
+
+button.start-quiz {
+  margin-top: 20px; /* 버튼 위쪽 여백 설정 */
+  /* 다른 스타일 속성들... */
+}
+
+#highscore {
+  text-align: center;
+}
+
+
+#leaderboard {
+  margin-bottom: 70px;  /* 원하는 여백 크기로 조정할 수 있습니다. */
+}
+
+/* 임의로 넣은 css입니다.*/
+#leaderboard div {
+  padding: 12px 20px; /* 안쪽 여백 조정 */
+  border: 2px solid #d4eaff; /* 테두리 두께 조정 */
+  margin-bottom: 15px; /* 밑 여백 조정 */
+  border-radius: 8px; /* 모서리 둥글게 조정 */
+  background-color: rgba(167, 185, 255, 0.107); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 추가 */
+  transition: transform 0.2s, box-shadow 0.2s; /* 마우스 호버 시 부드럽게 변환되도록 */
+}
+
+#leaderboard div:hover {
+  transform: translateY(-5px); /* 마우스를 올렸을 때 위로 조금 움직이게 만듦 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자를 약간 더 크게 */
+}

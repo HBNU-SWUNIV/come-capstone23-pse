@@ -1,0 +1,239 @@
+/* Import Google Font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Merriweather", sans-serif;
+}
+
+body {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #647fb4;
+}
+
+::selection {
+  color: #fff;
+  background: deepskyblue;
+}
+
+.wrapper {
+  width: 1000px;
+  padding: 35px;
+  color: #f1f5f9;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 130px;
+}
+
+.wrapper .input-field {
+  opacity: 0;
+  z-index: -999;
+  position: absolute;
+  color: #fff;
+}
+
+.wrapper .content-box {
+  padding: 20px 20px 0;
+  border-radius: 10px;
+  border: 2px solid #d6d6d6;
+}
+
+.content-box .typing-text {
+  overflow: hidden;
+  max-height: 256px;
+}
+
+.typing-text::-webkit-scrollbar {
+  width: 0;
+}
+
+.typing-text p {
+  font-size: 25px;
+  text-align: justify;
+  letter-spacing: 1px;
+}
+
+.typing-text p span {
+  position: relative;
+}
+
+.typing-text p span.correct {
+  color: lawngreen;
+}
+
+.typing-text p span.incorrect {
+  color: #cb3439;
+  outline: 1px solid #fff;
+  background: #ffc0cb;
+  border-radius: 4px;
+}
+
+.typing-text p span.active {
+  color: deepskyblue;
+}
+
+.typing-text p span.active::before {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 5px;
+  background: deepskyblue;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 1;
+  }
+}
+
+.content-box .content {
+  margin-top: 17px;
+  display: flex;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #bfbfbf;
+  line-break: auto;
+}
+
+.content button {
+  outline: none;
+  border: none;
+  width: 105px;
+  color: #ffffff;
+  padding: 8px 0;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: #1AAB8A;
+  transition: transform 0.3s ease;
+  font-weight: bolder;
+}
+
+.content button:hover {
+  background-color: #ffb3bf;
+  color: #ffffff;
+  cursor: pointer;
+  /*border: 2px solid #1AAB8A; 테두리*/
+
+}
+
+
+.content button:active {
+  transform: scale(0.97);
+}
+
+.content .result-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: calc(100% - 140px);
+  justify-content: space-between;
+}
+
+.result-details li {
+  display: flex;
+  height: 20px;
+  list-style: none;
+  position: relative;
+  align-items: center;
+}
+
+.result-details li:not(:first-child) {
+  padding-left: 22px;
+  border-left: 1px solid #bfbfbf;
+}
+
+.result-details li p {
+  font-size: 19px;
+}
+
+.result-details li span {
+  display: block;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+li span b {
+  font-weight: 500;
+}
+
+li:not(:first-child) span {
+  font-weight: 500;
+}
+
+.errors span {
+  color: #facc15;
+}
+
+.timeLeft span {
+  color: #ffe600;
+}
+
+.typing-text p strong {
+  color: #b09aec;
+}
+
+.hidden {
+  display: none;
+}
+
+.line-end {
+  color: transparent;
+}
+
+.active-line-end {
+  color: transparent;
+}
+
+span.invisible {
+  color: transparent;
+}
+
+.line-end {
+  visibility: hidden;
+}
+
+.language{
+  font-size: 22px;
+}
+
+.language-info {
+  display: flex; /* This will arrange the child elements in a row */
+  align-items: center; /* This will center align the child elements vertically */
+  color: #b09aec;
+  font-size: 25px;
+  padding: 15px;
+  
+}
+
+.code-description {
+  color: #ffea65;
+  font-size: 23px;
+  padding: 15px;
+  font-weight: bold;
+
+}
+
+h5 {
+  position: absolute;
+  top: 170px;
+  left: 300px;
+  font-size: 40px;
+}
+
+p1{
+  font-size: 50px;
+}

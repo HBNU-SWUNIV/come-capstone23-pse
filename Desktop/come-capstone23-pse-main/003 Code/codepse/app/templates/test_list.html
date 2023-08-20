@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Coding Test</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <!-- checkbox 스타일링-->
+    <!-- <link href="{{ url_for('static', filename='css/checkbox.css') }}" rel="stylesheet"> -->
+    <style>
+      .menu-list {
+        display: none;
+      }
+      .filter-options {
+        display: flex;
+        justify-content: space-between;
+      }
+  
+      .filter-section {
+        display: flex;
+        align-items: center;
+      }
+    </style>
+    <script>
+      function toggleOptions(optionId) {
+        const optionsList = document.getElementById(optionId);
+        optionsList.style.display = optionsList.style.display === "none" ? "block" : "none";
+      }
+    </script>
+</head>
+<body>
+
+    <!--- header section -->
+    <header>
+        <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li class="dropdown">
+                <a href="/typinggame" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+              </li>
+              <li><a href="/board_list">BOARD</a></li>
+              {% if current_user.is_authenticated %}
+                <!-- 로그인 한 사용자의 이름을 표시 -->
+                <li class="user-name">hello, {{ current_user.username }}</li>
+              {% endif %}
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+
+
+        </ul>
+    </header>
+    <title>문제 목록</title>
+    <meta charset="UTF-8">
+    <link href="{{ url_for('static', filename='css/test_list.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <section class="notice">
+      <div class="page-title">
+        <div class="container">
+          <h3>코딩테스트 문제</h3>
+        </div>
+      </div>
+
+      <!-- checkbox 난이도, 언어 추가 -->
+      <div class="dropdown">
+        <button class="title" onclick="toggleOptions('level-options')">
+          난이도
+          <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
+              <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
+          </svg>
+        </button>
+      
+        <ul class="menu-list" id="level-options">
+          <li class="item">
+            <label for="level-0">
+              <input id="level-0" name="levels" type="checkbox" value="0">
+              하
+            </label>
+          </li>
+          <li class="item">
+            <label for="level-1">
+              <input id="level-1" name="levels" type="checkbox" value="1">
+              중
+            </label>
+          </li>
+          <li class="item">
+            <label for="level-2">
+              <input id="level-2" name="levels" type="checkbox" value="2">
+              상
+            </label>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="dropdown">
+        <button class="title" onclick="toggleOptions('language-options')">
+          언어
+          <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
+              <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
+          </svg>
+        </button>
+      
+        <ul class="menu-list" id="language-options">
+          <li class="item">
+            <label for="lang-c">
+              <input id="lang-c" name="languages" type="checkbox" value="c">
+              C
+            </label>
+          </li>
+          <li class="item">
+            <label for="lang-cpp">
+              <input id="lang-cpp" name="languages" type="checkbox" value="cpp">
+              C++
+            </label>
+          </li>
+          <li class="item">
+            <label for="lang-java">
+              <input id="lang-java" name="languages" type="checkbox" value="java">
+              JAVA
+            </label>
+          </li>
+          <li class="item">
+            <label for="lang-python">
+              <input id="lang-python" name="languages" type="checkbox" value="python">
+              Python
+            </label>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- board list area -->
+      <div id="board-list">
+        <div class="container">
+          <table class="board-table">
+            <thead>
+              <tr>
+                <th scope="col" class="th-num">번호</th>
+                <th scope="col" class="th-num">난이도</th>
+                <th scope="col" class="th-title">제목</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in q_list %}
+              <tr>
+                <td>{{ i[0] }}</td> <!-- 문제 번호 -->
+                <td>{{ i[1] }}</td> <!-- 문제 난이도 -->
+                <th>
+                  <a href="{{ url_for('coding_test.test_view', q_id=i[0]) }}">{{ i[2] }}</a> <!--i[1]: 문제 이름-->
+ <!--i[1]: 문제 이름-->
+                  <p>{{ i[2] }}</p>
+                </th>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
