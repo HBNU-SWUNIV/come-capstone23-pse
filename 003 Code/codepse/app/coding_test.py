@@ -28,7 +28,7 @@ def test_list():
     conn = get_db_connection()
 
     total_tests = conn.query(func.count(QList.q_id)).scalar()
-    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name)\
+    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name, QList.q_lang)\
                 .offset((page - 1) * PER_PAGE)\
                 .limit(PER_PAGE)\
                 .all()
