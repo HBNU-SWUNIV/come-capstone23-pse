@@ -15,6 +15,7 @@ from app.csrf_protection import csrf
 from database.database import get_db_connection
 from database.models import QList, CodeSubmission
 
+from sqlalchemy import and_
 
 coding_test = Blueprint("coding_test", __name__)
 
@@ -25,10 +26,22 @@ PER_PAGE = 10
 @login_required
 def test_list():
     page = request.args.get("page", 1, type=int)
+    levels = request.args.getlist('levels')  # url에서 levels 파라미터를 가져옴
+    languages = request.args.getlist('languages')  # url에서 languages 파라미터를 가져옴
+
+    filters = []
+
+    if levels:
+        filters.append(QList.q_level.in_(levels))
+    if languages:
+        filters.append(QList.q_lang.in_(languages))
+
     conn = get_db_connection()
 
-    total_tests = conn.query(func.count(QList.q_id)).scalar()
+    total_tests = conn.query(func.count(QList.q_id)).filter(and_(*filters)).scalar()
+    
     q_list = conn.query(QList.q_id, QList.q_level, QList.q_name, QList.q_lang)\
+                .filter(and_(*filters))\
                 .offset((page - 1) * PER_PAGE)\
                 .limit(PER_PAGE)\
                 .all()
