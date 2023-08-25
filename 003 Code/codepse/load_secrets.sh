@@ -1,0 +1,7 @@
+export DB_HOST=$(jq -r '.db_host' secrets.json)
+export DB_NAME=$(jq -r '.db_name' secrets.json)
+export DB_USER=$(jq -r '.db_user' secrets.json)
+export DB_PW=$(jq -r '.db_pw' secrets.json)
+export DB_PORT=$(jq -r '.db_port' secrets.json)
+export DB_DRIVER=$(jq -r '.db_driver' secrets.json)
+export DB_CHARSET=$(jq -r '.db_charset' secrets.json)
