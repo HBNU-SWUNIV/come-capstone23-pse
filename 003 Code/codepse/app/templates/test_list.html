@@ -37,38 +37,40 @@
     </style>
     <script>
       function toggleOptions(optionId) {
-        const optionsList = document.getElementById(optionId);
-        optionsList.style.display = optionsList.style.display === "none" ? "block" : "none";
-      }
-
-      function handleCheckboxChange() {
-        filterProblems();
-      }
-    
-      function filterProblems() {
-        const selectedLevels = Array.from(document.querySelectorAll('input[name="levels"]:checked')).map(input => input.value);
-        const selectedLanguages = Array.from(document.querySelectorAll('input[name="languages"]:checked')).map(input => input.value);
-
-        // 필터링 조건 따라서 url 구성
-        let newURL = location.protocol + '//' + location.host + location.pathname;
-        let queryParts = [];
-
-        if (selectedLevels.length > 0) {
-            queryParts.push('levels=' + selectedLevels.join(','));
-        }
-        if (selectedLanguages.length > 0) {
-            queryParts.push('languages=' + selectedLanguages.join(','));
+          const optionsList = document.getElementById(optionId);
+          optionsList.style.display = optionsList.style.display === "none" ? "block" : "none";
         }
 
-        if (queryParts.length > 0) {
-            newURL += '?' + queryParts.join('&');
+        function handleCheckboxChange() {
+          filterProblems();
         }
 
-        // 현재 url과 새로 구성된 url이 다를 경우에 페이지 다시 load
-        if (window.location.href !== newURL) {
-            window.location.href = newURL;
+        function filterProblems() {
+          const selectedLevels = Array.from(document.querySelectorAll('input[name="levels"]:checked')).map(input => input.value);
+          const selectedLanguages = Array.from(document.querySelectorAll('input[name="languages"]:checked')).map(input => input.value);
+
+          // 필터링 조건 따라서 url 구성
+          let newURL = location.protocol + '//' + location.host + location.pathname;
+          let queryParts = [];
+
+          selectedLevels.forEach(level => {
+              queryParts.push('levels=' + level);
+          });
+
+          selectedLanguages.forEach(lang => {
+              queryParts.push('languages=' + lang);
+          });
+
+          if (queryParts.length > 0) {
+              newURL += '?' + queryParts.join('&');
+          }
+
+          // 현재 url과 새로 구성된 url이 다를 경우에 페이지 다시 load
+          if (window.location.href !== newURL) {
+              window.location.href = newURL;
+          }
         }
-    }
+
     
       document.addEventListener('DOMContentLoaded', () => {
         const levelCheckboxes = document.querySelectorAll('input[name="levels"]');
@@ -153,20 +155,20 @@
       
         <ul class="menu-list" id="level-options">
           <li class="item">
-            <label for="level">
-              <input id="level" name="levels" type="checkbox" value="하">
+            <label for="level_low">
+              <input id="level_low" name="levels" type="checkbox" value="하">
               하
             </label>
           </li>
           <li class="item">
-            <label for="level">
-              <input id="level" name="levels" type="checkbox" value="중">
+            <label for="level_mid">
+              <input id="level_mid" name="levels" type="checkbox" value="중">
               중
             </label>
           </li>
           <li class="item">
-            <label for="level">
-              <input id="level" name="levels" type="checkbox" value="상">
+            <label for="level_high">
+              <input id="level_high" name="levels" type="checkbox" value="상">
               상
             </label>
           </li>
@@ -183,26 +185,26 @@
       
         <ul class="menu-list" id="language-options">
           <li class="item">
-            <label for="lang">
-              <input id="lang" name="languages" type="checkbox" value="c">
+            <label for="lang_c">
+              <input id="lang_c" name="languages" type="checkbox" value="c">
               C
             </label>
           </li>
           <li class="item">
-            <label for="lang">
-              <input id="lang" name="languages" type="checkbox" value="cpp">
+            <label for="lang_cpp">
+              <input id="lang_cpp" name="languages" type="checkbox" value="cpp">
               C++
             </label>
           </li>
           <li class="item">
-            <label for="lang">
-              <input id="lang" name="languages" type="checkbox" value="java">
+            <label for="lang_java">
+              <input id="lang_java" name="languages" type="checkbox" value="java">
               JAVA
             </label>
           </li>
           <li class="item">
-            <label for="lang">
-              <input id="lang" name="languages" type="checkbox" value="python">
+            <label for="lang_python">
+              <input id="lang_python" name="languages" type="checkbox" value="python">
               Python
             </label>
           </li>
