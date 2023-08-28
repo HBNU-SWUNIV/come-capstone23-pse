@@ -36,9 +36,9 @@
       }
     </style>
     <script>
-      function toggleOptions(optionId) {
+        function toggleOptions(optionId) {
           const optionsList = document.getElementById(optionId);
-          optionsList.style.display = optionsList.style.display === "none" ? "block" : "none";
+          optionsList.style.display = optionsList.style.display === "none" || optionsList.style.display === "" ? "block" : "none";
         }
 
         function handleCheckboxChange() {
