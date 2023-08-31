@@ -34,6 +34,20 @@
         display: flex;
         align-items: center;
       }
+
+      .checkbox-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .dropdown {
+          margin-left: 10px;
+          margin-right: 10px;
+      }
     </style>
     <script>
         function toggleOptions(optionId) {
@@ -145,7 +159,7 @@
       </div>
 
       <!-- checkbox 난이도, 언어 추가 -->
-      <div>
+      <div class="checkbox-wrapper">
         <div class="dropdown">
           <button class="title" onclick="toggleOptions('level-options')">
             난이도
