@@ -145,70 +145,72 @@
       </div>
 
       <!-- checkbox 난이도, 언어 추가 -->
-      <div class="dropdown">
-        <button class="title" onclick="toggleOptions('level-options')">
-          난이도
-          <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
-              <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
-          </svg>
-        </button>
-      
-        <ul class="menu-list" id="level-options">
-          <li class="item">
-            <label for="level_low">
-              <input id="level_low" name="levels" type="checkbox" value="하">
-              하
-            </label>
-          </li>
-          <li class="item">
-            <label for="level_mid">
-              <input id="level_mid" name="levels" type="checkbox" value="중">
-              중
-            </label>
-          </li>
-          <li class="item">
-            <label for="level_high">
-              <input id="level_high" name="levels" type="checkbox" value="상">
-              상
-            </label>
-          </li>
-        </ul>
-      </div>
-      
-      <div class="dropdown">
-        <button class="title" onclick="toggleOptions('language-options')">
-          언어
-          <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
-              <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
-          </svg>
-        </button>
-      
-        <ul class="menu-list" id="language-options">
-          <li class="item">
-            <label for="lang_c">
-              <input id="lang_c" name="languages" type="checkbox" value="c">
-              C
-            </label>
-          </li>
-          <li class="item">
-            <label for="lang_cpp">
-              <input id="lang_cpp" name="languages" type="checkbox" value="cpp">
-              C++
-            </label>
-          </li>
-          <li class="item">
-            <label for="lang_java">
-              <input id="lang_java" name="languages" type="checkbox" value="java">
-              JAVA
-            </label>
-          </li>
-          <li class="item">
-            <label for="lang_python">
-              <input id="lang_python" name="languages" type="checkbox" value="python">
-              Python
-            </label>
-          </li>
-        </ul>
+      <div>
+        <div class="dropdown">
+          <button class="title" onclick="toggleOptions('level-options')">
+            난이도
+            <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
+                <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
+            </svg>
+          </button>
+        
+          <ul class="menu-list" id="level-options">
+            <li class="item">
+              <label for="level_low">
+                <input id="level_low" name="levels" type="checkbox" value="하">
+                하
+              </label>
+            </li>
+            <li class="item">
+              <label for="level_mid">
+                <input id="level_mid" name="levels" type="checkbox" value="중">
+                중
+              </label>
+            </li>
+            <li class="item">
+              <label for="level_high">
+                <input id="level_high" name="levels" type="checkbox" value="상">
+                상
+              </label>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="dropdown">
+          <button class="title" onclick="toggleOptions('language-options')">
+            언어
+            <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
+                <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
+            </svg>
+          </button>
+        
+          <ul class="menu-list" id="language-options">
+            <li class="item">
+              <label for="lang_c">
+                <input id="lang_c" name="languages" type="checkbox" value="c">
+                C
+              </label>
+            </li>
+            <li class="item">
+              <label for="lang_cpp">
+                <input id="lang_cpp" name="languages" type="checkbox" value="cpp">
+                C++
+              </label>
+            </li>
+            <li class="item">
+              <label for="lang_java">
+                <input id="lang_java" name="languages" type="checkbox" value="java">
+                JAVA
+              </label>
+            </li>
+            <li class="item">
+              <label for="lang_python">
+                <input id="lang_python" name="languages" type="checkbox" value="python">
+                Python
+              </label>
+            </li>
+          </ul>
+        </div>
       </div>
 
 
