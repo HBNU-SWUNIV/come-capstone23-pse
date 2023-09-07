@@ -31,7 +31,9 @@
     {% endwith %}
 
     <!--- header section -->
+
     <header>
+
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx menu" id="menu-icon"></div>
 
@@ -49,12 +51,12 @@
                 </div>
                 <li><a href="/board_list">BOARD</a></li>
               </li>
-              {% if current_user.is_authenticated %}
-                <!-- 로그인 한 사용자의 이름을 표시 -->
-                <li class="user-name">hello, {{ current_user.username }}</li>
-              {% endif %}
               <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+              {% if current_user.is_authenticated %}
+              <!-- 로그인 한 사용자의 이름을 표시 -->
+              <li class="user-name">hello, {{ current_user.username }}</li>
+            {% endif %}
 
 
         </ul>
@@ -71,14 +73,19 @@
         }
     </script>
     <div class="container">
-        <h1>My Page</h1>
+        <h1>마이페이지</h1>
         
         <!-- 사용자 정보 섹션 -->
         <div class="user-info">
-            <h2>Profile Information</h2>
-            <p><strong>이름:</strong> {{ current_user.username }}</p>
-            <p><strong>이메일:</strong> {{ current_user.user_email }}</p>
+            <div class="user-image-container">
+                <img src="{{ url_for('static', filename='images/profile.png') }}" alt="User Image" class="user-image">
+            </div>
+            <div class="user-details">
+                <p><strong>이름:</strong> {{ current_user.username }}</p>
+                <p><strong>이메일:</strong> {{ current_user.user_email }}</p>
+            </div>
         </div>
+        
         <br>
 
         <!-- 사용자 게시물 섹션 -->
@@ -167,7 +174,7 @@
             <div class="game-results-container">
                 <!-- outgame 섹션 -->
                 <div class="game-section outgame-section">
-                    <h3>Out Game</h3>
+                    <h3>Output Game</h3>
                     
                     <table class="game-table">
                         <thead>
@@ -220,4 +227,5 @@
         
     </div>
 </body>
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
 </html>
