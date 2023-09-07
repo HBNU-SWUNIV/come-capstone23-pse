@@ -1,3 +1,11 @@
+const header = document.querySelector("header")
+
+window.addEventListener ("scroll", function(){
+    header.classList.toggle("sticky", window.scrollY > 60)
+});
+//이거는 뭐시냐면은 그 메인페이지 스크롤 내릴때 메뉴는 안없어지고 그대로 유지되는 고것 근데 쫌 간지나게 유지돼..
+
+
 let selectedFiles = [];  // 선택된 파일을 관리하기 위한 배열
 
 // 선택 파일의 이름 나열하기
