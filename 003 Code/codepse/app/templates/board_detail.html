@@ -51,25 +51,28 @@
                 </div>
                 <li><a href="/board_list">BOARD</a></li>
               </li>
-              {% if current_user.is_authenticated %}
-                <!-- 로그인 한 사용자의 이름을 표시 -->
-                <li class="user-name">hello, {{ current_user.username }}</li>
-              {% endif %}
               <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+              {% if current_user.is_authenticated %}
+              <!-- 로그인 한 사용자의 이름을 표시 -->
+              <li class="user-name">hello, {{ current_user.username }}</li>
+            {% endif %}
 
 
         </ul>
     </header>
+
+
+    <section class="board_detail" id="board_detail">
     <title>board_detail</title>
     <link href="{{ url_for('static', filename='css/board_detail.css') }}" rel="stylesheet">
 
+
+    <h2 class="post-title">{{ post.Board.title }}</h2>
     <div class="post-details"> 
         <!-- 임의 게시글 -->
-        <h2 class="post-title">{{ post.Board.title }}</h2>
-
         <div class="edit-delete-buttons">
-            <a href="/board_list">목록</a>
+            <a href="/board_list" class="list">목록</a>
         </div>
 
             <!-- 게시글 작성자가 현재 로그인한 사용자와 동일한 경우 수정 및 삭제 버튼 표시 -->
@@ -80,7 +83,7 @@
         </div>
         {% endif %}
         <div class="post-info">
-            <p>작성자: {{ post.User.username }} | 날짜: {{ post.Board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }} | 조회수: {{ post.Board.view }}</p>
+            <p> 작성자: {{ post.User.username }} | 날짜: {{ post.Board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }} | 조회수: {{ post.Board.view }}</p>
     </div>
 
     <!-- 첨부된 파일이 있을 때만 '첨부파일' 텍스트 표시 -->
@@ -155,4 +158,5 @@
         {% endfor %}
     <script src="{{ url_for('static', filename='js/board_detail.js') }}"></script>
 </body>
+</section>
 </html>
