@@ -20,9 +20,9 @@
     --second-color: #ffffff;
     --other-color: #c6cd8f;
 
-    --h1-font: 7rem;
-    --h2-font: 3.5rem;
-    --p-font: 1.1rem;
+    --h1-font: 5.5rem;
+    --h2-font: 2.5rem;
+    --p-font: 1rem;
 
 }
 
@@ -40,11 +40,17 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 11%;
+    padding: 17px 11%;
     border-bottom: 1px solid transparent;
     transition: all ease .50s;
-    background-color:#647fb4;
+  
 
+}
+
+header.sticky{
+    padding: 15px 11%;
+    background: #000;
+    border-bottom: 1px solid #425055;
 }
 
 /* Dropdown Button */
@@ -58,11 +64,11 @@ header{
     display: inline-block;
   }
   
-  /* Dropdown Content (Hidden by Default) */
+  /* 게임 밑에 */
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #647fb4;
+    background-color: #ffffff;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -70,23 +76,29 @@ header{
   
   /* Links inside the dropdown */
   .dropdown-content a {
-    color: #000;
+    
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     font-family: 'Do Hyeon', sans-serif;
     
   }
-  
+
+  .dropdown .dropdown-content a {
+    color: #000;
+   
+}
 
   
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
 
+
+
 .logo {
     color: #ffffff;
     font-weight: 700;
-    font-size: 35px;
+    font-size: 28px;
     text-decoration: none;
     font-family: 'Permanent Marker', sans-serif;
 }
@@ -98,7 +110,7 @@ header{
 
 .navlist a{
     color: var(--second-color);
-    font-size: 20px;
+    font-size: 17px;
     margin: 0 30px;
     transition: all ease .40s;  /*전환*/
     font-family: 'Do Hyeon', sans-serif;
@@ -150,3 +162,141 @@ header{
 .navlist li:first-child {
     margin-top: auto; /* 홈 버튼을 맨 아래로 이동 */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*여기서는 모바일 화면 부분입니당*/
+
+@media (max-width:1600px){
+    header{
+        padding: 14px 4%;
+    }
+    section{
+        padding: 100px 5% 80px;
+    }
+}
+
+@media (max-width:1200px){
+    .home{
+        min-height: 90vh;
+    }
+    .navlist{
+        margin: 0 20px;
+    }
+    :root{
+        --h1-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1rem;       
+    }
+}
+
+@media (max-width:1060px){
+    .about{
+        grid-template-columns: 1fr;
+    }
+    .about-img{
+        text-align: center;
+        order: 2;
+    }
+    .about-img img{
+        max-width: 100%;
+        width: 600px;
+        height: auto;
+    }
+    .service-item{
+        grid-template-columns: repeat(auto-fit, minmax(350px, auto));
+    }
+    .concat{
+        grid-template-columns: 1fr;
+    }
+    .left-concat{
+        margin:auto;
+    }
+}
+@media (max-width:1060px){
+    #menu-icon{
+        display: block;
+    }
+    .navlist{
+        position: absolute;
+        top: -800px;
+        right: 0;
+        left: 0;
+        display: flex;
+        flex-direction:column;
+        background: #000;
+        padding:20px 0;
+        text-align: left;
+        transition: all .50s ease;
+    }
+    .navlist a{
+        display: block;
+        font-size: 20px;
+        padding: 12px 0;
+    }
+    .navlist.open{
+        top:100%;
+    }
+}
+@media (max-width:600px){
+    .home{
+        min-height: 80vh;
+    }
+    :root{
+        --h1-font: 5rem;
+        --h2-font: 3rem;
+        --p-font: 1rem;       
+    }
+    .hero-text h4{
+        font-size: 18px;
+        word-spacing: 10px;
+        margin-bottom: 30px;
+    }
+    .btn{
+        padding: 10px 35px;
+    }
+    .left-concat{
+        gap: 3rem;
+    }
+}
+
+
