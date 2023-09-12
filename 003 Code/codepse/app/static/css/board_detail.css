@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.post-details {
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid #dddddd;
+    padding: 20px;
+}
+
+.post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.post-info {
+    font-size: 14px;
+    color: #888888;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.post-content {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.comment-form-wrapper,
+.comment-list-wrapper {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.comment-form button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.comment {
+    margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-info {
+    font-size: 12px;
+    color: #888888;
+}
+
+.comment-content {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left !important;
+}
+
+.comment-info-wrapper,
+.comment-content-wrapper {
+    flex-grow: 1;
+}
+
+.comment-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-form-input {
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-form-input textarea {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.comment-form-input button {
+    flex-shrink: 0;
+}
+
+.comment-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.comment-content pre {
+    margin: 0;
+    line-height: 1.4;
+    text-align: left;
+}

@@ -24,11 +24,11 @@
 
     <!--- header section -->
     <header>
-        <a href="/" class="logo">CODE PSE</a>
+        <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx bx menu" id="menu-icon"></div>
 
         <ul class="navlist">
-            <li><a href="/">HOME</a></li>
+            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
             <li><a href="/test_list">CODING TEST</a></li>
             <li><a href="/ai_chatbot">AI CHATBOT</a></li>
             <li class="dropdown">
@@ -39,6 +39,12 @@
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
               </li>
+              {% if current_user.is_authenticated %}
+                <!-- 로그인 한 사용자의 이름을 표시 -->
+                <li class="user-name">hello, {{ current_user.username }}</li>
+              {% endif %}
+
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
 
 
         </ul>

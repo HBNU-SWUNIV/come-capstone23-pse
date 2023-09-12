@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>board_list</title>
+    <link href="{{ url_for('static', filename='css/board_list.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <h1>board list</h1>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" class="th-num">번호</th>
+                <th scope="col" class="th-title">제목</th>
+                <th scope="col" class="th-title">작성자</th>
+                <th scope="col" class="th-num">날짜</th>
+                <th scope="col" class="th-num">조회</th>
+            </tr>
+        </thead>
+        <tbody> <!-- tbody 추가 -->
+            <!-- 출력 예시를 위해 임의로 동적 생성함 -->
+            <tr>
+                <td>1</td>
+                <td><a href="/board_detail">피카츄 라이츄</a></td>
+                <td>파이리</td>
+                <td>2023.7.25</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>파이리 꼬부기</td>
+                <td>피카츄</td>
+                <td>2023.7.26</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>돈까스 좋아해요?</td>
+                <td>스윙스</td>
+                <td>2023.7.26</td>
+                <td>333</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
