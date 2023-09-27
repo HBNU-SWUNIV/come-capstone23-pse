@@ -5,11 +5,14 @@
     <title>Coding Test</title>
 	
 	<!--- cutom css line -->
+  
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/codingtest.css') }}" rel="stylesheet">
 
 
     <!--- box icons link -->
     <link rel="stylesheet"
+    
     href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <!--- google fonts link -->
@@ -41,19 +44,22 @@
                 </div>
                 <li><a href="/board_list">BOARD</a></li>
               </li>
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
               {% if current_user.is_authenticated %}
                 <!-- 로그인 한 사용자의 이름을 표시 -->
                 <li class="user-name">hello, {{ current_user.username }}</li>
               {% endif %}
-              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
-              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
 
 
         </ul>
     </header>
 <html lang="en">
 <section class="coding">
+  <h1>[ {{ q_list.q_name }} ]</h1>
 <head>
+  <title>{{ q_list.q_name }}</title>
+  
   <div class="wrapper">
 		<div class="content-box">
     <title>{{ q_list.q_name }}</title>
@@ -63,8 +69,7 @@
 
 </head>
 <body>
-    <link href="{{ url_for('static', filename='css/codingtest.css') }}" rel="stylesheet">
-    <h1>[ {{ q_list.q_name }} ]</h1>
+  
     <div id="problem">
         <p class="ttext">문제</p>
         <p class="ttext2">{{ q_list.q_content | safe }}</p>
@@ -99,6 +104,18 @@
 
 
 <script>
+
+const header = document.querySelector("header")
+
+window.addEventListener ("scroll", function(){
+    header.classList.toggle("sticky", window.scrollY > 80)
+});
+//이거는 뭐시냐면은 그 메인페이지 스크롤 내릴때 메뉴는 안없어지고 그대로 유지되는 고것 근데 쫌 간지나게 유지돼..
+
+
+
+
+
 $(document).ready(function() {
     var isCodeExecuted = false; // 코드가 실행되었는지 확인하는 flag
 
