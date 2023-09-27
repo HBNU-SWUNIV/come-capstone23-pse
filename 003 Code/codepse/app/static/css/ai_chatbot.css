@@ -113,8 +113,9 @@ input[type="submit"]:hover {
 }
 
 #chatloadimage img {
-    width: 50%; /* 이미지 크기를 줄입니다 */
-    opacity: 0.3; /* 이미지를 반투명하게 만듭니다 */
+    width: 50%;
+    opacity: 0.3; /* 이미지를 반투명 */
+    margin-bottom: 86px;
 }
 
 
