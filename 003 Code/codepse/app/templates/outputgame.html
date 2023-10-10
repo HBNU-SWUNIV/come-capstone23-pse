@@ -71,12 +71,12 @@
                </div>
                <li><a href="/board_list">BOARD</a></li>
              </li>
-             {% if current_user.is_authenticated %}
-               <!-- 로그인 한 사용자의 이름을 표시 -->
-               <li class="user-name">hello, {{ current_user.username }}</li>
-             {% endif %}
              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+             {% if current_user.is_authenticated %}
+             <!-- 로그인 한 사용자의 이름을 표시 -->
+             <li class="user-name">hello, {{ current_user.username }}</li>
+           {% endif %}
        </ul>
    </header>
     <div class="game-and-leaderboard-container">

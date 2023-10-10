@@ -8,23 +8,26 @@
 }
 
 body {
-  display: flex;
+  display: block;
   padding: 0 10px;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #647fb4;
+  background: url(/static/images/game2_back.png);
+  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
+  background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+  background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
 }
 
 header {
     position: fixed;
     width: 100%;
-    height: 100px;
+    height: 75px;
     /* Your existing styles... */
-    background-color:#647fb4;
+   
 }
 section.game {
-    padding-top: 110px; 
+    padding-top: 153px; 
  
 
     /* Your existing styles... */
@@ -108,7 +111,7 @@ h4 {
 }
 
 .correct-answer {
-    color: rgb(74, 211, 74);
+    color: rgb(0, 53, 185);
 }
 
 

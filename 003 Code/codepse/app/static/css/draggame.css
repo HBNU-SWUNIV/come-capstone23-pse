@@ -13,7 +13,10 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #647fb4;
+  background: url(/static/images/game2_back.png);
+  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
+  background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+  background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
 }
 
 
@@ -33,12 +36,22 @@ body {
   margin-bottom: 10px;
 }
 
+#options {
+  color: rgb(12, 22, 47); 
+}
+
+#result {
+  color: rgb(12, 22, 47);
+}
+
+
+
 header {
     position: fixed;
     width: 100%;
-    height: 100px;
+    height: 75px;
     /* Your existing styles... */
-    background-color: #647fb4;
+    
 }
 
 section.game {
@@ -141,7 +154,7 @@ button {
   }
 
 .option {
-    border: 1px solid #aaa;
+    border: 1px solid #474747;
     padding: 5px 10px;
     margin: 10px;
     display: inline-block;
