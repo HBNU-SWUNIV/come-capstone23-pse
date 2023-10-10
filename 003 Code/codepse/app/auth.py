@@ -36,19 +36,25 @@ def init_login_manager(app):
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
+    # 로그인 상태를 확인하여 이미 로그인한 경우 홈으로 리다이렉트
     if current_user.is_authenticated:
         return redirect(url_for("home"))
 
     form = LoginForm()  # 폼 객체 생성
     error_message = None
 
-    if request.method == "POST" and form.validate_on_submit():  # 폼 검증 추가
+    # POST 요청 시 폼 유효성 검사
+    if request.method == "POST" and form.validate_on_submit():
         db_session = get_db_connection()
-        email = form.useremail.data  # 폼 데이터 사용
-        password = form.password.data  # 폼 데이터 사용
 
+        # 사용자가 입력한 이메일과 비밀번호를 가져옴
+        email = form.useremail.data
+        password = form.password.data
+
+        # 해당 이메일을 가진 사용자를 데이터베이스에서 찾음
         user = db_session.query(User).filter_by(user_email=email).first()
 
+        # 사용자가 존재하고 비밀번호가 맞는 경우
         if user is not None:
             password_check = user.check_password(password)
             if password_check:
@@ -57,6 +63,7 @@ def login():
                 db_session.commit()
                 login_user(user)  # 사용자가 로그인
                 return redirect(url_for("home"))
+
             else:
                 error_message = "이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요."
 
@@ -81,7 +88,9 @@ def signup():
     form = SignupForm()
     db_session = get_db_connection()
 
+    # 폼 유효성 검사를 통과한 경우
     if form.validate_on_submit():
+        # 사용자가 입력한 이름, 이메일, 비밀번호를 가져옴
         name = form.name.data
         email = form.useremail.data
         password = form.password.data

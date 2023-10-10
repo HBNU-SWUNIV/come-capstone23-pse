@@ -5,9 +5,19 @@
 *{
     font-family: 'Noto Sans KR', sans-serif;
 }
-section{
-    margin-top: 122px;
+
+
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: url(/static/images/chatbot_back.png);
+    background-attachment: fixed; /* 추가한 부분 */
+
+
 }
+
+
+
 
 #chatbox {
     flex-grow: 1;
@@ -18,10 +28,19 @@ section{
     padding: 10px;
     height: 500px;
     width: 1200px;
-    margin-left: 180px;
+    margin-left: 85px;
     background-color: #ffffff;
     border-radius: 10px;
 
+}
+
+form {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 311px;
+    margin-bottom: 50px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
 }
 
 textarea{
@@ -42,14 +61,7 @@ h2{
     margin-bottom: 15px;
 }
 
-form {
-    display: flex;
-    margin-top: 20px;
-    margin-left: 450px;
-    margin-bottom: 50px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
-}
+
 
 .message {
     padding: 10px;
@@ -101,8 +113,9 @@ input[type="submit"]:hover {
 }
 
 #chatloadimage img {
-    width: 50%; /* 이미지 크기를 줄입니다 */
-    opacity: 0.3; /* 이미지를 반투명하게 만듭니다 */
+    width: 50%;
+    opacity: 0.3; /* 이미지를 반투명 */
+    margin-bottom: 86px;
 }
 
 

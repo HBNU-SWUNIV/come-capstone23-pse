@@ -140,12 +140,14 @@ def unique_filename(file_name):
 def board_write():
     form = BoardWriteForm()  # 폼 객체 생성
 
+    # 폼 유효성 검사
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
         files = request.files.getlist("file")
         file_paths = []
 
+        # 파일 업로드 처리 부분
         for file in files:
             if file and file.filename:
                 original_filename = file.filename
@@ -156,6 +158,7 @@ def board_write():
         if not file_paths:
             file_paths = None
 
+        # DB에 게시글 추가
         new_post = Board(
             user_id=current_user.id, title=title, content=content, file_path=file_paths, view=0
         )
@@ -196,6 +199,7 @@ def board_edit(board_id):
         form.title.data = board_instance.title
         form.content.data = board_instance.content
 
+    # 폼 유효성 검사
     if form.validate_on_submit():
         board_instance.title = form.title.data
         board_instance.content = form.content.data
@@ -223,7 +227,8 @@ def board_edit(board_id):
         board_instance.file_path = file_paths if file_paths else None
 
         try:
-            db_session.commit()
+            db_session.commit()  # DB에 변경 사항 저장
+
             flash("게시글이 성공적으로 수정되었습니다.")  # 메시지 전달
             return redirect(url_for("board.board_detail", board_id=board_id))
         except Exception as e:
@@ -248,8 +253,9 @@ def board_delete(board_id):
         return redirect(url_for("board.board_detail", board_id=board_id, message="삭제 권한이 없습니다."))
 
     try:
-        db_session.delete(board_instance)
-        db_session.commit()
+        db_session.delete(board_instance)  # 게시글 삭제
+        db_session.commit()  # db 변경 사항 저장
+
         flash("게시글이 성공적으로 삭제되었습니다.")
         return redirect(url_for("board.board_list"))
     except:

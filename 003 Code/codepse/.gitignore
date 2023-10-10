@@ -1,3 +1,4 @@
 secrets.json
 init.sql
 app/upload
+.vscode/

@@ -44,4 +44,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", port="5000", debug=True)
+    app.run("0.0.0.0", port="5000", debug=True)  # 배포 시에 debug=False로 바꿔주세용
