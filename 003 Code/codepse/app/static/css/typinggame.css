@@ -13,8 +13,9 @@ body {
   padding: 0 10px;
   align-items: center;
   justify-content: center;
+  background: url(/static/images/gameback.png);
   min-height: 100vh;
-  background: #647fb4;
+ 
 }
 
 ::selection {
