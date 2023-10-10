@@ -1,4 +1,4 @@
-import os
+import os,re
 import subprocess
 import py_compile
 
@@ -83,12 +83,20 @@ def python_run_code(code):
 
 
 def java_compile_run_code(code):
-    file = open("Main.java", "w")
-    file.write(code)
-    file.close()
+    # 클래스 이름 추출
+    class_name_match = re.search(r'public class (\w+)', code)
+    if not class_name_match:
+        return "Error: Could not find a public class declaration in the code."
+
+    class_name = class_name_match.group(1)
+
+    # 파일 생성
+    file_path = f"{class_name}.java"
+    with open(file_path, "w") as file:
+        file.write(code)
 
     # 컴파일 명령어
-    compile_command = "javac Main.java"
+    compile_command = f"javac {file_path}"
 
     # 컴파일 실행
     compile_result = subprocess.run(
@@ -98,7 +106,7 @@ def java_compile_run_code(code):
     # 컴파일 결과에 따라 결과 반환
     if compile_result.returncode == 0:
         # 실행 명령어
-        run_command = "java Main"
+        run_command = f"java {class_name}"
 
         # 실행
         run_result = subprocess.run(
@@ -113,9 +121,9 @@ def java_compile_run_code(code):
     else:
         output_str = compile_result.stderr.decode("utf-8")
 
-    os.remove("Main.java")  # UserSolution.java 파일 삭제
-    if os.path.exists("Main.class"):
-        os.remove("Main.class")  # 컴파일된 클래스 파일 삭제
+    os.remove(file_path)  # .java 파일 삭제
+    if os.path.exists(f"{class_name}.class"):
+        os.remove(f"{class_name}.class")  # 컴파일된 클래스 파일 삭제
 
     return output_str
 

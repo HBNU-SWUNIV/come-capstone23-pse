@@ -41,7 +41,7 @@
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
               </li>
-
+              <li><a href="/board_list">BOARD</a></li>
               <li><a href="/login" class="login-btn">LOGIN</a></li>
         </ul>
     </header>
@@ -94,98 +94,121 @@
     </section>
     <!--- services section -->
     <section class="service" id="service">
-        <div class="text-center">
-          <h2>OUR SERVICES</h2>
-          <h4>Do your best to use it!</h4>
-        </div>
-      
-        <div class="service-slider">
-          <div class="service-item">
-            <div class="service-box">
-              <i class='bx bx-code-block'></i>
-              <h3>CODING TEST</h3>
-              <p>
-                코딩 문제를 풀고, AI가 그 해결책에 대해 피드백을 주는 기능을 제공합니다
-              </p>
-              <a href="/test_list" class="c-btn">Go Test</a>
-            </div>
-          </div>
-      
-          <div class="service-item">
-            <div class="service-box">
-              <i class='bx bx-message-dots'></i>
-              <h3>AI CHATBOT</h3>
-              <p>
-                AI 챗봇을 이용하여, 코드 관련 질문에 대한 답변을 실시간으로 받을 수 있습니다
-              </p>
-              <a href="/test_list" class="c-btn">Go Ask</a>
-            </div>
-          </div>
-      
-          <div class="service-item">
-            <div class="service-box">
-              <i class='bx bxs-keyboard'></i>
-              <h3>TYPING GAME</h3>
-              <p>
-                소스 코드를 타이핑하며 영타 실력을 향상시키고 코드에 익숙해지게 돕는 게임입니다.
-              </p>
-              <a href="/typinggame" class="c-btn">Go Game</a>
-            </div>
-          </div>
-      
-          <div class="service-item">
-            <div class="service-box">
-              <i class='bx bx-mouse-alt'></i>
-              <h3>DRAG GAME</h3>
-              <p>
-                소스 코드의 빈칸에 드래그하여<br> 코드를 완성하는 게임입니다.
-              </p>
-              <a href="/draggame" class="c-btn">Go Game</a>
-            </div>
-          </div>
-      
-          <div class="service-item">
-            <div class="service-box">
-              <i class='bx bx-desktop'></i>
-              <h3>OUTPUT GAME</h3>
-              <p>
-                주어진 소스 코드를 분석하고 <br>예상되는 출력값을 맞추는 게임입니다.
-              </p>
-              <a href="/outputgame" class="c-btn">Go Game</a>
-            </div>
+      <div class="text-center">
+        <h2>OUR SERVICES</h2>
+        <h4>Do your best to use it!</h4>
+      </div>
+    
+      <div class="service-slider">
+        <div class="service-item">
+          <div class="service-box">
+            <i class='bx bx-code-block'></i>
+            <h3>CODING TEST</h3>
+            <p>
+              코딩 문제를 풀고, AI가 그 해결책에 대해 피드백을 주는 기능을 제공합니다
+            </p>
+            <a href="/test_list" class="c-btn">Go Test</a>
           </div>
         </div>
-          <!-- 추가된 부분 -->
-    <div class="slider-controls">
-        <span class="slider-btn prev-btn">&lt;</span>
-        <span class="slider-btn next-btn">&gt;</span>
-    </div>
+    
+        <div class="service-item">
+          <div class="service-box">
+            <i class='bx bx-message-dots'></i>
+            <h3>AI CHATBOT</h3>
+            <p>
+              AI 챗봇을 이용하여, 코드 관련 질문에 대한 답변을 실시간으로 받을 수 있습니다
+            </p>
+            <a href="/test_list" class="c-btn">Go Ask</a>
+          </div>
+        </div>
+    
+        <div class="service-item">
+          <div class="service-box">
+            <i class='bx bxs-keyboard'></i>
+            <h3>TYPING GAME</h3>
+            <p>
+              소스 코드를 타이핑하며 영타 실력을 향상시키고 코드에 익숙해지게 돕는 게임입니다.
+            </p>
+            <a href="/typinggame" class="c-btn">Go Game</a>
+          </div>
+        </div>
+    
+        <div class="service-item">
+          <div class="service-box">
+            <i class='bx bx-mouse-alt'></i>
+            <h3>DRAG GAME</h3>
+            <p>
+              소스 코드의 빈칸에 드래그하여<br> 코드를 완성하는 게임입니다.
+            </p>
+            <a href="/draggame" class="c-btn">Go Game</a>
+          </div>
+        </div>
+    
+        <div class="service-item">
+          <div class="service-box">
+            <i class='bx bx-desktop'></i>
+            <h3>OUTPUT GAME</h3>
+            <p>
+              주어진 소스 코드를 분석하고 <br>예상되는 출력값을 맞추는 게임입니다.
+            </p>
+            <a href="/outputgame" class="c-btn">Go Game</a>
+          </div>
+        </div>
+    
 
-      
-      <script>
-        const slider = document.querySelector('.service-slider');
-        const items = Array.from(slider.children);
-        let currentIndex = 0;
-      
-        function update() {
-          const offset = -currentIndex * 100;
-          items.forEach(item => {
-            item.style.transform = `translateX(${offset}%)`;
-          });
-        }
-      
-        document.querySelector('.prev-btn').addEventListener('click', () => {
-          currentIndex = (currentIndex - 1 + items.length) % items.length;
-          update();
+      <div class="service-item">
+        <div class="service-box">
+          <i class='bx bx-clipboard'></i>
+          <h3>BOARD</h3>
+          <p>
+            다른 사용자와 함꼐 의견을 공유하며 정보를 얻는 공간입니다
+          </p>
+          <a href="/board_list" class="c-btn">Go Board</a>
+        </div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-box">
+          <i class='bx bx-user'></i>
+          <h3>MY PAGE</h3>
+          <p>
+            마이 페이지는 사용자의 정보 및 기록들이 저장되어 있습니다
+          </p>
+          <a href="/mypage" class="c-btn">Go Mypage</a>
+        </div>
+      </div>
+    </div>
+        <!-- 추가된 부분 -->
+  <div class="slider-controls">
+      <span class="slider-btn prev-btn">&lt;</span>
+      <span class="slider-btn next-btn">&gt;</span>
+  </div>
+
+    
+    <script>
+      const slider = document.querySelector('.service-slider');
+      const items = Array.from(slider.children);
+      let currentIndex = 0;
+    
+      function update() {
+        const offset = -currentIndex * 100;
+        items.forEach(item => {
+          item.style.transform = `translateX(${offset}%)`;
         });
-      
-        document.querySelector('.next-btn').addEventListener('click', () => {
-          currentIndex = (currentIndex + 1) % items.length;
-          update();
-        });
-      </script>
-      
-      
-    </section>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+      }
+    
+      document.querySelector('.prev-btn').addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        update();
+      });
+    
+      document.querySelector('.next-btn').addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % items.length;
+        update();
+      });
+    </script>
+    
+    
+  </section>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

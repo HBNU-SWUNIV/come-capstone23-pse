@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/board_edit.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--- header section -->
+    <header>
+        <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li class="dropdown">
+                <a href="/typinggame" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+                <li><a href="/board_list">BOARD</a></li>
+              </li>
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+              {% if current_user.is_authenticated %}
+              <!-- 로그인 한 사용자의 이름을 표시 -->
+              <li class="user-name">hello, {{ current_user.username }}</li>
+            {% endif %}
+        </ul>
+
+    </header>
+
+<section class="board_edit" id="board_edit">
+    <title>board_write</title>
+
+
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+    <h1>게시글 수정</h1>
+        <label for="title">제목:</label>
+        <input type="text" name="title" value="{{ form.title.data }}" required>
+        <br>
+        <label for="content">내용:</label>
+        <textarea name="content" rows="5" required>{{ post.content }}</textarea>
+        <br>
+        <!-- 기존 첨부파일 목록 표시 -->
+        {% if post.file_path and post.file_path != [] %}
+        <div id="existing-files">       
+            <label for="file">첨부파일:</label>
+            <input type="file" id="file" name="file" multiple>
+            {% for file in post.file_path %}
+            <div class="file-item">
+                <span>{{ file }}</span>
+                <button type="button" name="remove_files" class="remove-file" data-filename="{{ file }}">x</button>
+                <input type="hidden" name="original_files" value="{{ file }}">
+            </div>
+            {% endfor %}
+        </div>
+        <div id="file-names"></div>
+        {% else %}
+        <!-- 게시글에 첨부파일이 없을 때의 파일 입력 영역 -->
+        <div class="file">
+        <label for="file" style="color: black;">첨부파일:</label>
+        <input type="file" id="file" name="file" multiple>
+        <div id="file-names"></div>
+        </div>
+        {% endif %}
+        <br>
+        <input type="submit" value="수정하기">
+    </form>
+    <script src="{{ url_for('static', filename='js/board_edit.js') }}"></script>
+</section>
+</body>

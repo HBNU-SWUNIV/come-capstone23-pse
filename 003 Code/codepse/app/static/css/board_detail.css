@@ -1,40 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+
+
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: url(/static/images/board_back.png);
+    background-attachment: fixed; /* 추가한 부분 */
+
+}
+
+h2{
+    font-weight: lighter;
 }
 
 .post-details {
     width: 80%;
     margin: 20px auto;
-    border: 1px solid #dddddd;
+    border: 2px solid #e7e7e7; 
     padding: 20px;
+    margin-top: 20px;
+   /*  배경 반투명하게 하는거! 해보고 별로면 빼자!
+   background-color: hsla(221, 60%, 28%, 0.5);
+   */
+
+}
+
+
+.post-content{
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 8px;
 }
 
 .post-title {
-    font-size: 24px;
+    margin-top: 0px;
+    text-align: center;
+    font-size: 45px;
     margin-bottom: 10px;
-    text-align: left;
+    
 }
 
-.post-info {
-    font-size: 14px;
-    color: #888888;
-    margin-bottom: 10px;
+
+
+.edit-delete-buttons a {
+    
+    display: inline-block;
+    padding: 3px 9px; 
+    background-color: rgb(84, 152, 255); 
+    color: #ffffff; 
+    text-decoration: none; 
+    border-radius: 4px; /* 모서리 둥글게 */
+    transition: background-color 0.3s; 
+    margin-bottom: 5px;
+    
+}
+
+.edit-delete-buttons a:hover {
+    cursor: pointer; /* 손가락 모양의 커서로 변경 */
+    background-color: #ffffff; /* 조금 더 어두운 회색으로 배경 변경 */
+    color: #232323;
+}
+
+.edit-delete-buttons{
+
     text-align: right;
 }
 
-.post-content {
-    font-size: 16px;
-    line-height: 1.6;
-    text-align: left;
+ .post-info {
+    font-size: 17px;
+    color: #ffffff;
+    text-align: right;
+    border-bottom: 2px solid #e8e8e8;  /* 밑줄 추가 */
+    padding-bottom: 10px;  /* 밑줄과 내용 사이의 간격 조절 */
 }
 
-.comment-form-wrapper,
-.comment-list-wrapper {
-    border: 1px solid #dddddd;
+
+.post-content {
+    font-size: 26px;
+    line-height: 1.6;
+}
+
+.comment-form-wrapper, .comment-list-wrapper {
+    border: 2px solid #e7e7e7;
     padding: 10px;
     margin-top: 20px;
     text-align: left;
+}
+
+.comment-form-wrapper textarea {
+    font-size: 15px; 
+    padding: 10px;  
+    width: 100%;   
+    height: 100px; 
+    resize: none;
 }
 
 .comment-form textarea {
@@ -44,15 +106,16 @@ body {
     margin-bottom: 10px;
 }
 
-.comment-form button {
+.button, .comment-form button, .edit-comment-form input[type="submit"], .edit-comment-form button[type="button"] {
     padding: 5px 10px;
     background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
+    
 }
 
-.comment-form button:hover {
+.button:hover, .comment-form button:hover, .edit-btn:hover, .edit-comment-form input[type="submit"]:hover, .edit-comment-form button[type="button"]:hover {
     background-color: #0056b3;
 }
 
@@ -64,18 +127,18 @@ body {
 }
 
 .comment-info {
-    font-size: 12px;
-    color: #888888;
+    font-size: 15px;
+    color: #232323;
 }
 
 .comment-content {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     text-align: left !important;
+    flex-grow: 1;
 }
 
-.comment-info-wrapper,
-.comment-content-wrapper {
+.comment-info-wrapper, .comment-content-wrapper {
     flex-grow: 1;
 }
 
@@ -95,47 +158,83 @@ body {
     margin-right: 10px;
 }
 
-.comment-form-input button {
-    flex-shrink: 0;
-}
-
 .comment-buttons {
     display: flex;
     align-items: center;
 }
 
-.edit-btn,
-.delete-btn {
+/* 수정 및 삭제 버튼 스타일 수정 */
+.edit-btn, .delete-btn {
     padding: 5px 10px;
-    color: white;
+    background-color: rgb(84, 152, 255); 
     border: none;
+    color: white;
     cursor: pointer;
-    flex-shrink: 0;
+
+    
+  
+    
 }
 
-.edit-btn {
-    background-color: #007bff;
-    margin-right: 5px;
-}
 
 .delete-btn {
-    background-color: #dc3545;
+    background-color: #e23849;
+
 }
 
-.button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+.delete-btn:hover{
+    background-color: #a1333e;
 }
 
-.button:hover {
-    background-color: #0056b3;
-}
 
 .comment-content pre {
     margin: 0;
     line-height: 1.4;
     text-align: left;
+}
+
+.attached-files, .toggle-file-list {
+    text-align: right;
+    margin-top: 5px;
+    cursor: pointer; /* 손가락 모양의 커서로 변경 */
+    margin-top: 7px;
+
+}
+
+.attached-files, .toggle-file-list :hover{
+    color: #ffc9fc;
+}
+
+.attached-files a, .toggle-file-list {
+    font-size: 14px;
+}
+
+/*첨부파일 부분*/
+.file-list {
+    display: none;
+    text-align: right;
+    font-size: 12px;
+    
+}
+
+.file-list a:hover{/* 마우스 위에 올려놓을 시 밑줄*/
+    text-decoration: underline;
+    
+}
+
+
+.edit-comment-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.edit-comment-form input[type="text"] {
+    margin-right: 5px;
+}
+
+.edit-comment-textarea {
+    padding: 10px;  
+    width: 90%; 
+    flex-grow: 2; 
 }

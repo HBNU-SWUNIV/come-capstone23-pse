@@ -1,16 +1,16 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="uft-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <title>Codepse main</title>
-	
-	<!--- cutom css line -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Output Game</title>
+    
+    <!--- custom css line -->
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
-
+    <link href="{{ url_for('static', filename='css/outputgame.css') }}" rel="stylesheet">
 
     <!--- box icons link -->
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <!--- google fonts link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,68 +18,100 @@
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-
 </head>
 <body>
+    <script>
+        window.onload = function() {
+            fetchHighscore();
+            fetchLeaderboard();
+        };
+
+        function fetchHighscore() {
+            const userId = "{{ current_user.id }}";  // Flask 템플릿에서 현재 유저의 ID 가져오기
+
+            fetch(`/get_highscore?user_id=${userId}&game_type=outputgame`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.language && data.score) {
+                    document.getElementById("highscore-value").innerText = `${data.language}언어, ${data.score}점`;
+                } else {
+                    console.error('Error fetching highscore');
+                }
+            });
+        }
+
+        function fetchLeaderboard() {
+        fetch(`/get_leaderboard?game_type=outputgame`)
+        .then(response => response.json())
+        .then(data => {
+            let leaderboardHTML = "<h2>Top 5 Rankings</h2>";
+            data.forEach((item, index) => {
+                leaderboardHTML += `<div>${index + 1}등: ${item.username} ${item.language}언어, ${item.score}점 (${item.played_at})</div>`;
+            });
+            document.getElementById("leaderboard").innerHTML = leaderboardHTML;
+        });
+    }
+    </script>
 
     <!--- header section -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx bx menu" id="menu-icon"></div>
-
         <ul class="navlist">
-            <!-- 로그인 상태에 따라 Home 링크를 변경 -->
-            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
-            <li><a href="/test_list">CODING TEST</a></li>
-            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
-            <li class="dropdown">
-                <a href="/typinggame" class="dropbtn">CODING GAME</a>
-                <div class="dropdown-content">
-                    <a href="/typinggame">TYPING GAME</a>
-                    <a href="/draggame">DRAG GAME</a>
-                    <a href="/outputgame">OUTPUT GAME</a>
-                </div>
-              </li>
-              {% if current_user.is_authenticated %}
-                <!-- 로그인 한 사용자의 이름을 표시 -->
-                <li class="user-name">hello, {{ current_user.username }}</li>
-              {% endif %}
-
-              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
-        </ul>
-    </header>
-
-
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/outputgame.css') }}">
-<section class="game" id="game">
-<body>
-    <h1>출력값 맞추기✏️</h1>
-    <div class="wrapper">
-		<div class="content-box">
-    
-    <div id="login-section" style="margin-bottom: 20px;">
-      <div id="startScreen">
-        <h2>닉네임을 입력해주세요</h2>
-        <input id="username" type="text" placeholder="Enter your nickname" style="width: 200px; height: 30px;">
-       
-            <h4>언어를 선택해주세요</h4><br>
-            <select id="languageSelect">
-              <option value="java">Java</option>
-              <option value="python">Python</option>
-              <option value="c">C</option>
-              <option value="random">Random</option>
-            </select>
-          <button onclick="startQuiz()">Start Quiz</button>
-      </div>
-    </div>
-    <div id="quiz-section" style="display: none;">
-        <p id="question"></p>
-        <input id="answer"  placeholder="Enter your answer" type="text" >
-        <button onclick="submitAnswer()">Submit</button>
-    </div>
-    <div id="result"></div>
-    <div id="leaderboard"></div>
+           <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+           <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+           <li><a href="/test_list">CODING TEST</a></li>
+           <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+           <li class="dropdown">
+               <a href="/typinggame" class="dropbtn">CODING GAME</a>
+               <div class="dropdown-content">
+                   <a href="/typinggame">TYPING GAME</a>
+                   <a href="/draggame">DRAG GAME</a>
+                   <a href="/outputgame">OUTPUT GAME</a>
+               </div>
+               <li><a href="/board_list">BOARD</a></li>
+             </li>
+             {% if current_user.is_authenticated %}
+               <!-- 로그인 한 사용자의 이름을 표시 -->
+               <li class="user-name">hello, {{ current_user.username }}</li>
+             {% endif %}
+             <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+             <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+       </ul>
+   </header>
+    <div class="game-and-leaderboard-container">
+      <section class="game" id="game">
+        <h1>출력값 맞추기✏️</h1>
+        <input id="username" type="text" value="{{ current_user.username }}" hidden>
+        <div id="highscore" style="margin-bottom: 15px; font-size: 18px; font-weight: bold;">
+          나의 최고 기록: <span id="highscore-value">0</span>
+        </div>
+        <div class="wrapper">
+          <div class="content-box">
+            <div id="login-section" style="margin-bottom: 20px;">
+              <div id="startScreen">
+                <br>
+                <h4>언어를 선택해주세요</h4><br>
+                <select id="languageSelect">
+                  <option value="c">C</option>
+                  <option value="java">Java</option>
+                  <option value="python">Python</option>
+                  <option value="random">Random</option>
+                </select>
+                <button onclick="startQuiz()">Start Quiz</button>
+              </div>
+            </div>
+            <div id="quiz-section" style="display: none;">
+              <p id="question"></p>
+              <input id="answer"  placeholder="Enter your answer" type="text" >
+              <button onclick="submitAnswer()">Submit</button>
+            </div>
+            <div id="result"></div>
+            <div id="restart-section" style="display: none;">
+              <button onclick="restartGame()">다시하기</button>
+            </div>
+            </section>
+            <div id="leaderboard" style="margin-top: 20px;"></div>
     <script src="{{ url_for('static', filename='js/outputgame.js') }}"></script>
 </body>
-</section>
 </html>

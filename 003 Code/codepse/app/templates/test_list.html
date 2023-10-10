@@ -2,7 +2,7 @@
 <head>
     <meta charset="uft-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <title>Codepse main</title>
+    <title>Coding Test</title>
 	
 	<!--- cutom css line -->
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
@@ -19,6 +19,101 @@
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 
+    <!-- checkbox 스타일링-->
+    <!-- <link href="{{ url_for('static', filename='css/checkbox.css') }}" rel="stylesheet"> -->
+    <style>
+      .menu-list {
+        display: none;
+      }
+      .filter-options {
+        display: flex;
+        justify-content: space-between;
+      }
+  
+      .filter-section {
+        display: flex;
+        align-items: center;
+      }
+
+      .checkbox-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .dropdown {
+          margin-left: 10px;
+          margin-right: 10px;
+      }
+    </style>
+    <script>
+        function toggleOptions(optionId) {
+          const optionsList = document.getElementById(optionId);
+          optionsList.style.display = optionsList.style.display === "none" || optionsList.style.display === "" ? "block" : "none";
+        }
+
+        function handleCheckboxChange() {
+          filterProblems();
+        }
+
+        function filterProblems() {
+          const selectedLevels = Array.from(document.querySelectorAll('input[name="levels"]:checked')).map(input => input.value);
+          const selectedLanguages = Array.from(document.querySelectorAll('input[name="languages"]:checked')).map(input => input.value);
+
+          // 필터링 조건 따라서 url 구성
+          let newURL = location.protocol + '//' + location.host + location.pathname;
+          let queryParts = [];
+
+          selectedLevels.forEach(level => {
+              queryParts.push('levels=' + level);
+          });
+
+          selectedLanguages.forEach(lang => {
+              queryParts.push('languages=' + lang);
+          });
+
+          if (queryParts.length > 0) {
+              newURL += '?' + queryParts.join('&');
+          }
+
+          // 현재 url과 새로 구성된 url이 다를 경우에 페이지 다시 load
+          if (window.location.href !== newURL) {
+              window.location.href = newURL;
+          }
+        }
+
+    
+      document.addEventListener('DOMContentLoaded', () => {
+        const levelCheckboxes = document.querySelectorAll('input[name="levels"]');
+        const languageCheckboxes = document.querySelectorAll('input[name="languages"]');
+
+        const params = new URLSearchParams(window.location.search);
+
+        // 체크박스 상태 설정
+        const selectedLevels = params.get('levels') ? params.get('levels').split(',') : [];
+        const selectedLanguages = params.get('languages') ? params.get('languages').split(',') : [];
+        
+        selectedLevels.forEach(level => {
+            document.querySelector(`input[name="levels"][value="${level}"]`).checked = true;
+        });
+
+        selectedLanguages.forEach(language => {
+            document.querySelector(`input[name="languages"][value="${language}"]`).checked = true;
+        });
+
+
+        levelCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', handleCheckboxChange);
+        });
+
+        languageCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', handleCheckboxChange);
+        });
+      });
+    </script>
 </head>
 <body>
 
@@ -40,11 +135,12 @@
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
               </li>
+              <li><a href="/board_list">BOARD</a></li>
               {% if current_user.is_authenticated %}
                 <!-- 로그인 한 사용자의 이름을 표시 -->
                 <li class="user-name">hello, {{ current_user.username }}</li>
               {% endif %}
-
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
 
 
@@ -62,7 +158,77 @@
         </div>
       </div>
 
-      <!-- board list area -->
+      <!-- checkbox 난이도, 언어 추가 -->
+      <div class="checkbox-wrapper">
+        <div class="dropdown">
+          <button class="title" onclick="toggleOptions('level-options')">
+            난이도
+            <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
+                <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
+            </svg>
+          </button>
+        
+          <ul class="menu-list" id="level-options">
+            <li class="item">
+              <label for="level_low">
+                <input id="level_low" name="levels" type="checkbox" value="하">
+                하
+              </label>
+            </li>
+            <li class="item">
+              <label for="level_mid">
+                <input id="level_mid" name="levels" type="checkbox" value="중">
+                중
+              </label>
+            </li>
+            <li class="item">
+              <label for="level_high">
+                <input id="level_high" name="levels" type="checkbox" value="상">
+                상
+              </label>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="dropdown">
+          <button class="title" onclick="toggleOptions('language-options')">
+            언어
+            <svg width="1.875rem" height="1.875rem" viewBox="0 0 9 6" fill="currentColor">
+                <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z"></path>
+            </svg>
+          </button>
+        
+          <ul class="menu-list" id="language-options">
+            <li class="item">
+              <label for="lang_c">
+                <input id="lang_c" name="languages" type="checkbox" value="c">
+                C
+              </label>
+            </li>
+            <li class="item">
+              <label for="lang_cpp">
+                <input id="lang_cpp" name="languages" type="checkbox" value="cpp">
+                C++
+              </label>
+            </li>
+            <li class="item">
+              <label for="lang_java">
+                <input id="lang_java" name="languages" type="checkbox" value="java">
+                JAVA
+              </label>
+            </li>
+            <li class="item">
+              <label for="lang_python">
+                <input id="lang_python" name="languages" type="checkbox" value="python">
+                Python
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+      <!-- board list 부분 -->
       <div id="board-list">
         <div class="container">
           <table class="board-table">
@@ -71,11 +237,13 @@
                 <th scope="col" class="th-num">번호</th>
                 <th scope="col" class="th-num">난이도</th>
                 <th scope="col" class="th-title">제목</th>
+                <th scope='col' class="th-num">언어</th>
               </tr>
             </thead>
             <tbody>
               {% for i in q_list %}
-              <tr>
+              <!-- <tr> -->
+              <tr class="problem-row" data-level="{{ i[1] }}" data-language="{{ i[3] }}">
                 <td>{{ i[0] }}</td> <!-- 문제 번호 -->
                 <td>{{ i[1] }}</td> <!-- 문제 난이도 -->
                 <th>
@@ -83,12 +251,33 @@
  <!--i[1]: 문제 이름-->
                   <p>{{ i[2] }}</p>
                 </th>
+                <td>{{ i[3] }}</td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
       </div>
+
+      <div class="pagination">
+        {% if current_page > 10 %}
+            <a href="{{ url_for('coding_test.test_list', page=current_page-10) }}">&lt;&lt;</a>
+        {% endif %}
+  
+        {% for i in range(current_page - (current_page-1)%10, current_page - (current_page-1)%10 + 10) %}
+            {% if i <= total_pages %}
+                {% if i == current_page %}
+                    <span>{{ i }}</span>
+                {% else %}
+                    <a href="{{ url_for('coding_test.test_list', page=i) }}">{{ i }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+  
+        {% if current_page // 10 < total_pages // 10 %}
+            <a href="{{ url_for('coding_test.test_list', page=current_page+10) }}">&gt;&gt;</a>
+        {% endif %}
+    </div>
     </section>
   </body>
 </html>

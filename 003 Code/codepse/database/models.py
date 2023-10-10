@@ -1,10 +1,18 @@
-from sqlalchemy import JSON, Column, Integer, String, Text, Boolean
+import datetime
+import pytz
+from sqlalchemy import JSON, Column, Integer, String, Text, Boolean, ForeignKey, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import get_db_connection
-from sqlalchemy.orm import Session
+
 
 Base = declarative_base()
+
+kst = pytz.timezone("Asia/Seoul")  # 한국 시간
+
+
+def current_time():
+    return datetime.datetime.now(kst)
 
 
 # 비밀번호는 암호화되어 저장되어야 하며, 일반 텍스트로 저장되지 않아야 함.
@@ -35,6 +43,7 @@ class User(Base):
     def get(user_id):
         db_session = get_db_connection()
         user = db_session.query(User).filter_by(id=user_id).first()
+        db_session.close()
         return user
 
     # Flask-Login integration
@@ -54,6 +63,7 @@ class User(Base):
 class QList(Base):
     __tablename__ = "q_list"
 
+    q_lang = Column(String, nullable=False)
     q_level = Column(String, nullable=False)
     q_id = Column(Integer, primary_key=True, nullable=False)
     q_name = Column(String, nullable=False)
@@ -62,13 +72,27 @@ class QList(Base):
     c_answer_code = Column(Text, nullable=False)
     cpp_answer_code = Column(Text, nullable=False)
     p_answer_code = Column(Text, nullable=False)
+    j_answer_code = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
+
+
+class CodeSubmission(Base):
+    __tablename__ = "code_submissions"
+
+    submission_id = Column(Integer, primary_key=True, autoincrement=True)
+    q_id = Column(Integer, ForeignKey("q_list.q_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    code_content = Column(Text, nullable=False)
+    submission_time = Column(TIMESTAMP, default=current_time, nullable=False)
+    is_correct = Column(Boolean)
+    compile_result = Column(Text)
+    language = Column(String(20), nullable=False)
 
 
 class TypingGame(Base):
     __tablename__ = "typinggame"
 
-    id = Column(Integer, primary_key=True)
+    tq_id = Column(Integer, primary_key=True)
     code = Column(Text, nullable=True)
     language = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
@@ -77,7 +101,7 @@ class TypingGame(Base):
 class DragGame(Base):
     __tablename__ = "draggame"
 
-    id = Column(Integer, primary_key=True)
+    dq_id = Column(Integer, primary_key=True)
     language = Column(String(255), nullable=False)
     text = Column(Text, nullable=True)
     code = Column(Text, nullable=True)
@@ -88,7 +112,51 @@ class DragGame(Base):
 class OutputGame(Base):
     __tablename__ = "outputgame"
 
-    id = Column(Integer, primary_key=True)
+    oq_id = Column(Integer, primary_key=True)
     language = Column(String(255), nullable=False)
     question = Column(Text, nullable=True)
     answer = Column(Text, nullable=True)
+
+
+class Board(Base):
+    __tablename__ = "board"
+
+    board_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, nullable=False)
+    title = Column(String(255), nullable=False)
+    content = Column(Text, nullable=True)
+    file_path = Column(JSON, nullable=True)
+    view = Column(Integer, nullable=False)
+    created_at = Column(TIMESTAMP, default=current_time)
+    
+
+class OutputGameScore(Base):
+    __tablename__ = "output_game_scores"
+
+    output_score_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    output_language = Column(String(50))
+    output_score = Column(Integer)
+    played_at = Column(TIMESTAMP, default=current_time)
+
+
+class DragGameScore(Base):
+    __tablename__ = "drag_game_scores"
+
+    drag_score_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    drag_language = Column(String(50))
+    drag_score = Column(Integer)
+    played_at = Column(TIMESTAMP, default=current_time)
+
+
+class Comments(Base):
+    __tablename__ = "comments"
+
+    comment_id = Column(Integer, primary_key=True)
+    board_id = Column(Integer, ForeignKey("board.board_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    content = Column(Text, nullable=False)
+    created_at = Column(TIMESTAMP, default=current_time)
+    updated_at = Column(TIMESTAMP, default=current_time)
+    is_edited = Column(Boolean, default=False)

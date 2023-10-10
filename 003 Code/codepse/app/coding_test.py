@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, session, request
+import html
+
+from flask import Blueprint, render_template, session, request, jsonify
 from flask_login import login_required
-from database.models import QList
+from sqlalchemy import func
+
 from app.compile import (
     c_compile_code,
     python_run_code,
@@ -8,20 +11,64 @@ from app.compile import (
     java_compile_run_code,
     grade_code,
 )
+from app.csrf_protection import csrf
 from database.database import get_db_connection
-import html
+from database.models import QList, CodeSubmission
+
+from sqlalchemy import and_, or_
 
 coding_test = Blueprint("coding_test", __name__)
+
+PER_PAGE = 10
+
 
 
 @coding_test.route("/test_list")
 @login_required
 def test_list():
+    page = request.args.get("page", 1, type=int)
+
+    # 페이지 번호가 0이하일 경우 1로 설정
+    if page < 1:
+        page = 1
+
+    levels = [html.escape(level) for level in request.args.getlist('levels')]  
+    languages = [html.escape(language) for language in request.args.getlist('languages')] 
+
+    filters = []
+    level_filters = []
+    language_filters = []
+
+    for level in levels:
+        level_filters.append(QList.q_level == level)
+
+    for lang in languages:
+        language_filters.append(QList.q_lang == lang)
+
+    if level_filters:
+        filters.append(or_(*level_filters))
+
+    if language_filters:
+        filters.append(or_(*language_filters))
+
     conn = get_db_connection()
 
-    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name).all()
+    total_tests = conn.query(func.count(QList.q_id)).filter(and_(*filters)).scalar()
 
-    return render_template("test_list.html", q_list=q_list)
+    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name, QList.q_lang)\
+                .filter(and_(*filters))\
+                .offset((page - 1) * PER_PAGE)\
+                .limit(PER_PAGE)\
+                .all()
+
+    conn.close()
+
+    return render_template(
+        "test_list.html",
+        q_list=q_list,
+        current_page=page,
+        total_pages=(total_tests + PER_PAGE - 1) // PER_PAGE
+    )
 
 
 @coding_test.route("/test/<int:q_id>")
@@ -34,10 +81,13 @@ def test_view(q_id):
 
     session["q_id"] = q_id
 
+    conn.close()
+
     return render_template("test.html", q_list=q_info)
 
 
 @coding_test.route("/compile", methods=["POST"])
+@csrf.exempt
 def compile():
     code = request.form.get("code")
     language = request.form.get("language")
@@ -52,11 +102,11 @@ def compile():
         output_str = cpp_compile_code(code)
     elif language == "java":
         output_str = java_compile_run_code(code)
-
     return output_str
 
 
 @coding_test.route("/submit", methods=["POST"])
+@csrf.exempt
 def submit():
     conn = get_db_connection()
 
@@ -79,10 +129,19 @@ def submit():
 
     result = grade_code(output_str, expected_output)
 
+    # 채점 결과를 세션에 저장
+    if result == "정답입니다!":
+        session["is_correct"] = True
+    else:
+        session["is_correct"] = False
+
+    conn.close()
+
     return result  # 채점 결과를 반환
 
 
 @coding_test.route("/answer")
+@csrf.exempt
 def answer():
     conn = get_db_connection()
 
@@ -98,4 +157,40 @@ def answer():
     elif session["language"] == "java":
         answer = html.escape(q_info.j_answer_code)
 
+    conn.close()
+
     return "<pre>" + answer + "</pre>"
+
+
+@coding_test.route("/save_code", methods=["POST"])
+@csrf.exempt
+def code_save():
+    try:
+        db_session = get_db_connection()
+
+        q_id = request.form.get("q_id")
+        user_id = request.form.get("user_id")
+        code_content = request.form.get("code_content")
+        language = request.form.get("language")
+        compile_result = request.form.get("compile_result")
+        is_correct = session.pop("is_correct", None)
+
+        # 데이터베이스에 저장
+        new_submission = CodeSubmission(
+            q_id=q_id,
+            user_id=user_id,
+            code_content=code_content,
+            language=language,
+            compile_result=compile_result,
+            is_correct=is_correct,
+        )
+
+        db_session.add(new_submission)
+        db_session.commit()
+
+        db_session.close()
+
+        return jsonify({"message": "Code saved successfully!"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)})

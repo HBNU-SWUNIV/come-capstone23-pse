@@ -22,7 +22,7 @@ section.notice {
 }
 
 .page-title {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .page-title h3 {
   font-size: 45px;
@@ -204,4 +204,10 @@ section.notice {
   margin: -1px;
   width: 1px;
   height: 1px;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;   
+  margin-bottom: 20px;    
 }

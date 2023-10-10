@@ -2,7 +2,7 @@
 <head>
     <meta charset="uft-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <title>Codepse main</title>
+    <title>Drage Game</title>
 	
 	<!--- cutom css line -->
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
@@ -18,15 +18,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-
 </head>
 <body>
+    <script>
+        window.onload = function() {
+            fetchHighscore();
+            fetchLeaderboard();
+        };
+    
+        function fetchHighscore() {
+            const userId = "{{ current_user.id }}";  // Flask 템플릿에서 현재 유저의 ID 가져오기
+    
+            fetch(`/get_highscore?user_id=${userId}&game_type=draggame`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.language && data.score) {
+                    document.getElementById("highscore-value").innerText = `${data.language}언어, ${data.score}점`;
+                } else {
+                    console.error('Error fetching highscore');
+                }
+            });
+        }
+
+        function fetchLeaderboard() {
+            fetch(`/get_leaderboard?game_type=draggame`)
+            .then(response => response.json())
+            .then(data => {
+                let leaderboardHTML = "<h2>Top 5 Rankings</h2>";
+                data.forEach((item, index) => {
+                    leaderboardHTML += `<div>${index + 1}등: ${item.username} ${item.language}언어, ${item.score}점 (${item.played_at})</div>`;
+                });
+                document.getElementById("leaderboard").innerHTML = leaderboardHTML;
+            });
+        }
+      </script>
 
     <!--- header section -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx bx menu" id="menu-icon"></div>
-
         <ul class="navlist">
             <!-- 로그인 상태에 따라 Home 링크를 변경 -->
             <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
@@ -39,76 +69,72 @@
                     <a href="/draggame">DRAG GAME</a>
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
-              </li>
+                <li><a href="/board_list">BOARD</a></li>
+            </li>
               {% if current_user.is_authenticated %}
-                <!-- 로그인 한 사용자의 이름을 표시 -->
+              <!-- 로그인 한 사용자의 이름을 표시 -->
                 <li class="user-name">hello, {{ current_user.username }}</li>
               {% endif %}
-
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
-
-
         </ul>
     </header>
-    <section class="game" id="game">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop Coding Quiz</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/draggame.css') }}">
-</head>
-<body>
-    <div id="login-section" style="margin-bottom: 20px;">
-        <h1>드래그 게임🖱️</h1><br>
-        <div class="wrapper">
-        <div class="content-box">
-        <h2>닉네임을 입력해주세요</h2><br>
-        <input type="text" placeholder="Enter your nickname" id="username" /><br>
-        <div id="startScreen">
-            <h4>언어를 선택해주세요</h4><br>
-            <select id="languageSelect">
-              <option value="java">Java</option>
-              <option value="python">Python</option>
-              <option value="javascript">JavaScript</option>
-              <option value="c++">C++</option>
-              <option value="c">C</option>
-              <option value="c#">C#</option>
-              <option value="sql">SQL</option>
-              <option value="random">Random</option>
-            </select>
-        </div>
-    </div>
-</div>
-    <div class="button-container">
-          <button id="startQuizButton">퀴즈 시작</button>
-      </div>
-    </div>
-</div>
-    <div id="quiz-section" style="display: none;">
-    <h6>보기를 드래그하여 소스코드를 완성시켜 주세요!</h6>
-    <div id="timer">Timer: </div>
-    <p id="question" class="question-text" style="text-align: left;"></p>
-    <p id="timer"></p>
-    <div id="dropzone" class="dropzone" style="text-align: left;"></div>
-    <div id="result"></div>
-    <div id="options" style="text-align: left;"></div>
-    <button id="checkButton" onclick="checkAnswer()">확인하기</button>
-    <button id="nextButton" onclick="nextQuestion()" disabled>다음 문제</button>
+    <div class="game-and-leaderboard-container">
+        <section class="game" id="game">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Drag and Drop Coding Quiz</title>
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/draggame.css') }}">
+            </head>
+                <div id="login-section" style="margin-bottom: 20px;">
+                    <h1>드래그 게임🖱️</h1><br>
+                    <input id="username" type="text" value="{{ current_user.username }}" hidden>
+                    <div id="highscore" style="margin-bottom: 15px; font-size: 18px; font-weight: bold;">
+                        나의 최고 기록: <span id="highscore-value">0</span>
+                    </div>
+                    <div class="wrapper">
+                        <div class="content-box">
+                            <div id="startScreen">
+                                <h4>언어를 선택해주세요</h4><br>
+                                <select id="languageSelect">
+                                    <option value="c">C</option>
+                                    <option value="c#">C#</option>
+                                    <option value="c++">C++</option>
+                                    <option value="java">Java</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="python">Python</option>
+                                    <option value="random">Random</option>
+                                    <option value="sql">SQL</option>
 
-
-    </div>
-    <button id="restartButton" style="display: none;" >다시하기</button>
-    <p id="scoreDisplay" style="display: none;"></p>
-    <div id="result-section" style="display: none;">
-        <!-- 결과 및 랭킹 표시 -->
-        <div id="userRank"></div>
-        <div id="leaderboard" style="font-family: monospace; white-space: pre;"></div>
-        <h3 id="result1" style="display: none;">[채점 결과]</h3>
-      </div>
-
-    <script src="{{ url_for('static', filename='js/draggame.js') }}"></script>
-</div>
-</div>
-</body>
-</section>
-</html>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button id="startQuizButton">퀴즈 시작</button>
+                    </div>
+                </div>
+            </section>
+            <div id="leaderboard" style="margin-top: 500px;"></div>
+            </div>
+        
+            <div id="quiz-section" style="display: none;">
+                <h6>보기를 드래그하여 소스코드를 완성시켜 주세요!</h6>
+                <div id="timer">Timer: </div>
+                <p id="question" class="question-text" style="text-align: left;"></p>
+                <p id="timer"></p>
+                <div id="dropzone" class="dropzone" style="text-align: left;"></div>
+                <div id="result"></div>
+                <div id="options" style="text-align: left;"></div>
+                <button id="checkButton" onclick="checkAnswer()">확인하기</button>
+                <button id="nextButton" style="display:none;">다음 문제</button>
+            </div>
+            <button id="restartButton" style="display: none;" >다시하기</button>
+            <p id="scoreDisplay" style="display: none;"></p>
+            <div id="result-section" style="display: none;">
+                <h3 id="result1" style="display: none;">[채점 결과]</h3>
+            </div>
+            <script src="{{ url_for('static', filename='js/draggame.js') }}"></script>
+        </body>
+        </html>

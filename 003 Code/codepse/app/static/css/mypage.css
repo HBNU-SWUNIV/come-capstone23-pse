@@ -1,34 +1,129 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
+    background: url(/static/images/mypage.png);
+    background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
+    background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
 }
 
 .container {
-    max-width: 500px;
+    max-width: 1000px;
     margin: 100px auto;
-    background-color: #ffffff;
     border: 1px solid #dddddd;
     padding: 20px;
 }
 
 h1 {
     margin-bottom: 20px;
+    font-size: 50px;
+    font-weight: lighter;
+}
+
+h2{
+    margin-bottom: 7px;
 }
 
 .user-info {
-    text-align: left;
-}
-
-.user-info p {
-    font-size: 16px;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left; /* Change from center to left */
     border: 1px solid #dddddd;
     padding: 10px;
 }
 
+.user-image-container {
+    flex: 0 0 150px; /* Adjust width as needed */
+    
+}
+
+.user-image {
+    max-width: 100%;
+    height: 150px;
+    position: relative;
+    top: -18px;  /* 이미지를 10px만큼 위로 옮김 */
+   
+   
+}
+
+.user-details {
+    flex: 1;
+}
+
+
+.user-info p {
+    font-size: 21px;
+    margin-bottom: 14px;
+    border: 1px solid #dddddd;
+    padding: 10px;
+    font-weight: lighter;
+}
+
+
 .user-info strong {
-    font-weight: bold;
+    font-weight: lighter;
+}
+
+.game-results-container {
+    display: flex;
+    gap: 20px;
+}
+
+.game-section {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+}
+
+.game-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.game-table th, .game-table td {
+    padding: 8px 15px;
+    border: 1px solid #e5e5e5;
+}
+
+.game-table th {
+    background-color: #f5f5f5;
+    color: #647fb4;
+}
+
+.game-table tr:hover {
+    background-color: #acb6c9;
+}
+
+/* 게시물, 댓글, 코드 부분에 대한 공통 스타일 */
+.user-posts, .user-comments, .user-codes {
+    border: 1px solid #dddddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* 각 섹션에 해당하는 테이블 스타일 */
+.user-posts table, .user-comments table, .user-codes table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-posts th, .user-posts td, 
+.user-comments th, .user-comments td, 
+.user-codes th, .user-codes td {
+    padding: 8px 15px;
+    border: 1px solid #e5e5e5;
+}
+
+.user-posts th, .user-comments th, .user-codes th {
+    background-color: #f5f5f5;
+    color: #647fb4;
+}
+
+.user-posts tr:hover, .user-comments tr:hover, .user-codes tr:hover {
+    background-color: #acb6c9;
 }

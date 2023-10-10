@@ -1,0 +1,95 @@
+.board_edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%; 
+    height: 100%;
+    background: url(/static/images/board_back.png);
+    background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
+    background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
+}
+
+
+.board_edit label {
+    display: block;
+    font-size: 18px; 
+    margin-top: 15px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 35px;
+    font-weight: lighter;
+    margin-bottom: 17px;
+}
+
+
+.board_edit input[type="text"],
+.board_edit textarea {
+    background: none;
+    border: none;
+    border-bottom: 3px solid #ffffff;
+    width: 800px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.board_edit textarea {
+    height: 400px;
+    width: 800px; 
+    border: 3px solid #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #ffffff;  
+    resize: none; 
+}
+
+
+.board_edit #file {
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+/* 버튼 스타일 */
+.board_edit input[type="submit"] {
+    font-size: 20px; 
+    padding: 7px 10px;
+    border: 2px solid transparent;
+    background-color: #007BFF;
+    color: #ffffff;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    margin-left: 700px;
+}
+
+.board_edit input[type="submit"]:hover {
+    border-color: #007BFF;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+.board_edit #existing-files .file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #000000;
+}
+
+.board_edit input[type="file"],
+.board_edit #file-names {
+    color: #000000; 
+}
+
+
+
+
+.board_edit #existing-files .remove-file {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 3px;
+}

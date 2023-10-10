@@ -1,51 +1,83 @@
-<!DOCTYPE html>
-<html>
+<head>
+  <meta charset="uft-8">
+  <meta name="viewpoint" content="width=device-width, initial-scale=1">
+  <title>Codepse main</title>
+
+<!--- cutom css line -->
+  <link href="{{ url_for('static', filename='css/signup.css') }}" rel="stylesheet">
+
+
+  <!--- box icons link -->
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+  <!--- google fonts link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+  <!--- header section -->
+  <header>
+      <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
+      <div class="bx bx menu" id="menu-icon"></div>
+
+      <ul class="navlist">
+          <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+          <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+          <!-- <li><a href="/">HOME</a></li> -->
+          <li><a href="/test_list">CODING TEST</a></li>
+          <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+          <li class="dropdown">
+              <a href="/typinggame" class="dropbtn">CODING GAME</a>
+              <div class="dropdown-content">
+                  <a href="/typinggame">TYPING GAME</a>
+                  <a href="/draggame">DRAG GAME</a>
+                  <a href="/outputgame">OUTPUT GAME</a>
+              </div>
+            <li><a href="/board_list">BOARD</a></li>
+            </li>
+            <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+      </ul>
+  </header>
   <head>
-    <title>회원가입</title>
-    <style>
-      .field-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-      .field-container input {
-        margin-right: 10px;
-      }
-      .email-container {
-        display: flex;
-        align-items: center;
-      }
-    </style>
+    <section class="signup" id="signup">
+    <title>Sign Up</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    <h1>회원가입</h1>
-    <form method="post" action="/signup">
-      <div class="field-container">
-        <label for="name">이름:</label>
-        <input type="text" id="name" name="name" required pattern="^[가-힣a-zA-Z]{1,50}$" />
+    <div class="center-container">
+      <div class="wrapper">
+        <textarea class="input-field"></textarea>
+
+<h1>회원가입</h1>
+<form method="post" action="/signup">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+    <div class="field-container">
+        <input type="text" id="name" name="name" required pattern="^[가-힣a-zA-Z]{1,50}$" placeholder="이름" />
         <p id="nameMessage"></p>
-      </div>
-      <div class="field-container">
-        <label for="useremail">이메일:</label>
-        <div class="email-container">
-          <input type="text" id="useremail" name="useremail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
-        </div>
+    </div>
+    <div class="field-container">
+        <input type="text" id="useremail" name="useremail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="이메일" />
         <p id="emailMessage"></p>
-      </div>
-      <div class="field-container">
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" required pattern="^[A-Za-z\d@$!%*?&\-_#]{8,16}$" />
+    </div>
+    <div class="field-container">
+        <input type="password" id="password" name="password" required pattern="^[A-Za-z\d@$!%*?&\-_#]{8,16}$" placeholder="비밀번호" />
         <button type="button" id="togglePassword">비밀번호 표시</button>
         <p id="passwordMessage"></p>
-      </div>
-      <div class="field-container">
-        <label for="confirm_password">비밀번호 확인:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required />
+    </div>
+    <div class="field-container">
+        <input type="password" id="confirm_password" name="confirm_password" required placeholder="비밀번호 확인" />
         <p id="message"></p>
+    </div>
+    <input type="submit" value="회원가입" />
+</form>
+
       </div>
-      <input type="submit" value="회원가입" />
-    </form>
 
     <script>
       $(document).ready(function () {
@@ -185,7 +217,7 @@
         });
       });
     </script>
-
+</section>
     <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
   </body>
 </html>

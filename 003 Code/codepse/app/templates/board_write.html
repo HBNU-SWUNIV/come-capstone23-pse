@@ -2,10 +2,12 @@
 <head>
     <meta charset="uft-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
-    <title>Typing Game</title>
+    <title>Codepse main</title>
 	
 	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/board_write.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+    
 
 
     <!--- box icons link -->
@@ -39,59 +41,50 @@
                     <a href="/draggame">DRAG GAME</a>
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
-              <li><a href="/board_list">BOARD</a></li>
+                <li><a href="/board_list">BOARD</a></li>
               </li>
-              {% if current_user.is_authenticated %}
-                <!-- 로그인 한 사용자의 이름을 표시 -->
-                <li class="user-name">hello, {{ current_user.username }}</li>
-              {% endif %}
               <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
               <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+              {% if current_user.is_authenticated %}
+              <!-- 로그인 한 사용자의 이름을 표시 -->
+              <li class="user-name">hello, {{ current_user.username }}</li>
+            {% endif %}
 
 
         </ul>
+
     </header>
 
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	        <!--- cutom css line -->
-            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/typinggame.css') }}">
-
-
-    <title>Typing Game</title>
-</head>
+<section class="board_write" id="board_write">
+    <title>board_write</title>
 
 <body>
-    <h5>타이핑 게임<p1>⌨️</p1></h5>
-    <div class="wrapper">
-        <textarea class="input-field"></textarea>
-        <!-- Add language and code description here -->
-        <div class="code-info">   <!-- New div added -->
-            <p class="language"><strong>언어:</strong> <span><b></b></span></p>   <!-- Move language info here -->
-            <p class="code-description"></p>
+    <h1>글쓰기</h1>
+    <form action="/board_write" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="input-group">
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
         </div>
-		<div class="content-box">
-			<div class="typing-text">
-				<p></p>
-			</div>
-			<div class="content">
-				<ul class="result-details">
-					<li class="timeLeft">
-						<p>time Left:</p>
-						<span><b>100</b>s</span>
-					</li>
-				</ul>
-				<button class="nextbtn">다음 문제</button>
-			</div>
-		</div>
-	</div>
 
-            <!--- custom js file link -->
-            <script src="{{ url_for('static', filename='js/typinggame.js') }}"></script>
+        <div class="input-group">
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="10" required placeholder="내용을 작성해주세요"></textarea>
+        </div>
+
+        <div class="input-group">
+            <div class="file">
+            <label for="file">첨부파일:</label>
+            <input type="file" id="file" name="file" multiple>
+            <div id="file-names"></div>
+            </div>
+        </div>
+
+        <div class="submit-btn">
+            <button type="submit">작성하기</button>
+        </div>
+    </form>
+    <script src="{{ url_for('static', filename='js/board_write.js') }}"></script>
+</section>
 </body>
-
-</html>

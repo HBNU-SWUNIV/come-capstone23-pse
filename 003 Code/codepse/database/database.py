@@ -1,19 +1,15 @@
 from sqlalchemy import create_engine
-
-# from sqlalchemy.exc import OperationalError
 from app.config import Config
 from sqlalchemy.orm import sessionmaker
 
+# 전역 변수로 엔진 및 세션 팩토리 생성
+db_url = Config.DB_URL
+engine = create_engine(db_url, pool_size=10, max_overflow=20, pool_recycle=3600)
+Session = sessionmaker(bind=engine)
+
+
 
 def get_db_connection():
-    db_url = Config.DB_URL
-
-    # create_engine 함수로 데이터베이스에 연결
-    engine = create_engine(db_url)
-
-    # 세션 팩토리 생성
-    Session = sessionmaker(bind=engine)
-
     # 세션 생성
     session = Session()
 

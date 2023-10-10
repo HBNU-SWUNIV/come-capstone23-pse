@@ -1,7 +1,7 @@
 let currentQuestion; // 현재 플레이어가 풀고 있는 문제
 let allQuestions = [];
-let questions = [];  // Will be populated when user chooses a language
-let userLanguage;  // To store user's chosen language
+let questions = [];  
+let userLanguage;  
 let restartButton = document.getElementById("restartButton");
 let checkButton = document.getElementById("checkButton");
 let nextButton = document.getElementById("nextButton");
@@ -12,6 +12,9 @@ let startTime = null;
 let countdown = null;
 let answeredQuestions = []; // 플레이어가 풀었던 문제들을 저장하는 배열
 let username;
+let gameType = "drag";
+let endStateShown = false;
+
 
 // 문제와 그 선택 가능한 옵션들을 무작위로 섞는 함수
 function shuffleArray(array) {
@@ -25,6 +28,10 @@ function shuffleArray(array) {
 function displayQuestion() {
   // 현재 문제의 텍스트를 "question" ID를 가진 HTML 요소에 표시
   document.getElementById("question").innerText = currentQuestion.text;
+
+  const nextButton = document.getElementById("nextButton");
+  nextButton.disabled = true;          // '다음 문제' 버튼 비활성화
+  nextButton.style.backgroundColor = "gray";
 
   // 문제 코드를 분해하고 빈칸 ID를 추출
   const codeParts = currentQuestion.code.split("{[");
@@ -103,6 +110,7 @@ function compareAnswer(playerAnswer, actualAnswer, blankElement) {
 
 // 플레이어의 답을 확인하는 함수, 사용자가 선택한 답과 정답을 비교
 function checkAnswer() {
+  console.log("Checking Answer...");
   let correctAnswersCount = 0;  // 올바른 답을 세기 위한 카운터
   const playerAnswers = {};
 
@@ -141,7 +149,10 @@ function checkAnswer() {
   });
 
   checkButton.disabled = true;
+
+  const nextButton = document.getElementById("nextButton");
   nextButton.disabled = false;
+  nextButton.style.backgroundColor = "#9e88eb"; // 보라색
 }
 
 // 다음 문제를 불러오는 함수
@@ -163,10 +174,10 @@ function nextQuestion() {
     
     // 각 버튼에 이벤트 리스너를 설정
     nextButton.addEventListener("click", nextQuestion);
-    checkButton.addEventListener("click", checkAnswer);
 
     // 게임을 시작하는 함수
     function startGame() {
+      endStateShown = false;
       console.log("startGame() called"); 
       // Remove previous end state elements
       const endStateElements = document.querySelectorAll("#endStateElement");
@@ -206,6 +217,8 @@ function nextQuestion() {
 
     // 게임이 종료된 후의 상태를 보여주는 함수
     function showEndState() {
+      if (endStateShown) return;
+      endStateShown = true;
       clearInterval(timer); // 타이머를 중지
       // 중복된 답변을 제거
       answeredQuestions = Array.from(new Set(answeredQuestions.map(JSON.stringify))).map(JSON.parse);
@@ -219,7 +232,7 @@ function nextQuestion() {
       document.getElementById("nextButton").style.display = "none";
       document.getElementById("restartButton").style.display = "inline-block";
       document.getElementById("result-section").style.display = "block";
-      document.getElementById("scoreDisplay").innerHTML =  `|￣￣￣￣￣￣￣￣￣￣￣￣￣￣|<br>'당신은 ${score/2}문제를 맞췄습니다!'<br>|＿＿＿＿＿＿＿＿＿＿＿＿＿＿|<br>\\ (•◡•) /<br>\\       /`;
+      document.getElementById("scoreDisplay").innerHTML =  `|￣￣￣￣￣￣￣￣￣￣￣￣￣￣|<br>'당신은 ${score}문제를 맞췄습니다!'<br>|＿＿＿＿＿＿＿＿＿＿＿＿＿＿|<br>\\ (•◡•) /<br>\\       /`;
       document.getElementById("result1").style.display = "inline-block";
       document.getElementById("scoreDisplay").style.display = "block";
       
@@ -254,6 +267,7 @@ function nextQuestion() {
            }
            codeHTML += `<span class="blank" style="background-color: ${color}; width: 100px;">${playerAnswer}</span>`;
            codeHTML += part[1];
+           
          }
     
          codeHTML = codeHTML.replace(/\n/g, "<br>");
@@ -265,13 +279,28 @@ function nextQuestion() {
          document.body.appendChild(codeElement);
     
          questionNumber++; // 질문 번호를 증가시킵니다.
+
        }
-       // 닉네임 표시
-  //document.getElementById("userRank").innerText = `내 닉네임: ${username}`;
+
+       fetch("/api/save_game_result", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            score: score,
+            language: userLanguage,
+            gameType: gameType
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message); 
+    });
 
 
   let leaderboard = JSON.parse(localStorage.getItem(userLanguage + "Leaderboard") || "[]");
-  leaderboard.push({ username: username, score: score/2 });
+  leaderboard.push({ username: username, score: score });
   leaderboard.sort((a, b) => b.score - a.score);
   localStorage.setItem(userLanguage + "Leaderboard", JSON.stringify(leaderboard));
 
@@ -284,8 +313,11 @@ function nextQuestion() {
   document.getElementById("quiz-section").style.display = "none";
   document.getElementById("result-section").style.display = "block";
 }
+
+
     // 퀴즈를 시작하는 함수
 function startQuiz() {
+    document.getElementById("leaderboard").style.display = "none";
     document.getElementById("result-section").style.display = "none";
     username = document.getElementById("username").value;
     userLanguage = document.getElementById("languageSelect").value; 
@@ -308,3 +340,46 @@ function startQuiz() {
     
     // 퀴즈 시작 버튼에 이벤트 리스너를 추가합니다.
     document.getElementById('startQuizButton').addEventListener('click', startQuiz);
+
+    function fetchLeaderboard() {
+      fetch(`/get_leaderboard?game_type=draggame`)
+      .then(response => response.json())
+      .then(data => {
+          let leaderboardHTML = '<div class="leaderboard-container">';
+  
+          for (let lang in data) {
+              leaderboardHTML += `
+              <div class="language-leaderboard">
+                  <h2>${lang} Top 5 Rankings</h2>
+                  <table class="leaderboard-table">
+                      <thead>
+                          <tr>
+                              <th>등수</th>
+                              <th>이름</th>
+                              <th>점수</th>
+                              <th>날짜</th>
+                          </tr>
+                      </thead>
+                      <tbody>`;
+              
+              data[lang].forEach((item, index) => {
+                  leaderboardHTML += `
+                  <tr>
+                      <td>${index + 1}등</td>
+                      <td>${item.username}</td>
+                      <td>${item.score}점</td>
+                      <td>${item.played_at}</td>
+                  </tr>`;
+              });
+  
+              leaderboardHTML += `
+                      </tbody>
+                  </table>
+              </div>`;
+          }
+  
+          leaderboardHTML += '</div>';
+  
+          document.getElementById("leaderboard").innerHTML = leaderboardHTML;
+      });
+  }
