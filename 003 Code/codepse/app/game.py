@@ -20,8 +20,8 @@ def typinggame():
 @csrf.exempt
 def get_typinggame_questions():
     conn = get_db_connection()
+    # 랜덤으로 문제 선택
     typinggame_questions = conn.query(TypingGame).order_by(func.random()).first()
-
     conn.close()
 
     return jsonify(
@@ -43,7 +43,11 @@ def draggame():
 @csrf.exempt
 def get_draggame_questions():
     conn = get_db_connection()
+
+    # 모든 draggame 문제를 가져옴
     draggame_questions = conn.query(DragGame).all()
+
+
 
     allQuestions = []
     for allQuestion in draggame_questions:

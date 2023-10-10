@@ -22,7 +22,6 @@ coding_test = Blueprint("coding_test", __name__)
 PER_PAGE = 10
 
 
-
 @coding_test.route("/test_list")
 @login_required
 def test_list():
@@ -32,8 +31,8 @@ def test_list():
     if page < 1:
         page = 1
 
-    levels = [html.escape(level) for level in request.args.getlist('levels')]  
-    languages = [html.escape(language) for language in request.args.getlist('languages')] 
+    levels = [html.escape(level) for level in request.args.getlist("levels")]
+    languages = [html.escape(language) for language in request.args.getlist("languages")]
 
     filters = []
     level_filters = []
@@ -55,11 +54,13 @@ def test_list():
 
     total_tests = conn.query(func.count(QList.q_id)).filter(and_(*filters)).scalar()
 
-    q_list = conn.query(QList.q_id, QList.q_level, QList.q_name, QList.q_lang)\
-                .filter(and_(*filters))\
-                .offset((page - 1) * PER_PAGE)\
-                .limit(PER_PAGE)\
-                .all()
+    q_list = (
+        conn.query(QList.q_id, QList.q_level, QList.q_name, QList.q_lang)
+        .filter(and_(*filters))
+        .offset((page - 1) * PER_PAGE)
+        .limit(PER_PAGE)
+        .all()
+    )
 
     conn.close()
 
@@ -67,7 +68,7 @@ def test_list():
         "test_list.html",
         q_list=q_list,
         current_page=page,
-        total_pages=(total_tests + PER_PAGE - 1) // PER_PAGE
+        total_pages=(total_tests + PER_PAGE - 1) // PER_PAGE,
     )
 
 
@@ -102,6 +103,7 @@ def compile():
         output_str = cpp_compile_code(code)
     elif language == "java":
         output_str = java_compile_run_code(code)
+
     return output_str
 
 
@@ -187,7 +189,6 @@ def code_save():
 
         db_session.add(new_submission)
         db_session.commit()
-
         db_session.close()
 
         return jsonify({"message": "Code saved successfully!"})
