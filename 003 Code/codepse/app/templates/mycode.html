@@ -1,6 +1,57 @@
-<!DOCTYPE html>
-<html>
 <head>
+    <meta charset="uft-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1">
+    <title>Codepse main</title>
+	
+	<!--- cutom css line -->
+    <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/mycode.css') }}" rel="stylesheet">
+
+
+    <!--- box icons link -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!--- google fonts link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!--- header section -->
+    <header>
+        <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
+        <div class="bx bx menu" id="menu-icon"></div>
+
+        <ul class="navlist">
+            <!-- 로그인 상태에 따라 Home 링크를 변경 -->
+            <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
+            <!-- <li><a href="/">HOME</a></li> -->
+            <li><a href="/test_list">CODING TEST</a></li>
+            <li><a href="/ai_chatbot">AI CHATBOT</a></li>
+            <li class="dropdown">
+                <a href="/typinggame" class="dropbtn">CODING GAME</a>
+                <div class="dropdown-content">
+                    <a href="/typinggame">TYPING GAME</a>
+                    <a href="/draggame">DRAG GAME</a>
+                    <a href="/outputgame">OUTPUT GAME</a>
+                </div>
+              <li><a href="/board_list">BOARD</a></li>
+              </li>
+              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+              <li><a href="/logout" class="logout-btn">LOGOUT</a></li>
+              {% if current_user.is_authenticated %}
+              <!-- 로그인 한 사용자의 이름을 표시 -->
+              <li class="user-name">hello, {{ current_user.username }}</li>
+            {% endif %}
+        </ul>
+    </header>
+<head>
+    <section class="home" id="home">
     <title>My Code Details</title>
     <!-- 스타일 및 스크립트 추가는 여기에 -->
     <script>
@@ -18,9 +69,10 @@
     </script>
 </head>
 <body>
+    <h1>{{ q_list.q_name }}</h1>
     <div class="container">
-        <h1>Code Submission Details</h1>
-
+        <div class="wrapper">
+            <div class="content-box">
         <!-- 상단 정보 섹션 -->
         <div class="code-info">
             <p><strong>문제 이름:</strong> {{ q_list.q_name }}</p>
@@ -30,13 +82,13 @@
 
         <!-- 코드 내용 섹션 -->
         <div class="code-content">
-            <h2>Code</h2>
+            <h2>내가 작성한 정답</h2>
             <pre>{{ code_submission.code_content }}</pre>
         </div>
 
         <!-- 결과 섹션 -->
         <div class="result-info">
-            <h2>Results</h2>
+            <h2>채점 결과</h2>
             <p><strong>정답 여부:</strong> {% if code_submission.is_correct %}O{% else %}X{% endif %}</p>
             <p><strong>컴파일 결과:</strong> {{ code_submission.compile_result }}</p>
         </div>
@@ -48,5 +100,10 @@
             </form>
         </div>
     </div>
+    </div>
+    </div>
+
 </body>
-</html>
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+</section>
+

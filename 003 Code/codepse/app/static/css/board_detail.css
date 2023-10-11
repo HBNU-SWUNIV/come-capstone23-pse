@@ -238,3 +238,10 @@ h2{
     width: 90%; 
     flex-grow: 2; 
 }
+
+/*댓긓 길이 조정 코드, 일정 길이가 넘어가면 밑에줄로 넘어가도록 설정*/
+.comment-content {
+    word-wrap: break-word;
+    max-width: 585px; 
+}
+
