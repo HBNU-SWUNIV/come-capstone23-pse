@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+
+*{
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+  body {
+    background: url(/static/images/game2_back.png);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
+    background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
+   
+  }
+
+  h1 {
+    margin-top: 15px;
+     font-size: 38px; 
+     font-weight: bold;
+     text-align: center;
+ 
+   }
+
+  .wrapper {
+    width: 1000px;
+    padding: 35px;
+    color: #f1f5f9;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .wrapper .input-field {
+    opacity: 0;
+    z-index: -999;
+    position: absolute;
+    color: #fff;
+    
+  }
+  
+  .wrapper .content-box {
+    padding: 20px 20px 0;
+    border-radius: 10px;
+    border: 3px solid #eeeeee;
+  }
+
+  .code-info p {
+    margin-bottom: 18px;
+    margin-top: 15px;
+}
+
+/*코드 정보 밑에 밑줄 추가.*/
+.code-info {
+    border-bottom: 3px solid #eeeeee;
+}
+
+.code-content {
+   
+    margin-top: 15px;
+}
+
+.result-info {
+   
+    margin-bottom: 15px;
+}
+
+.result-info p {
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+h2{
+    margin-bottom: 18px;
+}
+
+
+
+pre {
+    border: 2px solid #eeeeee; 
+    padding: 10px; /* 내부 여백 */
+    white-space: pre-wrap; /* 줄 바꿈 유지 */
+    margin-bottom: 25px;
+}
+
+.actions {
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+
+input[type="submit"] {
+    background-color: #ececec; 
+    border: none; 
+    color: #000000; 
+    padding: 5px 10px; 
+    font-size: 13px; 
+    border-radius: 5px;
+    cursor: pointer; 
+    font-weight: bold;
+  }
+  
+
+  input[type="submit"]:hover {
+    background-color: #ff8753; 
+  }
+  
+
+

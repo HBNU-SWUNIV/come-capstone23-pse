@@ -252,6 +252,9 @@ $(document).ready(function() {
 });
 });
 
+
+//여기서부터 웹캠 부분입니다!
+
 document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('webcam');
             let isDragging = false;
@@ -262,14 +265,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((stream) => {
                     video.srcObject = stream;
 
-                    // 마우스 다운 이벤트
+                    //스트롤을 내려도 캠 화면은 유지되게
+                    // 마우스 다운 
                     video.addEventListener('mousedown', (e) => {
                         isDragging = true;
                         offsetX = e.clientX - video.offsetLeft;
                         offsetY = e.clientY - video.offsetTop;
                     });
 
-                    // 마우스 이동 이벤트
+                    // 마우스 이동 
                     document.addEventListener('mousemove', (e) => {
                         if (isDragging) {
                             video.style.left = (e.clientX - offsetX) + 'px';
@@ -277,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
 
-                    // 마우스 업 이벤트
+                    // 마우스 업 
                     document.addEventListener('mouseup', () => {
                         isDragging = false;
                     });
