@@ -85,34 +85,59 @@
           }
         }
 
-    
-      document.addEventListener('DOMContentLoaded', () => {
-        const levelCheckboxes = document.querySelectorAll('input[name="levels"]');
-        const languageCheckboxes = document.querySelectorAll('input[name="languages"]');
+        document.addEventListener('DOMContentLoaded', () => {
+          const levelCheckboxes = document.querySelectorAll('input[name="levels"]');
+          const languageCheckboxes = document.querySelectorAll('input[name="languages"]');
 
-        const params = new URLSearchParams(window.location.search);
+          // URL 파라미터에서 선택한 난이도 및 언어를 가져옵니다.
+          const params = new URLSearchParams(window.location.search);
+          const selectedLevels = params.getAll('levels');
+          const selectedLanguages = params.getAll('languages');
 
-        // 체크박스 상태 설정
-        const selectedLevels = params.get('levels') ? params.get('levels').split(',') : [];
-        const selectedLanguages = params.get('languages') ? params.get('languages').split(',') : [];
-        
-        selectedLevels.forEach(level => {
-            document.querySelector(`input[name="levels"][value="${level}"]`).checked = true;
+          // 체크박스 상태 설정 및 체크박스 상태 변경 시 이벤트 처리
+          levelCheckboxes.forEach(checkbox => {
+            checkbox.checked = selectedLevels.includes(checkbox.value);
+
+            checkbox.addEventListener('change', function () {
+              filterProblems();
+              updateURL();
+            });
+          });
+
+          languageCheckboxes.forEach(checkbox => {
+            checkbox.checked = selectedLanguages.includes(checkbox.value);
+
+            checkbox.addEventListener('change', function () {
+              filterProblems();
+              updateURL();
+            });
+          });
+
+          // URL 업데이트 함수
+          function updateURL() {
+            const selectedLevels = Array.from(document.querySelectorAll('input[name="levels"]:checked')).map(input => input.value);
+            const selectedLanguages = Array.from(document.querySelectorAll('input[name="languages"]:checked')).map(input => input.value);
+
+            let newURL = location.protocol + '//' + location.host + location.pathname;
+            let queryParts = [];
+
+            selectedLevels.forEach(level => {
+              queryParts.push('levels=' + level);
+            });
+
+            selectedLanguages.forEach(lang => {
+              queryParts.push('languages=' + lang);
+            });
+
+            if (queryParts.length > 0) {
+              newURL += '?' + queryParts.join('&');
+            }
+
+            if (window.location.href !== newURL) {
+              window.history.pushState({ path: newURL }, '', newURL);
+            }
+          }
         });
-
-        selectedLanguages.forEach(language => {
-            document.querySelector(`input[name="languages"][value="${language}"]`).checked = true;
-        });
-
-
-        levelCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', handleCheckboxChange);
-        });
-
-        languageCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', handleCheckboxChange);
-        });
-      });
     </script>
 </head>
 <body>
@@ -237,7 +262,7 @@
                 <th scope="col" class="th-num">번호</th>
                 <th scope="col" class="th-num">난이도</th>
                 <th scope="col" class="th-title">제목</th>
-                <th scope='col' class="th-num">언어</th>
+
               </tr>
             </thead>
             <tbody>
@@ -251,7 +276,6 @@
  <!--i[1]: 문제 이름-->
                   <p>{{ i[2] }}</p>
                 </th>
-                <td>{{ i[3] }}</td>
               </tr>
               {% endfor %}
             </tbody>
