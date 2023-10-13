@@ -101,7 +101,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for post in user_posts %}
+                {% for post in user_posts|sort(attribute='created_at', reverse=true) %}
                     <tr>
                         <td>{{ post.board_id }}</td>
                         <td><a href="{{ url_for('board.board_detail', board_id=post.board_id) }}">{{ post.title }}</a></td>
@@ -111,6 +111,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <button id="togglePosts">더보기</button>
         </div>
         <br>
 
@@ -126,7 +127,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for comment in user_comments %}
+                    {% for comment in user_comments|sort(attribute='created_at', reverse=true) %}
                     <tr>
                         <td><a href="{{ url_for('board.board_detail', board_id=comment.board_id) }}">{{ comment.board_id }}</a></td>
                         <td>{{ comment.content }}</td>
@@ -135,6 +136,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <button id="toggleComments">더보기</button>
         </div>
         <br>
 
@@ -153,7 +155,7 @@
                 </thead>
                 <tbody>
                     {% set ns = namespace(submission_count=1) %}
-                    {% for code_submission, q_list in user_codes %}
+                    {% for code_submission, q_list in user_codes|sort(attribute='submission_time', reverse=true) %}
                     <tr>
                         <td><a href="{{ url_for('user_profile.mycode', submission_id=code_submission.submission_id) }}">{{ ns.submission_count }}</a></td>
                         <td>{{ q_list.q_id }}</td>
@@ -165,6 +167,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <button id="toggleCodes">더보기</button>
         </div>
         <br>
 
@@ -185,14 +188,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for result in game_results %}
-                            {% if result.game_name == "out game" %}
-                            <tr>
-                                <td>{{ result.language }}</td>
-                                <td>{{ result.score }}</td>
-                                <td>{{ result.played_at }}</td>
-                            </tr>
-                            {% endif %}
+                            {% set ns = namespace(count=0) %}
+                            {% for result in game_results if ns.count < 5 %}
+                                {% if result.game_name == "out game" %}
+                                <tr>
+                                    <td>{{ result.language }}</td>
+                                    <td>{{ result.score }}</td>
+                                    <td>{{ result.played_at }}</td>
+                                </tr>
+                                {% set ns.count = ns.count + 1 %}
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -210,14 +215,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for result in game_results %}
-                            {% if result.game_name == "drag game" %}
-                            <tr>
-                                <td>{{ result.language }}</td>
-                                <td>{{ result.score }}</td>
-                                <td>{{ result.played_at }}</td>
-                            </tr>
-                            {% endif %}
+                            {% set ns = namespace(count=0) %}
+                            {% for result in game_results if ns.count < 5 %}
+                                {% if result.game_name == "drag game" %}
+                                <tr>
+                                    <td>{{ result.language }}</td>
+                                    <td>{{ result.score }}</td>
+                                    <td>{{ result.played_at }}</td>
+                                </tr>
+                                {% set ns.count = ns.count + 1 %}
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -226,6 +233,9 @@
         </div>
         
     </div>
+    <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
 </body>
 <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+</script>
+
 </html>

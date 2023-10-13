@@ -22,6 +22,7 @@ def mypage():
         db_session.query(CodeSubmission, QList)
         .join(QList, CodeSubmission.q_id == QList.q_id)
         .filter(CodeSubmission.user_id == current_user.id)
+        .order_by(CodeSubmission.submission_time.desc())  # 내림차순 정렬
         .all()
     )
 
@@ -29,8 +30,14 @@ def mypage():
     user_comments = db_session.query(Comments).filter_by(user_id=current_user.id).all()
 
     # 게임 기록 가져오기
-    output_game_scores = db_session.query(OutputGameScore).filter_by(user_id=current_user.id).all()
-    drag_game_scores = db_session.query(DragGameScore).filter_by(user_id=current_user.id).all()
+    output_game_scores = (db_session.query(OutputGameScore)
+                        .filter_by(user_id=current_user.id)
+                        .order_by(OutputGameScore.output_score.desc(), OutputGameScore.played_at.desc())
+                        .all())
+    drag_game_scores = (db_session.query(DragGameScore)
+                        .filter_by(user_id=current_user.id)
+                        .order_by(DragGameScore.drag_score.desc(), DragGameScore.played_at.desc())
+                        .all())
 
     game_results = []
     for score in output_game_scores:
