@@ -203,6 +203,9 @@ def board_edit(board_id):
     if form.validate_on_submit():
         board_instance.title = form.title.data
         board_instance.content = form.content.data
+        board_instance.is_edited = True
+        seoul_timezone = pytz.timezone("Asia/Seoul")  # 한국 시간
+        board_instance.updated_at = datetime.now(seoul_timezone)
 
         # 파일 업로드 처리
         files = request.files.getlist("file")
@@ -229,12 +232,13 @@ def board_edit(board_id):
         try:
             db_session.commit()  # DB에 변경 사항 저장
 
-            flash("게시글이 성공적으로 수정되었습니다.")  # 메시지 전달
+            flash("게시글이 성공적으로 수정되었습니다.")
             return redirect(url_for("board.board_detail", board_id=board_id))
         except Exception as e:
+            logging.error(f"Error updating board: {e}")
             db_session.rollback()
-            flash("게시글 수정 중 오류가 발생했습니다.")  # 메시지 전달
-            return redirect(url_for("board.board_detail", board_id=board_id))
+            flash("게시글 수정 중 오류가 발생했습니다.")
+            return redirect(url_for("board.board_list"))
         finally:
             db_session.close()
 
@@ -304,7 +308,6 @@ def edit_comment(board_id, comment_id):
         comment.content = form.comment.data
         comment.is_edited = True
         comment.content = form.comment.data
-        comment.is_edited = True
         seoul_timezone = pytz.timezone("Asia/Seoul")  # 한국 시간
         comment.updated_at = datetime.now(seoul_timezone)
         db_session.commit()

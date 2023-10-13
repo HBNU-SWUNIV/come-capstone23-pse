@@ -83,8 +83,14 @@
         </div>
         {% endif %}
         <div class="post-info">
-            <p> 작성자: {{ post.User.username }} | 날짜: {{ post.Board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }} | 조회수: {{ post.Board.view }}</p>
-    </div>
+            <p> 작성자: {{ post.User.username }} | 
+                날짜: {{ post.Board.created_at.strftime('%Y.%m.%d / %H:%M:%S') }} |
+                조회수: {{ post.Board.view }}
+            </p>
+            {% if post.Board.updated_at %}
+            수정됨: {{ post.Board.updated_at.strftime('%Y.%m.%d / %H:%M:%S') }}
+            {% endif %}
+        </div>
 
     <!-- 첨부된 파일이 있을 때만 '첨부파일' 텍스트 표시 -->
     {% if post.Board.file_path %}
