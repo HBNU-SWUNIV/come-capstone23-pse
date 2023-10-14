@@ -203,7 +203,7 @@ def board_edit(board_id):
     if form.validate_on_submit():
         board_instance.title = form.title.data
         board_instance.content = form.content.data
-        board_instance.is_edited = True
+        board_instance.is_edited = True # 게시글이 수정되었음을 표시
         seoul_timezone = pytz.timezone("Asia/Seoul")  # 한국 시간
         board_instance.updated_at = datetime.now(seoul_timezone)
 
