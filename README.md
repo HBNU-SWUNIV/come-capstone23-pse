@@ -23,8 +23,8 @@
   - 본 프로젝트의 플랫폼은 초보자를 위해 다양한 난이도의 코딩 테스트와 게임을 통해 각자의 수준에 맞게 학습할 수 있도록 지원하며, 즉각적인 피드백으로 학습 효과를 극대화해 사용자의 실력을 빠르게 향상시키도록 도와준다.
     
   - AI 챗봇과 커뮤니티 공간의 제공을 통해 실시간으로 질문에 답하고 코드를 평가받을 수 있어, 코딩 환경에 대한 더 깊은 이해와 높은 품질의 코드 작성 능력을 길러주는 역할을 한다.
-![그림2](https://github.com/jaeyeonkk/test/assets/121489065/e5c4d493-0393-4323-bf6d-cb28bf51e6b1)
-
+  - <img src="https://github.com/jaeyeonkk/test/assets/121489065/e5c4d493-0393-4323-bf6d-cb28bf51e6b1.png" width="500" height="300"/>
+  
 ## System Design
   - ### System Requirements
     - OOO
