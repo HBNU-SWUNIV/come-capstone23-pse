@@ -69,8 +69,8 @@
 
 </head>
 <body>
-  <video id="webcam" width="280" height="230" autoplay></video>
-</div>
+
+
     <div id="problem">
         <p class="ttext">문제</p>
         <p class="ttext2">{{ q_list.q_content | safe }}</p>
@@ -252,44 +252,6 @@ $(document).ready(function() {
 });
 });
 
-
-//여기서부터 웹캠 부분입니다!
-
-document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('webcam');
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            // 웹캠 스트림 가져오기
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then((stream) => {
-                    video.srcObject = stream;
-
-                    //스트롤을 내려도 캠 화면은 유지되게
-                    // 마우스 다운 
-                    video.addEventListener('mousedown', (e) => {
-                        isDragging = true;
-                        offsetX = e.clientX - video.offsetLeft;
-                        offsetY = e.clientY - video.offsetTop;
-                    });
-
-                    // 마우스 이동 
-                    document.addEventListener('mousemove', (e) => {
-                        if (isDragging) {
-                            video.style.left = (e.clientX - offsetX) + 'px';
-                            video.style.top = (e.clientY - offsetY) + 'px';
-                        }
-                    });
-
-                    // 마우스 업 
-                    document.addEventListener('mouseup', () => {
-                        isDragging = false;
-                    });
-                })
-                .catch((err) => {
-                    console.error('Error accessing the webcam:', err);
-                });
-        });
 
 
 
