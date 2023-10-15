@@ -60,7 +60,7 @@
           const levelCheckboxes = document.querySelectorAll('input[name="levels"]');
           const languageCheckboxes = document.querySelectorAll('input[name="languages"]');
 
-          // URL 파라미터에서 선택한 난이도 및 언어를 가져옵니다.
+          // URL 파라미터에서 선택한 난이도 및 언어를 가져옴
           const params = new URLSearchParams(window.location.search);
           const selectedLevels = params.getAll('levels');
           const selectedLanguages = params.getAll('languages');
