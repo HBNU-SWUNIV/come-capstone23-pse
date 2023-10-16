@@ -25,12 +25,33 @@
 
 ## System Design
   - 메인페이지
-    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/52031bdf-80ba-4cdb-af17-f0099cab9c77)    ![pse_메인2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/ccb733a5-daa0-4206-b1da-ef2f169cca72)
+<div style="display: flex;">
+    <img src="https://github.com/HBNU-SWUNIV/come-capstone23-pse/raw/assets/121539184/77fc09bf-10e6-40a2-9dc6-3d3c55c77772" alt="이미지1" width="33%">
+    <img src="https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/2f5c5a84-692e-48d2-be65-ccd4135bb7e1" alt="이미지2" width="33%">
+    <img src="https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/12473ec8-cb8d-4e02-b2b8-f35b52ff711b" alt="이미지3" width="33%">
+</div>
+
+
+                 
 
 
   - 로그인 회원가입
-    
-    
+
+  - 코딩 테스트
+
+  - 타이핑 게임
+
+  - 드래그 게임
+
+  - 출력값 게임
+
+  - AI 챗봇
+
+  - 게시판
+
+  - 마이페이지
+
+
 ## Case Study
   - ### Description
   
