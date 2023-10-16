@@ -24,9 +24,12 @@
 <img src="https://github.com/jaeyeonkk/test/assets/121489065/e5c4d493-0393-4323-bf6d-cb28bf51e6b1.png" width="500" height="300"/>
 
 ## System Design
-  - ### System Requirements
-    - OOO
-    - OOO
+  - 메인페이지
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/52031bdf-80ba-4cdb-af17-f0099cab9c77)    ![pse_메인2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/ccb733a5-daa0-4206-b1da-ef2f169cca72)
+
+
+  - 로그인 회원가입
+    
     
 ## Case Study
   - ### Description
