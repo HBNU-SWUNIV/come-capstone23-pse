@@ -25,31 +25,61 @@
 
 ## System Design
   - 메인페이지
-<div style="display: flex;">
-    <img src="https://github.com/HBNU-SWUNIV/come-capstone23-pse/raw/assets/121539184/77fc09bf-10e6-40a2-9dc6-3d3c55c77772" alt="이미지1" width="33%">
-    <img src="https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/2f5c5a84-692e-48d2-be65-ccd4135bb7e1" alt="이미지2" width="33%">
-    <img src="https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/12473ec8-cb8d-4e02-b2b8-f35b52ff711b" alt="이미지3" width="33%">
-</div>
-
-
-                 
-
+    ![pse_메인1](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/fa214ced-ecb6-4f0e-9662-492a5595ffa7)
+    메인페이지 소개 넣기
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/b3e32f1b-7c77-4a5a-8b3b-04524d5e3e47)
+    섹션부분 소개 넣기
 
   - 로그인 회원가입
+    ![pse_로그인](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/9288167c-57d1-43de-ad73-c259288f6ef4)
+    로그인 부분 설명
+    ![pse_회원가입](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/a48f4fcd-b214-4cb1-9339-c76a10557682)
+    회원가입 부분 설명
 
   - 코딩 테스트
+    ![pse_코딩테스트](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/133abdb7-ab42-4148-853d-6d6c47f4772b)
+    코딩테스트 리스트 부분 설명
+
+    +코딩테스트 문제 화면, 정답,피드백등 화면 추가 후 설명 추가
 
   - 타이핑 게임
+    ![pse_타이핑2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/21acd8a0-c50f-4fe0-87bb-6e42fd555488)
+    타이핑 게임 설명
+
 
   - 드래그 게임
+    ![pse_드래그게임](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/5aec527b-9131-48d7-a858-08047a7356ef)
+    ![pse_드래그게임2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/a4ad5749-f424-494c-955f-5831bb79e75e)
+    게임 동작 화면, 랭킹 화면 추가 후 설명
+
 
   - 출력값 게임
+    ![pse_출력값](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/ed2dabea-1f1d-42e0-8f10-609662fed766)
+    ![pse_출력값2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/7fd5acf1-a816-4889-bb31-cb668ca4890b)
+    랭킹 화면 추가 후 설명글
 
   - AI 챗봇
+    ![pse_챗봇](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/f71ac77b-34ae-4acf-8220-ebfd88fad4bb)
+    질의응답 화면 추가 후 설명글
 
   - 게시판
+    ![pse_게시판_글](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/781392db-7d19-4a96-8da2-56b9931eebc3)
+    게시판 글
+    ![pse_게시판 댓글](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/c67f61ae-6fff-4485-aba9-e472da3dd952)
+    게시판 댓글
+    ![pse_글쓰기](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/1456c54c-acec-4ede-9712-2681478e26f4)
+    게시판 글쓰기
+
+    +게시판 리스트, 글 수정 화면 추가 후 설명
+
 
   - 마이페이지
+    ![pse_마이페이지_코드](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/40090575-05b3-42bc-85c0-93326e16185d)
+    마이페이지 중 내가 쓴 코드 화면
+
+    +마이페이지 화면, 내가 쓴 게시글,댓글 게임랭킹 화면 추가 후 설명 추가
+
+
 
 
 ## Case Study
