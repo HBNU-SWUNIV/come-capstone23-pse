@@ -61,10 +61,10 @@
         {{ form.hidden_tag() }}
     <h1>게시글 수정</h1>
         <label for="title">제목:</label>
-        <input type="text" name="title" value="{{ form.title.data }}" required>
+        <input type="text" id="title" name="title" value="{{ form.title.data }}" required>
         <br>
         <label for="content">내용:</label>
-        <textarea name="content" rows="5" required>{{ post.content }}</textarea>
+        <textarea name="content" id="content" rows="5" required>{{ post.content }}</textarea>
         <br>
         <!-- 기존 첨부파일 목록 표시 -->
         {% if post.file_path and post.file_path != [] %}

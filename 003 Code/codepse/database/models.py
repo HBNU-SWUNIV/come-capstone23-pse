@@ -128,6 +128,8 @@ class Board(Base):
     file_path = Column(JSON, nullable=True)
     view = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, default=current_time)
+    is_edited = Column(Boolean, default=False)
+    updated_at = Column(TIMESTAMP, default=current_time)
     
 
 class OutputGameScore(Base):
