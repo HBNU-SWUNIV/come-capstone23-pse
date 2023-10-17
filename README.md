@@ -104,3 +104,4 @@
 
 ![스크린샷 2023-10-17 185210](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/90593474/e25f3499-0a79-4e6f-af83-4c30e32bee8f)
 
+![스크린샷 2023-10-17 185339](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/90593474/22b16f6c-2169-4e1c-a835-7f19b8c4d52a)
