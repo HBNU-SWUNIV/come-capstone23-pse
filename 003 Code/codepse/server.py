@@ -12,6 +12,7 @@ from app.csrf_protection import init_csrf
 from app.game import game
 from app.game_score import game_score
 from app.user_profile import user_profile
+from app.mypage import mypage
 
 
 app = Flask(__name__, static_folder="app/static")
@@ -25,6 +26,7 @@ app.register_blueprint(coding_test)
 app.register_blueprint(game)
 app.register_blueprint(game_score)
 app.register_blueprint(user_profile)
+app.register_blueprint(mypage)
 
 init_login_manager(app)
 init_csrf(app)
