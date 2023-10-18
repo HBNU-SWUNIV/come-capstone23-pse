@@ -4,7 +4,7 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
     <title>Coding Test</title>
 	
-	<!--- cutom css line -->
+	  <!--- cutom css line -->
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
 
 
@@ -50,7 +50,7 @@
               newURL += '?' + queryParts.join('&');
           }
 
-          // 현재 url과 새로 구성된 url이 다를 경우에 페이지 다시 load
+          // 현재 url과 새로 구성된 url이 다를 경우에 페이지 다시 로드함
           if (window.location.href !== newURL) {
               window.location.href = newURL;
           }
@@ -205,13 +205,11 @@
             </thead>
             <tbody>
               {% for i in q_list %}
-              <!-- <tr> -->
               <tr class="problem-row" data-level="{{ i[1] }}" data-language="{{ i[3] }}">
                 <td>{{ i[0] }}</td> <!-- 문제 번호 -->
                 <td>{{ i[1] }}</td> <!-- 문제 난이도 -->
                 <th>
-                  <a href="{{ url_for('coding_test.test_view', q_id=i[0]) }}">{{ i[2] }}</a> <!--i[1]: 문제 이름-->
- <!--i[1]: 문제 이름-->
+                  <a href="{{ url_for('coding_test.test_view', q_id=i[0]) }}">{{ i[2] }}</a>
                   <p>{{ i[2] }}</p>
                 </th>
               </tr>

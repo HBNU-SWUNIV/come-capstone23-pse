@@ -30,7 +30,6 @@
         <ul class="navlist">
             <!-- 로그인 상태에 따라 Home 링크를 변경 -->
             <li><a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}">HOME</a></li>
-            <!-- <li><a href="/">HOME</a></li> -->
             <li><a href="/test_list">CODING TEST</a></li>
             <li><a href="/ai_chatbot">AI CHATBOT</a></li>
             <li class="dropdown">
@@ -63,7 +62,6 @@
               </div>
 
               <div class="home-img">
-               <!-- <img alt="#" src="pic/pngtree-purple-watercolor-splash-png-image_4249239-removebg-preview (1).png" id="splash">-->
                 <img alt="#" src="{{ url_for('static', filename='images/mainimg.png') }}" id="home-img">
 
                 
@@ -178,7 +176,7 @@
         </div>
       </div>
     </div>
-        <!-- 추가된 부분 -->
+
   <div class="slider-controls">
       <span class="slider-btn prev-btn">&lt;</span>
       <span class="slider-btn next-btn">&gt;</span>

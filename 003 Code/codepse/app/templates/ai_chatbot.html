@@ -59,25 +59,25 @@
     <h2>AI 챗봇을 활용하여 코드와 관련된 질문을 해보세요. 빠르고 정확한 도움을 얻을 수 있습니다</h2>
 
     <script>
-$(document).ready(function(){
-    $('#userText').keypress(function(e){
-        if (e.keyCode == 13 && !e.shiftKey) { // keyCode 13 is 'Enter', and we want to check if shiftKey is not pressed
-            e.preventDefault(); // Prevent the default action
-            $("form").submit(); // Trigger the form submit
-        }
-    });
+    $(document).ready(function(){
+        $('#userText').keypress(function(e){
+            if (e.keyCode == 13 && !e.shiftKey) { // keyCode 13는 'Enter' && shiftKey 눌리지 않았을 때를 확인하고자 함
+                e.preventDefault(); // 기본 동작 막음
+                $("form").submit(); // 폼 제출을 트리거함
+            }
+        });
 
     $("form").on("submit", function(event){
-        event.preventDefault();  // Prevent the form from being submitted normally
-        var userText = $("#userText").val();  // Get the data from the form
-        var userTextFormatted = userText.replace(/\n/g, "<br />");  // Replace newline characters with <br />
+        event.preventDefault();  // 폼이 일반적으로 제출되는 것을 방지
+        var userText = $("#userText").val();  // 폼에서 데이터 가져옴
+        var userTextFormatted = userText.replace(/\n/g, "<br />");  // '\ng을' <br />으로 교체
         $("#chatbox").prepend("<div class='message user-message'>You: " + userTextFormatted + "</div>");
         $.post("/ai_chatbot_submit", { userText: userText }, function(data){
-            var dataFormatted = data.replace(/\n/g, "<br />");  // Replace newline characters in AI response with <br />
-            $("#chatbox").prepend("<div class='message ai-message'>AI: " + dataFormatted + "</div>");  // Add the chatbot response to the page
+            var dataFormatted = data.replace(/\n/g, "<br />");  // ai응답 내의 '\ng'를 <br />으로 교체
+            $("#chatbox").prepend("<div class='message ai-message'>AI: " + dataFormatted + "</div>");  // 챗봇 응답을 페이지에 추가
         });
-        $("#userText").val('');  // Clear the input field
-        $("#chatloadimage").hide();  // Hide the image container when form is submitted
+        $("#userText").val('');  // 입력 필드 지움
+        $("#chatloadimage").hide();  // 폼이 제출될 때, 이미지 컨테이너 숨김
     });
 });
 
