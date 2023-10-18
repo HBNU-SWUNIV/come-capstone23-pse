@@ -24,6 +24,26 @@
 <img src="https://github.com/jaeyeonkk/test/assets/121489065/e5c4d493-0393-4323-bf6d-cb28bf51e6b1.png" width="500" height="300"/>
 
 ## System Design
+
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+<img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src ="https://img.shields.io/badge/AWS-232F3E.svg?&style=for-the-badge&logo=amazonaws&logoColor=white"/>
+<img src ="https://img.shields.io/badge/rds-527FFF.svg?&style=for-the-badge&logo=amazonrds&logoColor=white"/>
+<img src ="https://img.shields.io/badge/docker-2496ED.svg?&style=for-the-badge&logo=docker&logoColor=white"/>
+
+
+### - 시스템 구성도
+
+
+
+
+</br></br>
+
+
   - 메인페이지
     ![pse_메인1](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/fa214ced-ecb6-4f0e-9662-492a5595ffa7)
     메인페이지 소개 넣기
