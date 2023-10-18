@@ -1,4 +1,4 @@
-# 한밭대학교 컴퓨터공학과 PSE팀
+![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/93113812/2c34f5b5-e90f-43ad-9421-a72d92d1bbf6)# 한밭대학교 컴퓨터공학과 PSE팀
 
 **팀 구성**
 - 20207125 김재연 
@@ -25,8 +25,7 @@
 
 ## System Design
 
-<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
@@ -37,6 +36,8 @@
 
 
 ### - 시스템 구성도
+![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/93113812/19d965b7-b6bb-462a-80bf-f46a0a495679)
+
 
 
 
