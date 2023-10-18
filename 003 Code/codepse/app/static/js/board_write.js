@@ -3,10 +3,10 @@ const header = document.querySelector("header")
 window.addEventListener ("scroll", function(){
     header.classList.toggle("sticky", window.scrollY > 60)
 });
-//이거는 뭐시냐면은 그 메인페이지 스크롤 내릴때 메뉴는 안없어지고 그대로 유지되는 고것 근데 쫌 간지나게 유지돼..
+// 메뉴바 스크롤 애니메이션
 
 
-let selectedFiles = [];  // 선택된 파일을 관리하기 위한 배열
+let selectedFiles = [];  // 선택한 파일들의 목록을 저장하는 배열
 
 // 선택 파일의 이름 나열하기
 document.getElementById('file').addEventListener('change', function() {
@@ -23,8 +23,9 @@ document.getElementById('file').addEventListener('change', function() {
 // 파일 목록을 화면에 갱신하는 함수
 function updateFileDisplay() {
     const fileNamesDiv = document.getElementById('file-names');
-    fileNamesDiv.innerHTML = '';  // 기존의 파일 이름을 지움
+    fileNamesDiv.innerHTML = '';  // 기존의 파일 목록 삭제
     
+    // selectedFiles 배열에 있는 모든 파일의 이름을 화면에 표시
     for (let i = 0; i < selectedFiles.length; i++) {
         const fileDiv = document.createElement('div');
         fileDiv.innerHTML = `<span>${selectedFiles[i].name}</span> <button onclick="removeFile(${i})">x</button>`;
@@ -43,9 +44,10 @@ document.querySelector('form').addEventListener('submit', function(e) {
     const fileInput = document.getElementById('file');
     const newFileList = new DataTransfer();
 
+    // selectedFiles 배열에 있는 모든 파일을 newFileList에 추가
     for (let file of selectedFiles) {
         newFileList.items.add(file);
     }
 
-    fileInput.files = newFileList.files;  // 설정
+    fileInput.files = newFileList.files;  // file input 태그에 최종 선택된 파일 목록 설정
 });
