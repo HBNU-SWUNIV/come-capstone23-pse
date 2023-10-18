@@ -1,4 +1,4 @@
-
+# 한밭대학교 컴퓨터공학과 PSE팀
 
 **팀 구성**
 - 20207125 김재연 
@@ -36,7 +36,7 @@
 
 
 ### - System Architecture
-![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/93113812/19d965b7-b6bb-462a-80bf-f46a0a495679)
+![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/93113812/fa2fa633-a4ba-4f41-aaed-f141f4b0d73c)
 >- Web Server: Python의 Flask 웹 프레임워크 사용
 >- Web FrontEnd: HTML, CSS, JavaScript를 사용하여 웹 페이지 디자인 및 동적 요소 구현
 >- Database: AWS RDS를 사용하여 데이터베이스 관리(MySQL)
@@ -62,7 +62,7 @@ cd "Project-Directory\come-capstone23-pse\003 Code\codepse"
 Docker-compose up
 ```
 
-
+## 
   - 메인페이지
     ![pse_메인1](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/fa214ced-ecb6-4f0e-9662-492a5595ffa7)
     메인페이지 소개 넣기
