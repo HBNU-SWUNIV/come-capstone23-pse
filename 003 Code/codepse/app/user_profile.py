@@ -4,7 +4,14 @@ from flask_login import login_required, current_user
 from app.forms import DeleteForm
 
 from database.database import get_db_connection
-from database.models import Board, CodeSubmission, QList, Comments, OutputGameScore, DragGameScore
+from database.models import (
+    Board,
+    CodeSubmission,
+    QList,
+    Comments,
+    OutputGameScore,
+    DragGameScore,
+)
 
 user_profile = Blueprint("user_profile", __name__)
 
@@ -30,14 +37,18 @@ def mypage():
     user_comments = db_session.query(Comments).filter_by(user_id=current_user.id).all()
 
     # 게임 기록 가져오기
-    output_game_scores = (db_session.query(OutputGameScore)
-                        .filter_by(user_id=current_user.id)
-                        .order_by(OutputGameScore.output_score.desc(), OutputGameScore.played_at.desc())
-                        .all())
-    drag_game_scores = (db_session.query(DragGameScore)
-                        .filter_by(user_id=current_user.id)
-                        .order_by(DragGameScore.drag_score.desc(), DragGameScore.played_at.desc())
-                        .all())
+    output_game_scores = (
+        db_session.query(OutputGameScore)
+        .filter_by(user_id=current_user.id)
+        .order_by(OutputGameScore.output_score.desc(), OutputGameScore.played_at.desc())
+        .all()
+    )
+    drag_game_scores = (
+        db_session.query(DragGameScore)
+        .filter_by(user_id=current_user.id)
+        .order_by(DragGameScore.drag_score.desc(), DragGameScore.played_at.desc())
+        .all()
+    )
 
     game_results = []
     for score in output_game_scores:
@@ -82,16 +93,18 @@ def mycode(submission_id):
     if not code_submission or code_submission.user_id != current_user.id:
         flash("코드에 대한 접근 권한이 없습니다.")
         db_session.close()
-        return redirect(url_for('user_profile.mypage'))
+        return redirect(url_for("user_profile.mypage"))
 
-    # 해당 code_submission에 연관된 q_list 정보를 가져옵니다.
+    # 해당 code_submission에 연관된 q_list 정보를 가져옴.
     q_list = db_session.query(QList).filter_by(q_id=code_submission.q_id).first()
 
     form = DeleteForm()
 
     db_session.close()
 
-    return render_template("mycode.html", code_submission=code_submission, q_list=q_list, form=form)
+    return render_template(
+        "mycode.html", code_submission=code_submission, q_list=q_list, form=form
+    )
 
 
 @user_profile.route("/delete_code/<int:submission_id>", methods=["POST"])

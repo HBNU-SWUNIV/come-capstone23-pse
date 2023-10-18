@@ -119,7 +119,7 @@ def board_detail(board_id):
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "upload/")
 
-# 전역 변수로 정의하여 사용 (이 부분은 Flask 앱의 config로 설정할 수도 있습니다.)
+# 전역 변수로 정의하여 사용
 UPLOAD_PATH = UPLOAD_FOLDER
 
 

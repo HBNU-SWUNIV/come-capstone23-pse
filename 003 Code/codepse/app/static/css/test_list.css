@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
+  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 함*/
   background-attachment: fixed;  /* 배경 이미지 고정시킴 */
   background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
 

@@ -32,7 +32,9 @@ def test_list():
         page = 1
 
     levels = [html.escape(level) for level in request.args.getlist("levels")]
-    languages = [html.escape(language) for language in request.args.getlist("languages")]
+    languages = [
+        html.escape(language) for language in request.args.getlist("languages")
+    ]
 
     filters = []
     level_filters = []
@@ -93,7 +95,7 @@ def compile():
     code = request.form.get("code")
     language = request.form.get("language")
 
-    session["language"] = language  # 여기에서 언어 정보를 세션에 저장
+    session["language"] = language  # 언어 정보를 세션에 저장
 
     if language == "python":
         output_str = python_run_code(code)
@@ -115,7 +117,7 @@ def submit():
     code = request.form.get("code")
     language = request.form.get("language")
 
-    session["language"] = language  # 여기에서 언어 정보를 세션에 저장
+    session["language"] = language 
 
     if language == "python":
         output_str = python_run_code(code)

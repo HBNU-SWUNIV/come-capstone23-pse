@@ -47,8 +47,6 @@ def get_draggame_questions():
     # 모든 draggame 문제를 가져옴
     draggame_questions = conn.query(DragGame).all()
 
-
-
     allQuestions = []
     for allQuestion in draggame_questions:
         allQuestions.append(
