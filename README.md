@@ -1,4 +1,4 @@
-![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/93113812/2c34f5b5-e90f-43ad-9421-a72d92d1bbf6)# 한밭대학교 컴퓨터공학과 PSE팀
+
 
 **팀 구성**
 - 20207125 김재연 
