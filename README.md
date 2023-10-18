@@ -35,14 +35,32 @@
 <img src ="https://img.shields.io/badge/docker-2496ED.svg?&style=for-the-badge&logo=docker&logoColor=white"/>
 
 
-### - 시스템 구성도
+### - System Architecture
 ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/93113812/19d965b7-b6bb-462a-80bf-f46a0a495679)
+>- Web Server: Python의 Flask 웹 프레임워크 사용
+>- Web FrontEnd: HTML, CSS, JavaScript를 사용하여 웹 페이지 디자인 및 동적 요소 구현
+>- Database: AWS RDS를 사용하여 데이터베이스 관리(MySQL)
+>- Compiler: Docker 컨테이너를 사용하여 C, C++, Java, Python  컴파일 환경 구성
+>- AWS를 통해 서비스 배포 및 관리
 
+### - System Dependencies
+[requirements.txt](https://github.com/HBNU-SWUNIV/come-capstone23-pse/blob/main/003%20Code/requirements.txt
+)
 
-
-
-
-</br></br>
+### - Installing and Running
+#### 로컬 환경에서의 프로젝트 실행
+- git 프로젝트 클론
+```git
+https://github.com/HBNU-SWUNIV/come-capstone23-pse.git
+```
+- docker-compose.yml이 존재하는 디렉토리로 이동
+```
+cd "Project-Directory\come-capstone23-pse\003 Code\codepse"
+```
+- Docker compose로 프로젝트 실행
+```
+Docker-compose up
+```
 
 
   - 메인페이지
