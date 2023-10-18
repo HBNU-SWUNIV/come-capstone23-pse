@@ -33,6 +33,8 @@ def save_game_result():
 
     conn = get_db_connection()
 
+    current_kst_time = datetime.now(korea_timezone)
+
     if gameType == "drag":
         game_score = DragGameScore(
             user_id=current_user.id,

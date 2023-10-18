@@ -92,6 +92,10 @@ h2{
   padding: 10px; /* 위아래에 약간의 패딩 추가 */
   margin-bottom: 20px; /* 아래쪽 여백 추가 */
 }
+h4 {
+  color: #ffd736;
+}
+
 
 
 #languageSelect{
