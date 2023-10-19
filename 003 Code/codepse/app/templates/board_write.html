@@ -4,27 +4,24 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
     <title>Codepse main</title>
 	
-	<!--- cutom css line -->
+	<!-- cutom css line -->
     <link href="{{ url_for('static', filename='css/board_write.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
-    
 
-
-    <!--- box icons link -->
+    <!-- box icons link -->
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <!--- google fonts link -->
+    <!-- google fonts link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-
 </head>
-<body>
 
-    <!--- header section -->
+<body>
+    <!-- 헤더 섹션 -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx bx menu" id="menu-icon"></div>
@@ -42,49 +39,46 @@
                     <a href="/outputgame">OUTPUT GAME</a>
                 </div>
                 <li><a href="/board_list">BOARD</a></li>
-              </li>
-              <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
-              <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
-              {% if current_user.is_authenticated %}
-              <!-- 로그인 한 사용자의 이름을 표시 -->
-              <li class="user-name">hello, {{ current_user.username }}</li>
+            </li>
+            <li><a href="/mypage" class="mypage-btn">MYPAGE</a></li>
+            <li><a href="/logout" class="loginout-btn">LOGOUT</a></li>
+            {% if current_user.is_authenticated %}
+            <!-- 로그인 한 사용자의 이름을 표시 -->
+            <li class="user-name">hello, {{ current_user.username }}</li>
             {% endif %}
-
-
         </ul>
-
     </header>
-
 
 <section class="board_write" id="board_write">
     <title>board_write</title>
-
-<body>
-    <h1>글쓰기</h1>
-    <form action="/board_write" method="post" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <div class="input-group">
-            <label for="title">제목:</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-
-        <div class="input-group">
-            <label for="content">내용:</label>
-            <textarea id="content" name="content" rows="10" required placeholder="내용을 작성해주세요"></textarea>
-        </div>
-
-        <div class="input-group">
-            <div class="file">
-            <label for="file">첨부파일:</label>
-            <input type="file" id="file" name="file" multiple>
-            <div id="file-names"></div>
+    
+    <body>
+        <h1>글쓰기</h1>
+        <form action="/board_write" method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="input-group">
+                <label for="title">제목:</label>
+                <input type="text" id="title" name="title" required>
             </div>
-        </div>
 
-        <div class="submit-btn">
-            <button type="submit">작성하기</button>
-        </div>
-    </form>
-    <script src="{{ url_for('static', filename='js/board_write.js') }}"></script>
-</section>
+            <div class="input-group">
+                <label for="content">내용:</label>
+                <textarea id="content" name="content" rows="10" required placeholder="내용을 작성해주세요"></textarea>
+            </div>
+
+            <div class="input-group">
+                <div class="file">
+                    <label for="file">첨부파일:</label>
+                    <input type="file" id="file" name="file" multiple>
+                    <div id="file-names"></div>
+                </div>
+            </div>
+            
+            <div class="submit-btn">
+                <button type="submit">작성하기</button>
+            </div>
+        </form>
+        
+        <script src="{{ url_for('static', filename='js/board_write.js') }}"></script>
+    </section>
 </body>

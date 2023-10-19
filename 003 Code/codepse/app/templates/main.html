@@ -4,15 +4,15 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
     <title>Codepse main</title>
 	
-	<!--- cutom css line -->
+	  <!-- cutom css line -->
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 
 
-    <!--- box icons link -->
+    <!-- box icons link -->
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <!--- google fonts link -->
+    <!-- google fonts link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <!--- header section -->
+    <!-- 헤더 섹션 -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx bx menu" id="menu-icon"></div>
@@ -44,7 +44,7 @@
               <li><a href="/login" class="login-btn">LOGIN</a></li>
         </ul>
     </header>
-        <!--- hero section -->
+        <!-- 히어로 섹션 -->
         <section class="home" id="home">
             <div class="hero-text">
                 <h3>WELCOME TO</h3>
@@ -68,7 +68,7 @@
               </div>
         </section>
 
-    <!--- about section -->
+    <!-- 어바웃 섹션 -->
     <section class="about" id="about">
         <div class="about-img" id="about">
            <img alt="#" src="{{ url_for('static', filename='images/our.png') }}">
@@ -90,7 +90,7 @@
        </div>
 
     </section>
-    <!--- services section -->
+    <!-- 서비스 섹션 -->
     <section class="service" id="service">
       <div class="text-center">
         <h2>OUR SERVICES</h2>

@@ -4,16 +4,16 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1">
     <title>Typing Game</title>
 	
-	<!--- cutom css line -->
+	<!-- cutom css line -->
     <link href="{{ url_for('static', filename='css/menu.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/typinggame.css') }}">
 
 
-    <!--- box icons link -->
+    <!-- box icons link -->
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
-    <!--- google fonts link -->
+    <!-- google fonts link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <!--- header section -->
+    <!-- 헤더 섹션 -->
     <header>
         <a href="{{ url_for('home') if current_user.is_authenticated else url_for('not_logged_home') }}" class="logo">CODE PSE</a>
         <div class="bx bx menu" id="menu-icon"></div>
