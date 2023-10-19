@@ -39,7 +39,7 @@ function removeFile(index) {
     updateFileDisplay();  // 화면 갱신
 }
 
-// form 제출 전에 선택된 파일들을 input 태그에 설정
+// form 제출 전에 선택된 파일들을 input에 설정
 document.querySelector('form').addEventListener('submit', function(e) {
     const fileInput = document.getElementById('file');
     const newFileList = new DataTransfer();
@@ -49,5 +49,5 @@ document.querySelector('form').addEventListener('submit', function(e) {
         newFileList.items.add(file);
     }
 
-    fileInput.files = newFileList.files;  // file input 태그에 최종 선택된 파일 목록 설정
+    fileInput.files = newFileList.files;  // file input에 최종 선택된 파일 목록 설정
 });

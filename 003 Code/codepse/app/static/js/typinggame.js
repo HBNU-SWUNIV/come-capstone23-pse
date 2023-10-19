@@ -69,7 +69,7 @@ window.addEventListener ("scroll", function(){
       const nextChar = characters[charIndex + 1];
       const nextLine = nextChar ? nextChar.getAttribute('data-line') : null;
     
-      // 다음 문자가 다음 둘의 것이면 허용
+      // 다음 문자가 다음 줄의 것이면 허용
       if (nextLine !== currentLine) {
         // 줄의 시작의 공백 건너뜀
         while (characters[charIndex + 1] && characters[charIndex + 1].innerHTML == '&nbsp;') {
@@ -108,10 +108,10 @@ window.addEventListener ("scroll", function(){
           } else {
             if (characters[charIndex].innerText == typedChar || 
               (characters[charIndex].innerHTML == '&nbsp;' && typedChar == ' ')) {
-              // 정확히 타이핑한 경우 처리
+              // 입력이 현재 문자와 일치 할 경우
               characters[charIndex].classList.add("correct");
             } else {
-              // 오타가 있는 경우 처리
+              // 입력이 틀릴 경우
               errors++;
               if (characters[charIndex].classList.contains("line-end")) {
                 characters[charIndex].classList.remove("active-line-end");
@@ -122,36 +122,40 @@ window.addEventListener ("scroll", function(){
             }
             charIndex++;
             if (charIndex >= characters.length) {
-              // 현재 문장의 마지막 문자까지 타이핑한 경우 다음 문장으로 전환
-              loadParagraph();
-              charIndex = 0;  // Add this line to reset the character index after loading a new paragraph
-              characters = typingText.querySelectorAll("span"); // Add this line
-              characters[charIndex].classList.add("active");
+              // 마지막 문자까지 타이핑 할 경우
+              loadParagraph(); // 새로운 문단 로딩
+              charIndex = 0;  // 문자 인덱스 초기화
+              characters = typingText.querySelectorAll("span"); // 새로운 문단의 문자 가져옴
+              characters[charIndex].classList.add("active"); // 첫 번째 문자를 활성 상태로 설정
             }
   
+          // 다음 문자가 줄의 끝인지 확인
           if (charIndex < characters.length - 1 && characters[charIndex + 1].classList.contains("line-end")) {
             characters[charIndex + 1].classList.add("active-line-end");
           }
           
         }
+        // 모든 문자들의 활성 상태와 보이지 않는 상태 초기화
         characters.forEach(span => {
           span.classList.remove("active", "active-line-end", "invisible");
           if (span.classList.contains("line-end")) {
-            span.classList.add("invisible");
+            span.classList.add("invisible"); // 줄의 끝이 보이지 않도록 설정
           }
         });
         
+        // 현재 타이핑 할 문자가 줄의 끝이면 해당 클래스 추가
         if (characters[charIndex].classList.contains("line-end")) {
           characters[charIndex].classList.add("active-line-end", "invisible");
+          // 아니라면 일반 활성 상태로 설정
         } else {
           characters[charIndex].classList.add("active");
         }
   
       } else {
-        if (timeLeft <= 0) {
+        if (timeLeft <= 0) { // 시간이 끝났는지 확인
           clearInterval(timer);
           isTyping = false;
-          showRestartMessage();
+          showRestartMessage(); // 재시작 메시지 표시
         }
       }
     }
@@ -160,41 +164,39 @@ window.addEventListener ("scroll", function(){
     clearInterval(timer);
     let restart = confirm("타이머가 종료되었습니다! 다시 시작하시겠습니까?");
     if (restart) {
-      resetTest();
+      resetTest(); // 다시 시작 시 초기화
     }
     else {
-      window.location.href = "."; // 여기에 메인페이지 연결해두기
+      window.location.href = "."; // 메인 페이지 리다이렉트
     }
   
   }
   
   
-  function initTimer() {
+  function initTimer() { // 타이머 초기화 함수
     if (timeLeft > 0) {
       timeLeft--;
       timeTag.innerText = timeLeft;
-  
-      // initTyping() 함수에서 타이머 만료 메시지를 처리하므로 여기서는 처리하지 않음
     }
   }
   
-  function resetTest() {
+  function resetTest() { // 초기화 함수
     loadParagraph();
     clearInterval(timer);
     charIndex = errors = isTyping = 0;
     inpField.value = "";
     timeLeft = maxTime;
     timeTag.innerText = timeLeft;
-    isTyping = false; // Add this line to indicate that typing has not started yet
+    isTyping = false;
   }
   
-  loadParagraph();
+  loadParagraph(); // 초기 문단 로딩
   inpField.addEventListener("input", () => {
     if (!isTyping) {
-      timer = setInterval(initTimer, 1000);
+      timer = setInterval(initTimer, 1000); // 타이핑 시작 시 타이머 시작
       isTyping = true;
     }
-    initTyping();
+    initTyping(); // 타이핑 로직 시작
   });
-  tryAgainBtn.addEventListener("click", resetTest);
+  tryAgainBtn.addEventListener("click", resetTest); // 재시도 버튼 클릭 시 초기화
   
