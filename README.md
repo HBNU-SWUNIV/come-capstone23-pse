@@ -11,7 +11,8 @@
   - 디지털 시대에 프로그래밍은 필수 기술로 자리 잡았다. 이는 창의성과 사고력 향상에 도움을 주며, 기업에서는 직종에 관계없이 프로그래밍 능력을 중요시한다. 이에 따라 학교에서도 프로그래밍 교육의 중요성이 높아지고 있다.
     
   - 프로그래밍은 문제를 분석하고 해결하는 능력을 길러준다. 이러한 능력은 일상과 다른 학문에서도 큰 도움이 된다. 디지털 기술이 중심인 현시대에 프로그래밍 능력은 창업부터 기업 활동까지 다양한 분야에서 크게 인정받는다. 이제 프로그래밍 교육은 선택이 아닌 필수이며, 프로그래밍 교육의 품질을 높이고 접근성을 높일 필요가 있다.
-![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121489065/0afa8207-27d6-4f42-abe7-86d49572f52c)
+![그림1](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/9160183c-66fe-442b-b333-15b3b0caf945)
+
 
 
 
@@ -97,46 +98,84 @@ Docker-compose up
 
   - 코딩 테스트
     ![pse_코딩테스트](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/133abdb7-ab42-4148-853d-6d6c47f4772b)
-    코딩테스트 리스트 부분 설명
+    
+    사용자들이 다양한 코딩테스트 문제를 풀어 볼 수 있으며, 난이도에 따른 문제 선택 또한 가능하다.
 
-    +코딩테스트 문제 화면, 정답,피드백등 화면 추가 후 설명 추가
+    ![코딩테스트 화면](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/66837a5c-20bf-4eb1-9296-d6d1d6215419)
+    
+    사용자들은 문제와 예상 출력값에 맞는 답안을 입력하고, 해당 코드를 실행한 결과와 정답 여부를 확인할 수 있다.
 
+    또한 코드에 대한 피드백을 받고, 마이페이지에서 코드를 저장할 수 있는 기능도 제공된다.
+
+
+    
   - 타이핑 게임
     ![pse_타이핑2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/21acd8a0-c50f-4fe0-87bb-6e42fd555488)
-    타이핑 게임 설명
+    
+    타이핑 게임은 사용자들이 화면에 랜덤으로 표시되는 다양한 언어의 코드를 따라 쳐가며 영타 실력을 향상시키고,
+
+    동시에 코드 설명을 통해 코드에 대한 이해를 높일 수 있다.
 
 
   - 드래그 게임
-    ![pse_드래그게임](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/5aec527b-9131-48d7-a858-08047a7356ef)
-    ![pse_드래그게임2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/a4ad5749-f424-494c-955f-5831bb79e75e)
-    게임 동작 화면, 랭킹 화면 추가 후 설명
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/63b81843-f3b9-480d-b764-3933fb17d5fd)
+    
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/a0c29c7c-0321-4a3a-853e-dad7d8d01a84)
+    
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/60493c56-e05f-42fb-8e0c-a3330031d985)
+    
+    드래그 게임은 사용자가 먼저 플레이할 언어를 선택한 후, 빈칸이 있는 코드에 올바른 정답을 드래그하여 게임을 진행할 수 있다.
+
+    게임을 마친 후 정답 개수와 각 문항의 내가 쓴 정답과 올바른 정답, 그리고 자신의 랭킹을 확인할 수 있다.
 
 
   - 출력값 게임
-    ![pse_출력값](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/ed2dabea-1f1d-42e0-8f10-609662fed766)
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/592005bc-f1e5-4007-865e-48d22a604e49)
+    
     ![pse_출력값2](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/7fd5acf1-a816-4889-bb31-cb668ca4890b)
-    랭킹 화면 추가 후 설명글
+    
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/678a5487-8103-4f33-9145-1a95a5d4d9b4)
+    
+    출력값 게임은 사용자가 먼저 플레이할 언어를 선택한 후, 문제의 코드를 보고 올바를 출력값을 입력하여 게임을 진행할 수 있다.
+    
+    게임을 마친 후 정답 개수와 각 문항의 내가 쓴 정답과 올바른 정답, 그리고 자신의 랭킹을 확인할 수 있다.
 
   - AI 챗봇
-    ![pse_챗봇](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/f71ac77b-34ae-4acf-8220-ebfd88fad4bb)
-    질의응답 화면 추가 후 설명글
+    ![챗봇 화면](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/3b43c70a-7f2a-46b1-9414-03ff0bf67c31)
+
+    사용자는 AI 챗봇을 통해 프로그래밍과 관련된 다양한 질의응답이 가능하다.
 
   - 게시판
-    ![pse_게시판_글](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/781392db-7d19-4a96-8da2-56b9931eebc3)
-    게시판 글
-    ![pse_게시판 댓글](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/c67f61ae-6fff-4485-aba9-e472da3dd952)
-    게시판 댓글
-    ![pse_글쓰기](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/1456c54c-acec-4ede-9712-2681478e26f4)
-    게시판 글쓰기
 
-    +게시판 리스트, 글 수정 화면 추가 후 설명
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/606c454a-0eff-41ad-a98a-65dac9f5d5df)
+
+    ![pse_게시판_글](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/781392db-7d19-4a96-8da2-56b9931eebc3)
+    
+    사용자는 게시판을 이용하여 다양한 질문이나 글을 올릴 수 있다.
+    
+    ![pse_게시판 댓글](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/c67f61ae-6fff-4485-aba9-e472da3dd952)
+    
+    사용자는 게시판의 댓글 기능을 이용하여 다른 이용자들과 소통할 수 있고, 자신의 댓글은 삭제 및 수정이 가능하다.
+    
+    ![pse_글쓰기](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/1456c54c-acec-4ede-9712-2681478e26f4)
+    
+    ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/315a4ee4-3bbd-4efa-bc35-08a8edff4316)
+
+    사용자는 글쓰기 및 자신이 쓴 게시글 수정이 가능하다.
 
 
   - 마이페이지
-    ![pse_마이페이지_코드](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/40090575-05b3-42bc-85c0-93326e16185d)
-    마이페이지 중 내가 쓴 코드 화면
+     ![마이페이지 화면](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/3ae4babd-d58c-4591-9c67-5f95b649ed6b)
 
-    +마이페이지 화면, 내가 쓴 게시글,댓글 게임랭킹 화면 추가 후 설명 추가
+     ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/531dcfa7-b4e8-47c9-913c-2024e3d14bd1)
+
+    사용자는 마이페이지를 통해 자신이 작성한 게시글 및 댓글을 확인할 수 있으며, 해당 글을 클릭하면 해당 페이지로 이동할 수 있다.
+
+    또한, 자신의 게임 랭킹과 이전 코딩 테스트에서 푼 문제의 코드도 확인할 수 있다.
+    
+    ![pse_마이페이지_코드](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/40090575-05b3-42bc-85c0-93326e16185d)
+
+    마이페이지의 My Code를 통해 저장해둔 코드를 확인할 수 있다.
     
 - ### 20XX 년 OO학술대회 
 
