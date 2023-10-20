@@ -62,18 +62,38 @@ cd "Project-Directory\come-capstone23-pse\003 Code\codepse"
 Docker-compose up
 ```
 
-## 
+
+
+## Case Study
+  - ### Description
+  
+  
+## Conclusion
+  - ### OOO
+  - ### OOO
+  
+## Project Outcome
+
+ ### - Webpage Design
   - 메인페이지
     ![pse_메인1](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/fa214ced-ecb6-4f0e-9662-492a5595ffa7)
-    메인페이지 소개 넣기
+    
+    메인 페이지의 첫 번째 섹션은 가장 기본이 되는 메인 페이지로 CODE PSE에 대한 간단한 소개가 담겨있다.
+    
     ![image](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/b3e32f1b-7c77-4a5a-8b3b-04524d5e3e47)
-    섹션부분 소개 넣기
-
+    
+    메인 페이지의 두 번째 섹션에는 CODE PSE에 대한 보다 자세한 설명이 있으며,
+    
+    마지막 섹션인 세 번째 섹션에는 사용자가 이용할 수 있는 서비스와 함께 해당 페이지로 이동할 수 있는 버튼이 포함되어 있다.
+    
   - 로그인 회원가입
     ![pse_로그인](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/9288167c-57d1-43de-ad73-c259288f6ef4)
-    로그인 부분 설명
+    
+    사용자들은 로그인을 통해 CODE PSE의 기능들을 사용할 수 있다
+    
     ![pse_회원가입](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/a48f4fcd-b214-4cb1-9339-c76a10557682)
-    회원가입 부분 설명
+    
+    기존에 등록된 정보가 없는 신규 사용자일 경우 회원가입을 통해 로그인할 수 있다.
 
   - 코딩 테스트
     ![pse_코딩테스트](https://github.com/HBNU-SWUNIV/come-capstone23-pse/assets/121539184/133abdb7-ab42-4148-853d-6d6c47f4772b)
@@ -117,19 +137,7 @@ Docker-compose up
     마이페이지 중 내가 쓴 코드 화면
 
     +마이페이지 화면, 내가 쓴 게시글,댓글 게임랭킹 화면 추가 후 설명 추가
-
-
-
-
-## Case Study
-  - ### Description
-  
-  
-## Conclusion
-  - ### OOO
-  - ### OOO
-  
-## Project Outcome
+    
 - ### 20XX 년 OO학술대회 
 
 
