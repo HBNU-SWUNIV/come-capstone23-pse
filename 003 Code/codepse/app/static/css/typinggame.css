@@ -127,7 +127,6 @@ body {
   background-color: #ffb3bf;
   color: #ffffff;
   cursor: pointer;
-  /*border: 2px solid #1AAB8A; 테두리*/
 
 }
 
@@ -212,8 +211,8 @@ span.invisible {
 }
 
 .language-info {
-  display: flex; /* This will arrange the child elements in a row */
-  align-items: center; /* This will center align the child elements vertically */
+  display: flex; 
+  align-items: center; 
   color: #b09aec;
   font-size: 25px;
   padding: 15px;

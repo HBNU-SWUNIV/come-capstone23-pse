@@ -11,7 +11,7 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background: url(/static/images/chatbot_back.png);
-    background-attachment: fixed; /* 추가한 부분 */
+    background-attachment: fixed; 
 
 
 }
@@ -114,7 +114,7 @@ input[type="submit"]:hover {
 
 #chatloadimage img {
     width: 50%;
-    opacity: 0.3; /* 이미지를 반투명 */
+    opacity: 0.3; /* 이미지 반투명 효과 */
     margin-bottom: 86px;
 }
 

@@ -14,8 +14,8 @@ body {
   justify-content: center;
   min-height: 100vh;
   background: url(/static/images/game2_back.png);
-  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
-  background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+  background-repeat: no-repeat;  /* 배경 이미지 반복하지 않게 고정 */
+  background-attachment: fixed;  /* 배경 이미지 고정 */
   background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
 }
 
@@ -50,15 +50,13 @@ header {
     position: fixed;
     width: 100%;
     height: 75px;
-    /* Your existing styles... */
+  
     
 }
 
 section.game {
     padding-top: 110px; 
- 
 
-    /* Your existing styles... */
 }
 
 .game-and-leaderboard-container {
@@ -100,7 +98,7 @@ section.game {
 }
 
 .button-container {
-  text-align: center; /* 추가된 코드 */
+  text-align: center;
 }
 
 #startScreen {
@@ -114,16 +112,16 @@ section.game {
 
 
   label {
-    font-size: 20px;   /* 텍스트 크기를 20픽셀로 설정 */
-    font-weight: bold; /* 텍스트를 굵게 설정*/
+    font-size: 20px;   
+    font-weight: bold; /* 텍스트를 굵게 설정 */
   }
 
   h2{
     color: #67ebd7;
     text-align: center;
     font-size: 24px;
-    padding: 10px; /* 위아래에 약간의 패딩 추가 */
-    margin-bottom: 20px; /* 아래쪽 여백 추가 */
+    padding: 10px; 
+    margin-bottom: 20px; 
   }
   
 
@@ -136,11 +134,11 @@ section.game {
 
 
 button {
-  background-color: #fff;  /* 흰색 배경 */
-  color: #000;  /* 검정색 텍스트 */
+  background-color: #fff;  
+  color: #000; 
   border: none;
   border-radius: 10px;
-  padding: 9px 13px;  /* 버튼 크기를 키우기 위해 padding 추가함. 이 값을 조정 */
+  padding: 9px 13px;  
   margin-top: 20px; 
   margin-bottom: 20px;
 }
@@ -150,7 +148,7 @@ button {
     border: 2px dashed #ccc;
     padding: 15px;
     margin-bottom: 20px;
-    line-height: 2; /* 줄 간격 조절 */
+    line-height: 2;  /* 줄 간격 조절 */
   }
 
 .option {
@@ -162,7 +160,7 @@ button {
 }
 
 #username {
-  height: 50px; /* 높이를 50픽셀로 설정 */
+  height: 50px; 
 }
 
 
@@ -206,7 +204,7 @@ button {
     border: 1px solid #ccc;
     text-align: center;
     vertical-align: middle; /* 상자 세로 가운데 정렬 */
-    line-height: 25px; /* 추가된 코드 */
+    line-height: 25px; 
   }
   
   #checkButton {
@@ -276,7 +274,7 @@ h3 {
   border: 2px dashed #ccc;
   padding: 15px;
   margin-bottom: 20px;
-  line-height: 2; /* 줄 간격 조절 */
+  line-height: 2; 
 }
 
 
@@ -325,23 +323,23 @@ h3 {
 }
 
 #leaderboard {
-  margin-bottom: 70px;  /* 원하는 여백 크기로 조정할 수 있습니다. */
+  margin-bottom: 70px;  
 }
 
-/* 임의로 넣은 css입니다.*/
+
 #leaderboard div {
-  padding: 12px 20px; /* 안쪽 여백 조정 */
-  border: 2px solid #d4eaff; /* 테두리 두께 조정 */
-  margin-bottom: 15px; /* 밑 여백 조정 */
+  padding: 12px 20px; 
+  border: 2px solid #d4eaff; 
+  margin-bottom: 15px;
   border-radius: 8px; /* 모서리 둥글게 조정 */
   background-color: rgba(167, 185, 255, 0.107); 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 추가 */
-  transition: transform 0.2s, box-shadow 0.2s; /* 마우스 호버 시 부드럽게 변환되도록 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과  */
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #leaderboard div:hover {
-  transform: translateY(-5px); /* 마우스를 올렸을 때 위로 조금 움직이게 만듦 */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자를 약간 더 크게 */
+  transform: translateY(-5px); /* 마우스를 올렸을 때 위로 움직이게 조정*/
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자 크기 조정 */
 }
 
 /* 리더보드 테이블 스타일링 */
@@ -368,7 +366,7 @@ h3 {
 .leaderboard-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2개의 동일한 너비의 칼럼 생성 */
-  gap: 20px; /* 각 그리드 항목 사이의 간격 */
+  gap: 20px; /* 각 그리드 항목 사이의 간격 조정 */
   justify-content: center;
   align-items: start;
 }

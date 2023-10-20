@@ -23,8 +23,8 @@ section.coding{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
-    background-attachment: fixed;  /* 배경 이미지 고정시킴 */
+    background-repeat: no-repeat;  /* 배경 이미지 반복하지 않게 조정 */
+    background-attachment: fixed;  /* 배경 이미지 고정 */
     background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
 
     
@@ -48,7 +48,7 @@ section.coding{
   }
 
   form {
-    margin-top: 20px; /* 필요한 경우 여백을 조정할 수 있음 */
+    margin-top: 20px; 
   }
 
   h1 {
@@ -60,9 +60,9 @@ section.coding{
   }
 
   #answer-box {
-    margin: 0 auto; /* 박스 자체를 가운데 정렬합니다. */
-    text-align: left; /* 안에 들어가는 내용은 왼쪽 정렬을 유지합니다. */
-    width: 50%; /* 박스의 너비를 지정해야 margin: 0 auto;가 작동합니다. 필요에 따라 조정하십시오. */
+    margin: 0 auto; /* 가운데 정렬 */
+    text-align: left; /* 안에 들어가는 내용 왼쪽 정렬 */
+    width: 50%; 
     margin-top: 30px;
     padding: 10px;
     border: 1px solid rgb(255, 255, 255);
@@ -80,6 +80,7 @@ section.coding{
     max-width: 1500px;
     margin-bottom: 20px;
 }
+
 #problem {
     margin-top: 30px;
     padding: 10px;
@@ -87,6 +88,7 @@ section.coding{
     width: 100%;
     max-width: 1500px;
 }
+
 .output-box {
     margin-top: 30px;
     padding: 10px;
@@ -144,8 +146,8 @@ section.coding{
   }
 
   textarea::placeholder {
-    font-size: 25px;      /* 크기 조절 */   /* 위치 조절 */
-    color: rgb(162, 162, 162);          /* 색상 조절 */
+    font-size: 25px;     
+    color: rgb(162, 162, 162);         
 }
   
 
@@ -309,7 +311,7 @@ section.coding{
 }
 
 textarea[name="code"] {
-  font-size: 22px; /* 원하는 글꼴 크기로 변경 */
+  font-size: 22px; 
 }
 
 

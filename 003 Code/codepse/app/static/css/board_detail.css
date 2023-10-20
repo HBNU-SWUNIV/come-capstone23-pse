@@ -23,8 +23,7 @@ h2{
     border: 2px solid #e7e7e7; 
     padding: 20px;
     margin-top: 20px;
-   /*  배경 반투명하게 하는거! 해보고 별로면 빼자!
-   background-color: hsla(273, 100%, 92%, 0.5);*/
+
    
 
 }
@@ -217,8 +216,8 @@ h2{
     
 }
 
-.file-list a:hover{/* 마우스 위에 올려놓을 시 밑줄*/
-    text-decoration: underline;
+.file-list a:hover{
+    text-decoration: underline; /* 마우스 위에 올려놓을 시 밑줄효과 */
     
 }
 

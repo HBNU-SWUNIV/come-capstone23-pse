@@ -32,8 +32,7 @@ h2{
     justify-content: space-between;
     text-align: left; /* Change from center to left */
     border: 1px solid #dddddd;
-    padding: 10px;
-    
+    padding: 10px;  
 }
 
 .user-image-container {
