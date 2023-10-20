@@ -60,8 +60,8 @@ header{
     color: #ffffff;
     font-size: var(--p-font);
     margin: 0 30px;
-    font-weight: bold; /* 텍스트를 두껍게 설정 */
-    transition: all ease .40s;  /*전환*/
+    font-weight: bold; 
+    transition: all ease .40s; 
 }
 
 .navlist a:hover{
@@ -73,7 +73,7 @@ header{
     font-size: 1rem;
     margin: 0 40px 0 0;
     font-family: 'Do Hyeon', sans-serif;
-    transition: all ease .40s;  /*전환*/
+    transition: all ease .40s;  
     transform: skewX(0);
 }
 
@@ -84,15 +84,12 @@ header{
 .navlist j{
     color: var(--second-color);
     font-size: 0.5rem;
-    /*font-family: 'Do Hyeon', sans-serif;*/
-    transition: all ease .40s;  /*전환*/
-   /* border: 1px solid var(--second-color); /* 테두리 속성 추가 */
-    padding: 2px 10px; /* 내부 여백 설정 */
+    transition: all ease .40s; 
+    padding: 2px 10px; 
 }
 
 .navlist j:hover{
     color: #a570ff;
-    /*border-color: #a570ff;*/
 }
 
 
@@ -102,8 +99,8 @@ section{
 }
 
 section.signup {
-    width: 100vw; /* Viewport width의 100%를 차지합니다. */
-    height: 90vh; /* Viewport height의 100%를 차지합니다. */
+    width: 100vw;
+    height: 90vh; 
     background-position: center -50px; 
 }
 
@@ -116,25 +113,24 @@ section.signup {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    /*background: #101010;*/
     background: url(/static/images/back.png);
     
 }
 
 
-/* Dropdown Button */
+/* 드롭다운 메뉴*/
 .dropbtn {
     cursor: pointer;
   }
   
-  /* The container <div> - needed to position the dropdown content */
+
   .dropdown {
     position: relative;
     display: inline-block;
     
   }
   
-  /* Dropdown Content (Hidden by Default) */
+
   .dropdown-content {
     display: none;
     position: absolute;
@@ -145,22 +141,21 @@ section.signup {
     
   }
   
-  /* Links inside the dropdown */
+
   .dropdown-content a {
     color: black;
-    padding: 8px 12px; /* Decreased padding for smaller font size */
+    padding: 8px 12px; 
     text-decoration: none;
     display: block;
 
    
   }
   
-  /* Change color of dropdown links on hover */
+
   .dropdown-content a:hover {
-    background-color: transparent; /* Removed background color */
+    background-color: transparent;
   }
   
-  /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
   }
@@ -181,11 +176,11 @@ section.signup {
     margin-top: 40px;
     width: 500px;
     padding: 75px;
-    border: 2px solid #d6d6d6;  /* 테두리 선 추가 */
+    border: 2px solid #d6d6d6; 
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-    margin-top: 130px;    /* 고정값으로 설정하여 상단에 고정된 여백을 만듭니다. */
-    margin-bottom: auto;  /* 화면이 커지더라도 하단 여백이 커지도록 설정합니다. */
+    margin-top: 130px;    
+    margin-bottom: auto;  
 
 }
 
@@ -270,7 +265,7 @@ section.signup {
     margin-bottom: -5px;
 }
 
-/* 버튼에 마우스를 올렸을 때 */
+
 .wrapper input[type="submit"]:hover {
     border-color: #007bff; 
 }
@@ -338,7 +333,7 @@ input[type="submit"] {
 
 
 
-/*여기서는 모바일 화면 부분입니당*/
+/*모바일 화면*/
 
 @media (max-width:1600px){
     header{

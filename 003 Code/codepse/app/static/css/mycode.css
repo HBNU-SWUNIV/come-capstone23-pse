@@ -13,9 +13,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
-    background-attachment: fixed;  /* 배경 이미지 고정시킴 */
-    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
+    background-repeat: no-repeat;  /* 배경 이미지 반복하지 않게 조정 */
+    background-attachment: fixed;  /* 배경 이미지 고정*/
+    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정 */
    
   }
 
@@ -54,7 +54,7 @@
     margin-top: 15px;
 }
 
-/*코드 정보 밑에 밑줄 추가.*/
+/*코드 정보 밑에 밑줄 추가*/
 .code-info {
     border-bottom: 3px solid #eeeeee;
 }
@@ -82,8 +82,8 @@ h2{
 
 pre {
     border: 2px solid #eeeeee; 
-    padding: 10px; /* 내부 여백 */
-    white-space: pre-wrap; /* 줄 바꿈 유지 */
+    padding: 10px; 
+    white-space: pre-wrap; 
     margin-bottom: 25px;
 }
 

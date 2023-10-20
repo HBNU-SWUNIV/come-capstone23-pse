@@ -14,23 +14,22 @@ body {
   justify-content: center;
   min-height: 100vh;
   background: url(/static/images/game2_back.png);
-  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
-  background-attachment: fixed;  /* 배경 이미지 고정시킴 */
-  background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
+  background-repeat: no-repeat;  /* 배경 이미지 반복하지 않게 조정*/
+  background-attachment: fixed;  /* 배경 이미지 고정 */
+  background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정*/
 }
 
 header {
     position: fixed;
     width: 100%;
     height: 75px;
-    /* Your existing styles... */
+
    
 }
 section.game  {
     padding-top: 153px; 
  
 
-    /* Your existing styles... */
 }
 
 .game-and-leaderboard-container {
@@ -44,7 +43,7 @@ section.game  {
 .highlight {  
     font-weight: bold;   
 }
-/*여기 그 마지막 채점 부분*/
+
 
 
 .wrapper {
@@ -74,13 +73,13 @@ section.game  {
 .large-input {
     font-size: 50px;
     padding: 15px;
-    width: 300px;  /* Or any width you prefer */
+    width: 300px; 
     margin-bottom: 15px;
 }
 
 h1 {
-    font-size: 2em; /* 텍스트 크기 조정 */
-    text-align: center; /* 가운데 정렬 */
+    font-size: 2em; 
+    text-align: center; 
     margin-bottom: 22px;
   }
   
@@ -89,8 +88,8 @@ h2{
   color: #67ebd7;
   text-align: center;
   font-size: 24px;
-  padding: 10px; /* 위아래에 약간의 패딩 추가 */
-  margin-bottom: 20px; /* 아래쪽 여백 추가 */
+  padding: 10px; 
+  margin-bottom: 20px; 
 }
 h4 {
   color: #ffd736;
@@ -101,13 +100,13 @@ h4 {
 #languageSelect{
     margin-top: 10px;
     display: block; /* 가로로 붙어있는 요소를 블록 레벨 요소로 변경 */
-    margin-bottom: 20px; /* 선택 필드 아래쪽 여백 설정 */
+    margin-bottom: 20px; 
     margin-left: 80px;
   
 }
 
 #username {
-  margin-bottom: 20px; /* 입력 필드 아래쪽 여백 설정 */
+  margin-bottom: 20px; 
 }
 
 .correct-answer {
@@ -138,11 +137,11 @@ h4 {
 }
 
 button {
-    background-color: #fff;  /* 흰색 배경 */
-    color: #000;  /* 검정색 텍스트 */
+    background-color: #fff; 
+    color: #000;  
     border: none;
     border-radius: 10px;
-    padding: 9px 13px;  /* 버튼 크기를 키우기, 이 값을 조정 */
+    padding: 9px 13px;  
     margin-top: 20px; 
     margin-bottom: 20px;
     font-family: 'Do Hyeon', sans-serif;
@@ -156,8 +155,7 @@ button {
 }
 
 button.start-quiz {
-  margin-top: 20px; /* 버튼 위쪽 여백 설정 */
-  /* 다른 스타일 속성들... */
+  margin-top: 20px;
 }
 
 #highscore {
@@ -166,23 +164,23 @@ button.start-quiz {
 
 
 #leaderboard {
-  margin-bottom: 70px;  /* 원하는 여백 크기로 조정할 수 있습니다. */
+  margin-bottom: 70px; 
 }
 
-/* 임의로 넣은 css입니다.*/
+
 #leaderboard div {
-  padding: 12px 20px; /* 안쪽 여백 조정 */
-  border: 2px solid #d4eaff; /* 테두리 두께 조정 */
-  margin-bottom: 15px; /* 밑 여백 조정 */
-  border-radius: 8px; /* 모서리 둥글게 조정 */
+  padding: 12px 20px; 
+  border: 2px solid #d4eaff; 
+  margin-bottom: 15px; 
+  border-radius: 8px; 
   background-color: rgba(167, 185, 255, 0.107); 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 추가 */
-  transition: transform 0.2s, box-shadow 0.2s; /* 마우스 호버 시 부드럽게 변환되도록 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s, box-shadow 0.2s; 
 }
 
 #leaderboard div:hover {
-  transform: translateY(-5px); /* 마우스를 올렸을 때 위로 조금 움직이게 만듦 */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자를 약간 더 크게 */
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
 }
 
 /* 리더보드 테이블 스타일링 */

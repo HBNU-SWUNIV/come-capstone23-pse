@@ -9,7 +9,7 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background: url(/static/images/board_back.png);
-    background-attachment: fixed; /* 추가한 부분 */
+    background-attachment: fixed; 
 
 }
 
@@ -52,7 +52,7 @@ h2{
     background-color: rgb(84, 152, 255); 
     color: #ffffff; 
     text-decoration: none; 
-    border-radius: 4px; /* 모서리 둥글게 */
+    border-radius: 4px; /* 모서리 둥글게 만듦 */
     transition: background-color 0.3s; 
     margin-bottom: 5px;
     
@@ -60,7 +60,7 @@ h2{
 
 .edit-delete-buttons a:hover {
     cursor: pointer; /* 손가락 모양의 커서로 변경 */
-    background-color: #ffffff; /* 조금 더 어두운 회색으로 배경 변경 */
+    background-color: #ffffff; 
     color: #232323;
 }
 
@@ -162,17 +162,14 @@ h2{
     align-items: center;
 }
 
-/* 수정 및 삭제 버튼 스타일 수정 */
+
 .edit-btn, .delete-btn {
     padding: 5px 10px;
     background-color: rgb(84, 152, 255); 
     border: none;
     color: white;
     cursor: pointer;
-
-    
-  
-    
+   
 }
 
 
@@ -195,7 +192,7 @@ h2{
 .attached-files, .toggle-file-list {
     text-align: right;
     margin-top: 5px;
-    cursor: pointer; /* 손가락 모양의 커서로 변경 */
+    cursor: pointer; 
     margin-top: 7px;
 
 }

@@ -4,9 +4,9 @@ body {
     margin: 0;
     padding: 0;
     background: url(/static/images/mypage.png);
-    background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 하는 */
-    background-attachment: fixed;  /* 배경 이미지 고정시킴 */
-    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
+    background-repeat: no-repeat;  /* 배경 이미지 반복하지 않게 하는 */
+    background-attachment: fixed;  /* 배경 이미지 고정 */
+    background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정 */
 }
 
 .container {
@@ -30,13 +30,13 @@ h2{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-align: left; /* Change from center to left */
+    text-align: left; 
     border: 1px solid #dddddd;
     padding: 10px;  
 }
 
 .user-image-container {
-    flex: 0 0 150px; /* Adjust width as needed */
+    flex: 0 0 150px;
     
 }
 
@@ -44,7 +44,7 @@ h2{
     max-width: 100%;
     height: 110px;
     position: relative;
-    top: -3px;  /* 이미지를 10px만큼 위로 옮김 */
+    top: -3px;  
     margin-left: 18px;
     
 }
@@ -130,17 +130,17 @@ h2{
 
 /* 더보기 및 접기 버튼에 대한 스타일 */
 button#togglePosts, button#toggleComments, button#toggleCodes,
-button:not([id]) { /* 접기 버튼에는 id가 할당되어 있지 않으므로 이를 이용한 선택자 */
-    background: none;  /* 배경 제거 */
-    color: #000000;       /* 글씨 흰색으로 */
-    border: none;      /* 테두리 제거 */
-    cursor: pointer;   /* 마우스 호버시 손가락 모양으로 변경 */
-    outline: none;     /* 클릭시 생기는 테두리 제거 */
+button:not([id]) { /* 접기 버튼에는 id가 할당되어 있지 않으므로 이를 이용한 선택자 조정 */
+    background: none;  
+    color: #000000;       
+    border: none;     
+    cursor: pointer;   
+    outline: none;     
     margin-right: 10px;
     margin-top: 10px;
 }
 
 button#togglePosts:hover, button#toggleComments:hover, button#toggleCodes:hover,
-button:not([id]):hover { /* 접기 버튼에 대한 호버 효과 */
-    text-decoration: underline; /* 마우스 호버시 밑줄 효과 */
+button:not([id]):hover { 
+    text-decoration: underline; 
 }

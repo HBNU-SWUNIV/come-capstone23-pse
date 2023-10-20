@@ -21,7 +21,7 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background: url(/static/images/board_back.png);
-    background-attachment: fixed; /* 추가한 부분 */
+    background-attachment: fixed; 
     margin-top: 0px;
 }
 
@@ -35,7 +35,7 @@ h1 {
 #title {
     background: none;  /* 배경색 제거 */
     border: none;      /* 모든 테두리 제거 */
-    border-bottom: 3px solid #ffffff;  /* 밑줄  */
+    border-bottom: 3px solid #ffffff;  
     margin-bottom: 15px;
     width: 800px;      /* 밑줄의 길이 조정 */
     font-size: 20px;
@@ -44,8 +44,8 @@ h1 {
 
 
 .input-group textarea {
-    width: 800px;      /* 너비 설정 */
-    height: 400px;     /* 높이 설정 */
+    width: 800px;      
+    height: 400px;     
     resize: none;      /* 크기 조절 비활성화 */
     border: 3px solid #ffffff;
     padding: 10px;
@@ -61,7 +61,7 @@ h1 {
 }
 
 
-/* label의 텍스트 크기 조정 */
+
 .input-group label {
     font-size: 18px; 
 }
@@ -73,13 +73,13 @@ h1 {
 
 
 .submit-btn button {
-    font-size: 20px; /* 버튼 텍스트 크기 조절 */
-    padding: 7px 10px; /* 버튼 내부 패딩 (상하 10px, 좌우 20px) */
-    border: 2px solid transparent; /* 테두리 설정 */
-    background-color: #007BFF; /* 배경색 설정 */
-    color: #ffffff; /* 글자색 설정 */
-    transition: border-color 0.3s; /* 테두리 색상의 부드러운 전환 효과 추가 */
-    cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 나옴 */
+    font-size: 20px; 
+    padding: 7px 10px; /* 버튼 내부 패딩 (상하 7px, 좌우 10px) */
+    border: 2px solid transparent; 
+    background-color: #007BFF; 
+    color: #ffffff; 
+    transition: border-color 0.3s; /* 테두리 색상 전환 효과  */
+    cursor: pointer; 
     margin-left: 700px;
    
     

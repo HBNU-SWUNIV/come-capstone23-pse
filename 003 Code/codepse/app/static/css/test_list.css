@@ -17,9 +17,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;  /* 배경 이미지 반복 안하게 함*/
-  background-attachment: fixed;  /* 배경 이미지 고정시킴 */
-  background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정. */
+  background-repeat: no-repeat;  /* 배경 이미지 반복하지 않게 조정*/
+  background-attachment: fixed;  /* 배경 이미지 고정 */
+  background-size: cover;        /* 배경 이미지 화면 꽉 차게 조정 */
 
   
 }
@@ -58,7 +58,6 @@ section.notice {
 }
 #board-search .search-window .search-wrap {
   position: relative;
-/*   padding-right: 124px; */
   margin: 0 auto;
   width: 80%;
   max-width: 564px;
@@ -114,7 +113,7 @@ section.notice {
 
 .board-table th.th-title {
   text-align: left;
-  padding-left: 30px; /* 원하는 만큼의 간격으로 조정하세요 */
+  padding-left: 30px; 
 }
 
 
@@ -198,7 +197,7 @@ section.notice {
   color: #fff;
 }
 
-/* reset */
+
 
 
 .clearfix:after {
