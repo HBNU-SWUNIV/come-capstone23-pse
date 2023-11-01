@@ -72,8 +72,11 @@ Docker-compose up
 >- id : test@test.com
 >-  pw : 123456789
 
+
 [화면 비율 조정]
+
 데스크탑 : 125% 
+
 노트북 : 100%
   
 ## Project Outcome
